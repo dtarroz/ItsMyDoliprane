@@ -8,18 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <_ContentIncludedByDefault Remove="wwwroot\js\site.js" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ItsMyDoliprane.Business\ItsMyDoliprane.Business.csproj" />
     <ProjectReference Include="..\ItsMyDoliprane.Repository\ItsMyDoliprane.Repository.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\ts\api\_api-core.ts" />
-    <TypeScriptCompile Include="wwwroot\ts\api\_medication.ts" />
-    <TypeScriptCompile Include="wwwroot\ts\home.ts" />
   </ItemGroup>
 
   <ItemGroup>
