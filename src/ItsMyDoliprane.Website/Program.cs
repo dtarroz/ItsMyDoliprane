@@ -6,7 +6,6 @@ using NLog.Web;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 try {
-    logger.Error("START APPLICATION");
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
@@ -24,6 +23,8 @@ try {
     builder.Host.UseNLog();
 
     var app = builder.Build();
+
+    app.UsePathBase(app.Configuration["path-base"]);
 
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment()) {
