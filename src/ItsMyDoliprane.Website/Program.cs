@@ -6,6 +6,7 @@ using NLog.Web;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 try {
+    logger.Error("START APPLICATION");
     var builder = WebApplication.CreateBuilder(args);
 
     // Add services to the container.
