@@ -1,14 +1,12 @@
 ﻿using ItsMyDoliprane.Repository.Models;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace ItsMyDoliprane.Repository;
 
 public class PersonRepository : AbstractRepository
 {
-    public PersonRepository(IConfiguration configuration, ILogger<PersonRepository> logger) : base(configuration, logger) {
-    }
+    public PersonRepository(IConfiguration configuration) : base(configuration) { }
 
     public List<Person> GetPersons() {
         using SqliteConnection connection = CreateConnectionAndOpen();

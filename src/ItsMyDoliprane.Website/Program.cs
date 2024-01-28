@@ -24,7 +24,7 @@ try {
 
     var app = builder.Build();
 
-    app.UsePathBase(app.Configuration["path-base"]);
+    //app.UsePathBase(app.Configuration["path-base"]);
 
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment()) {
