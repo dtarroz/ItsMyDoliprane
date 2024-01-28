@@ -7,8 +7,7 @@ namespace ItsMyDoliprane.Repository;
 
 public class PersonRepository : AbstractRepository
 {
-    public PersonRepository(IConfiguration configuration, ILogger<PersonRepository> logger) : base(configuration) {
-        logger.LogError("TEST DT " + configuration["Repository:ConnectionString"]);
+    public PersonRepository(IConfiguration configuration, ILogger<PersonRepository> logger) : base(configuration, logger) {
     }
 
     public List<Person> GetPersons() {

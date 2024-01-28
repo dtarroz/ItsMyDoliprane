@@ -1,6 +1,7 @@
 using System.Reflection;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace ItsMyDoliprane.Repository;
 
@@ -10,8 +11,9 @@ public abstract class AbstractRepository
     private static readonly List<string> InitializedDatabase = new();
     private static readonly object InitializeLock = new();
 
-    protected AbstractRepository(IConfiguration configuration) {
+    protected AbstractRepository(IConfiguration configuration, ILogger? logger = null) {
         _connectionString = GetConnectionString(configuration);
+        logger?.LogError("TEST DT " + _connectionString);
         Initialize();
     }
 
