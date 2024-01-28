@@ -7,9 +7,15 @@ public class HomeViewModel
     public Dictionary<int, string> Drugs { get; set; }
     public string? Date { get; set; }
     public string? Hour { get; set; }
-    public bool Medication4 { get; set; }
-    public bool Medication6 { get; set; }
+    public MedicationTime Medication4 { get; set; }
+    public MedicationTime Medication6 { get; set; }
     public List<MedicationViewModel> Medications { get; set; }
+}
+
+public class MedicationTime
+{
+    public bool Ok { get; set; }
+    public string? NextHour { get; set; }
 }
 
 public class MedicationViewModel

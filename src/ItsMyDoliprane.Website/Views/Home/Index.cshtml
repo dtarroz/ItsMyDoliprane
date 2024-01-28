@@ -37,10 +37,16 @@
     </div>
     <div class="next-medication">
         <div>
-            <span>Depuis 4h</span><span class="next-medication-since">@(Model.Medication4 ? "✅" : "❌")</span>
+            <span>Depuis 4h</span><span class="next-medication-since">@(Model.Medication4.Ok ? "✅" : "❌")</span>
+            @if (!Model.Medication4.Ok) {
+                <span>jusqu'à @Model.Medication4.NextHour</span>
+            }
         </div>
         <div>
-            <span>Depuis 6h</span><span class="next-medication-since">@(Model.Medication6 ? "✅" : "❌")</span>
+            <span>Depuis 6h</span><span class="next-medication-since">@(Model.Medication6.Ok ? "✅" : "❌")</span>
+            @if (!Model.Medication6.Ok) {
+                <span>jusqu'à @Model.Medication6.NextHour</span>
+            }
         </div>
     </div>
     <div class="history">

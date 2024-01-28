@@ -26,25 +26,24 @@ public class HomeController : Controller
             PersonId = personId,
             Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
             Drugs = _useDrugs.GetDrugs().ToDictionary(p => p.Id, p => p.Name),
-            Medication4 = GetMedication4(medications),
-            Medication6 = GetMedication6(medications),
+            Medication4 = GetMedication(medications, 4),
+            Medication6 = GetMedication(medications, 6),
             Medications = GetMedications(medications)
         };
         return View(model);
     }
 
-    private bool GetMedication4(List<Medication> medications) {
+    private MedicationTime GetMedication(List<Medication> medications, int limitHour) {
         Medication? last = medications.FirstOrDefault();
-        return last == null || (DateTime.Now - GetDateTime(last)).TotalHours > 4;
+        DateTime? lastDateTime = last != null ? GetDateTime(last) : null;
+        return new MedicationTime {
+            Ok = lastDateTime == null || (DateTime.Now - lastDateTime.Value).TotalHours > limitHour,
+            NextHour = lastDateTime?.AddHours(limitHour).ToString("hh:mm")
+        };
     }
 
     private DateTime GetDateTime(Medication medication) {
         return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
-    }
-
-    private bool GetMedication6(List<Medication> medications) {
-        Medication? last = medications.FirstOrDefault();
-        return last == null || (DateTime.Now - GetDateTime(last)).TotalHours > 6;
     }
 
     private List<MedicationViewModel> GetMedications(List<Medication> medications) {
