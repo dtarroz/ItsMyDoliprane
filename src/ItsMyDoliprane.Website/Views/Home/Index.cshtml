@@ -1,0 +1,47 @@
+﻿@model HomeViewModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/home.js" type="module" asp-append-version="true" defer></script>
+}
+
+<div class="medication">
+    <select id="person">
+        @foreach (var person in Model.Persons) {
+            @if (person.Key == Model.PersonId) {
+                <option value="@person.Key" selected>@person.Value</option>
+            } else {
+                <option value="@person.Key"> @person.Value </option>
+            }
+        }
+    </select>
+    <select id="drug">
+        @foreach (var drug in Model.Drugs) {
+            <option value="@drug.Key">@drug.Value</option>
+        }
+    </select>
+    <input type="date" id="date" value="@Model.Date" />
+    <input type="time" id="hour" value="@Model.Hour" />
+    <button id="add">Ajouter</button>
+    <div class="history">
+        <span>Historique des dernières 48h</span>
+        @foreach (MedicationViewModel medication in Model.Medications) {
+            <div class="history-date">
+                <span>@medication.Date</span>
+                @foreach (MedicationDetailViewModel detail in medication.Details) {
+                    <div class="history-detail">
+                        <span>@detail.Hour</span>
+                        <span>@detail.Drug</span>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>

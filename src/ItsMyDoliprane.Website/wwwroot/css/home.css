@@ -1,0 +1,19 @@
+.medication {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 10px;
+}
+
+.history {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-detail {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-left: 15px;
+}
