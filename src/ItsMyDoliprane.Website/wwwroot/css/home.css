@@ -1,8 +1,22 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .medication {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 225px;
     gap: 10px;
+}
+
+.datetime {
+    display: none;
+}
+
+.datetime.active {
+    display: block;
 }
 
 .next-medication-since {

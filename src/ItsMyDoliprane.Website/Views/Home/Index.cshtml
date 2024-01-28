@@ -12,24 +12,29 @@
     <script src="~/js/home.js" type="module" asp-append-version="true" defer></script>
 }
 
-<div class="medication">
-    <select id="person">
-        @foreach (var person in Model.Persons) {
-            @if (person.Key == Model.PersonId) {
-                <option value="@person.Key" selected>@person.Value</option>
-            } else {
-                <option value="@person.Key"> @person.Value </option>
+<div class="container">
+    <div class="medication">
+        <select id="person">
+            @foreach (var person in Model.Persons) {
+                @if (person.Key == Model.PersonId) {
+                    <option value="@person.Key" selected>@person.Value</option>
+                } else {
+                    <option value="@person.Key"> @person.Value </option>
+                }
             }
-        }
-    </select>
-    <select id="drug">
-        @foreach (var drug in Model.Drugs) {
-            <option value="@drug.Key">@drug.Value</option>
-        }
-    </select>
-    <input type="date" id="date" value="@Model.Date" />
-    <input type="time" id="hour" value="@Model.Hour" />
-    <button id="add">Ajouter</button>
+        </select>
+        <select id="drug">
+            @foreach (var drug in Model.Drugs) {
+                <option value="@drug.Key">@drug.Value</option>
+            }
+        </select>
+        <a href="#" id="custom-date-link">Personnaliser la date et l'heure</a>
+        <div class="datetime" id="custom-date">
+            <input type="date" id="date" />
+            <input type="time" id="hour" />
+        </div>
+        <button id="add">Ajouter</button>
+    </div>
     <div class="next-medication">
         <div>
             <span>Depuis 4h</span><span class="next-medication-since">@(Model.Medication4 ? "✅" : "❌")</span>

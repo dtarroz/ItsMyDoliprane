@@ -26,8 +26,6 @@ public class HomeController : Controller
             PersonId = personId,
             Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
             Drugs = _useDrugs.GetDrugs().ToDictionary(p => p.Id, p => p.Name),
-            Date = DateTime.Now.ToString("yyyy-MM-dd"),
-            Hour = DateTime.Now.ToString("HH:mm"),
             Medication4 = GetMedication4(medications),
             Medication6 = GetMedication6(medications),
             Medications = GetMedications(medications)

@@ -16,6 +16,10 @@ public class UseMedications
     }
 
     public void Add(Medication medication) {
+        if (string.IsNullOrEmpty(medication.Date))
+            medication.Date = DateTime.Now.ToString("yyyy-MM-dd");
+        if (string.IsNullOrEmpty(medication.Hour))
+            medication.Hour = DateTime.Now.ToString("HH:mm");
         _medicationRepository.Add(medication);
     }
 }
