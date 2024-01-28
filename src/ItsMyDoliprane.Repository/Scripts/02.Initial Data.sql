@@ -1,0 +1,11 @@
+INSERT INTO PERSON (NAME)
+VALUES ('Florence');
+
+INSERT INTO PERSON (NAME)
+VALUES ('Damien');
+
+INSERT INTO DRUG (NAME)
+VALUES ('Doliprane');
+
+PRAGMA
+    user_version = 2;
