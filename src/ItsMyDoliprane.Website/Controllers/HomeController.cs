@@ -21,19 +21,35 @@ public class HomeController : Controller
     }
 
     public IActionResult Index(int personId = 1) {
+        List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-2));
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
             Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
             Drugs = _useDrugs.GetDrugs().ToDictionary(p => p.Id, p => p.Name),
             Date = DateTime.Now.ToString("yyyy-MM-dd"),
             Hour = DateTime.Now.ToString("HH:mm"),
-            Medications = GetMedications(personId)
+            Medication4 = GetMedication4(medications),
+            Medication6 = GetMedication6(medications),
+            Medications = GetMedications(medications)
         };
         return View(model);
     }
 
-    private List<MedicationViewModel> GetMedications(int personId) {
-        List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-2));
+    private bool GetMedication4(List<Medication> medications) {
+        Medication? last = medications.FirstOrDefault();
+        return last == null || (DateTime.Now - GetDateTime(last)).TotalHours > 4;
+    }
+
+    private DateTime GetDateTime(Medication medication) {
+        return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
+    }
+
+    private bool GetMedication6(List<Medication> medications) {
+        Medication? last = medications.FirstOrDefault();
+        return last == null || (DateTime.Now - GetDateTime(last)).TotalHours > 6;
+    }
+
+    private List<MedicationViewModel> GetMedications(List<Medication> medications) {
         List<Drug> drugs = _useDrugs.GetDrugs();
         return medications.GroupBy(m => m.Date)
                           .Select(group => new MedicationViewModel {

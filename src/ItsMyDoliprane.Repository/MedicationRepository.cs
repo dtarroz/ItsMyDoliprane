@@ -34,7 +34,6 @@ public class MedicationRepository : AbstractRepository
     public void Add(Medication medication) {
         using SqliteConnection connection = CreateConnectionAndOpenWithForeignKeys();
         using SqliteCommand command = connection.CreateCommand();
-        List<Drug> drugs = new List<Drug>();
         command.CommandText = @"INSERT INTO MEDICATION (PERSON_PKEY, DRUG_PKEY, DATE)
                                 VALUES ($personId, $drugId, strftime('%s', $date));";
         command.Parameters.AddWithValue("$personId", medication.PersonId);

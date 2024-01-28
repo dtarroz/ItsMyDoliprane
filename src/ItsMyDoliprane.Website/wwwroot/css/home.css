@@ -5,6 +5,10 @@
     gap: 10px;
 }
 
+.next-medication-since {
+    margin-left: 5px;
+}
+
 .history {
     display: flex;
     flex-direction: column;

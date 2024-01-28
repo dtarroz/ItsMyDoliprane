@@ -7,6 +7,8 @@ public class HomeViewModel
     public Dictionary<int, string> Drugs { get; set; }
     public string? Date { get; set; }
     public string? Hour { get; set; }
+    public bool Medication4 { get; set; }
+    public bool Medication6 { get; set; }
     public List<MedicationViewModel> Medications { get; set; }
 }
 
