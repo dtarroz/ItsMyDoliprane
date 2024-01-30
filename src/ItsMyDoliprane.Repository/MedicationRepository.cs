@@ -19,7 +19,7 @@ public class MedicationRepository : AbstractRepository
                                   AND DATE > strftime('%s', $since)
                                 ORDER BY DATE DESC";
         command.Parameters.AddWithValue("$personId", personId);
-        command.Parameters.AddWithValue("$since", date.ToString("yyyy-MM-dd hh:mm:ss"));
+        command.Parameters.AddWithValue("$since", date.ToString("yyyy-MM-dd HH:mm:ss"));
         using SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read())
             medications.Add(new Medication {

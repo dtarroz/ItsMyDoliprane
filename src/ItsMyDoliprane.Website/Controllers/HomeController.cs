@@ -38,7 +38,7 @@ public class HomeController : Controller
         DateTime? lastDateTime = last != null ? GetDateTime(last) : null;
         return new MedicationTime {
             Ok = lastDateTime == null || (DateTime.Now - lastDateTime.Value).TotalHours > limitHour,
-            NextHour = lastDateTime?.AddHours(limitHour).ToString("hh:mm")
+            NextHour = lastDateTime?.AddHours(limitHour).ToString("HH:mm")
         };
     }
 
