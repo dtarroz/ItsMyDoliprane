@@ -1,14 +1,68 @@
+body {
+    --background-color-default: #161616;
+    --text-color-default: #c6c6c6;
+    --link-color-default: orange;
+    --button-color-default: rgb(255, 255, 0, 0.8);
+    --button-color-hover-default: rgb(255, 255, 0, 0.85);
+    background-color: var(--background-color-default);
+    color: var(--text-color-default);
+    -webkit-text-size-adjust: none;
+    font-family: Arial, sans-serif;
+}
+
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.4;
+}
+
 .container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 7px;
+    padding: 30px;
+    background-color: var(--background-color-default);
+    min-width: 270px;
+}
+
+.title {
+    font-size: 1.9rem;
+    font-family: Arial Rounded MT Bold, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+.title svg {
+    width: 50px;
+    height: 40px;
 }
 
 .medication {
     display: flex;
     flex-direction: column;
-    width: 225px;
+    align-items: center;
+    width: 230px;
     gap: 10px;
+}
+
+select {
+    font-size: 1rem;
+    padding: 5px;
+    width: 100%;
+}
+
+.medication a {
+    color: var(--link-color-default);
+    font-size: 0.9rem;
+    padding-top: 10px;
 }
 
 .datetime {
@@ -21,6 +75,30 @@
 
 .next-medication-since {
     margin-left: 5px;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+button {
+    padding: 10px;
+    color: var(--background-color-default);
+    border-radius: 7px;
+    background-color: var(--button-color-default);
+    font-weight: bold;
+    font-size: 0.91rem;
+    cursor: pointer;
+    width: 126px;
+    border: none;
+    text-align: center;
+}
+
+button:hover {
+    background-color: var(--button-color-hover-default);
 }
 
 .history {
