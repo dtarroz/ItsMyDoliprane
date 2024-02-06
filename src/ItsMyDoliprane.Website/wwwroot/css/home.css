@@ -8,6 +8,7 @@ body {
     color: var(--text-color-default);
     -webkit-text-size-adjust: none;
     font-family: Arial, sans-serif;
+    margin: 0;
 }
 
 .overlay {
@@ -24,13 +25,15 @@ body {
     align-items: center;
     gap: 20px;
     position: absolute;
-    top: 40%;
+    top: 65px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, 0);
     border-radius: 7px;
     padding: 30px;
     background-color: var(--background-color-default);
     min-width: 270px;
+    max-height: calc(100% - 60px - 65px - 65px);
+    overflow-y: auto;
 }
 
 .title {
@@ -59,6 +62,12 @@ select {
     width: 100%;
 }
 
+input {
+    font-size: 0.8rem;
+    padding: 5px;
+    font-family: Arial, sans-serif;
+}
+
 .medication a {
     color: var(--link-color-default);
     font-size: 0.9rem;
@@ -70,7 +79,9 @@ select {
 }
 
 .datetime.active {
-    display: block;
+    display: flex;
+    gap: 10px;
+    padding-top: 5px;
 }
 
 .next-medication-since {
