@@ -95,9 +95,10 @@ input {
     padding-bottom: 10px;
 }
 
-.action button {
+button {
     padding: 10px;
-    color: var(--background-color-default);
+    color: #161616;
+    /*color: var(--background-color-default);*/
     border-radius: 7px;
     background-color: var(--button-color-default);
     font-weight: bold;
@@ -108,7 +109,7 @@ input {
     text-align: center;
 }
 
-.action button:hover {
+button:hover {
     background-color: var(--button-color-hover-default);
 }
 
