@@ -1,9 +1,13 @@
-body {
+:root {
+    color-scheme: dark;
     --background-color-default: #161616;
     --text-color-default: #c6c6c6;
     --link-color-default: orange;
     --button-color-default: #D0D112;
     --button-color-hover-default: #DCDD0D;
+}
+
+body {
     background-color: var(--background-color-default);
     color: var(--text-color-default);
     -webkit-text-size-adjust: none;
@@ -97,8 +101,7 @@ input {
 
 button {
     padding: 10px;
-    color: #161616;
-    /*color: var(--background-color-default);*/
+    color: var(--background-color-default);
     border-radius: 7px;
     background-color: var(--button-color-default);
     font-weight: bold;
