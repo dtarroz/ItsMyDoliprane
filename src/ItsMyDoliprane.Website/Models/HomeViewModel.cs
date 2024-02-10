@@ -5,8 +5,7 @@ public class HomeViewModel
     public int PersonId { get; set; }
     public Dictionary<int, string> Persons { get; set; }
     public Dictionary<int, string> Drugs { get; set; }
-    public string? Date { get; set; }
-    public string? Hour { get; set; }
+    public float DosageParacetamol { get; set; }
     public MedicationTime Medication4 { get; set; }
     public MedicationTime Medication6 { get; set; }
     public List<MedicationViewModel> Medications { get; set; }

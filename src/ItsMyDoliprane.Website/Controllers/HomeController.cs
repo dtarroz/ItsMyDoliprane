@@ -8,16 +8,16 @@ namespace ItsMyDoliprane.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
     private readonly UsePersons _usePersons;
     private readonly UseDrugs _useDrugs;
     private readonly UseMedications _useMedications;
+    private readonly UseDosages _useDosages;
 
-    public HomeController(ILogger<HomeController> logger, UsePersons usePersons, UseDrugs useDrugs, UseMedications useMedications) {
-        _logger = logger;
+    public HomeController(UsePersons usePersons, UseDrugs useDrugs, UseMedications useMedications, UseDosages useDosages) {
         _usePersons = usePersons;
         _useDrugs = useDrugs;
         _useMedications = useMedications;
+        _useDosages = useDosages;
     }
 
     public IActionResult Index(int personId = 1) {
@@ -26,6 +26,7 @@ public class HomeController : Controller
             PersonId = personId,
             Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
             Drugs = _useDrugs.GetDrugs().ToDictionary(p => p.Id, p => p.Name),
+            DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
             Medications = GetMedications(medications)

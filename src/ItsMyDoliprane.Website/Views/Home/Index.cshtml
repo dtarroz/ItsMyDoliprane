@@ -55,6 +55,11 @@
         </div>
     </div>
     @if (Model.Medications.Count > 0) {
+        @if (Model.DosageParacetamol > 0) {
+            <div class="dosage">
+                Vous avez pris @(Model.DosageParacetamol)g de paracétamol en 24h
+            </div>
+        }
         <div class="next-medication">
             <div>
                 <span>Depuis 4h</span><span class="next-medication-since">@(Model.Medication4.Ok ? "✅" : "❌")</span>
