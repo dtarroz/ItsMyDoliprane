@@ -2,8 +2,8 @@ body {
     --background-color-default: #161616;
     --text-color-default: #c6c6c6;
     --link-color-default: orange;
-    --button-color-default: rgb(255, 255, 0, 0.8);
-    --button-color-hover-default: rgb(255, 255, 0, 0.85);
+    --button-color-default: #D0D112;
+    --button-color-hover-default: #DCDD0D;
     background-color: var(--background-color-default);
     color: var(--text-color-default);
     -webkit-text-size-adjust: none;
@@ -91,7 +91,7 @@ input {
 .action {
     display: flex;
     justify-content: center;
-    padding-top: 10px;
+    padding-top: 20px;
     padding-bottom: 10px;
 }
 
