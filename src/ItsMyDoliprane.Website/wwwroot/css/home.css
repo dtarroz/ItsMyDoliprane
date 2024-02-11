@@ -7,11 +7,11 @@
     --button-color-hover-default: #DCDD0D;
 }
 
-@font-face {
+/*@font-face {
     font-family: "Arial Rounded MT Bold";
     src: local("Arial Rounded MT Bold"),
     url("../ttf/Arial Rounded Bold.ttf") format("opentype");
-}
+}*/
 
 body {
     background-color: var(--background-color-default);
