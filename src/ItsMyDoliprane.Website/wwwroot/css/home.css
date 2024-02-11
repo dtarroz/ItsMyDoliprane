@@ -1,5 +1,5 @@
 :root {
-    color-scheme: light;
+    color-scheme: light dark;
     --background-color-default: #161616;
     --text-color-default: #c6c6c6;
     --link-color-default: orange;
@@ -64,6 +64,10 @@ select {
     font-size: 1rem;
     padding: 5px;
     width: 100%;
+    background-color: white;
+    color: black;
+    height: 30px;
+    border-radius: 3px;
 }
 
 input {
