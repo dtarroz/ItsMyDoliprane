@@ -16,7 +16,7 @@ public abstract class AbstractRepository
     }
 
     private static string GetConnectionString(IConfiguration configuration) {
-        return configuration["Repository:ConnectionString"];
+        return configuration["Repository:ConnectionString"] ?? "";
     }
 
     private void Initialize() {
