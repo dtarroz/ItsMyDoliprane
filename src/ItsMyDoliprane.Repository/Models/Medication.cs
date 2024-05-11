@@ -2,8 +2,8 @@ namespace ItsMyDoliprane.Repository.Models;
 
 public class Medication
 {
-    public int PersonId { get; set; }
-    public int DrugId { get; set; }
-    public string? Date { get; set; }
-    public string? Hour { get; set; }
+    public int PersonId { get; init; }
+    public int DrugId { get; init; }
+    public string Date { get; set; } = null!;
+    public string Hour { get; set; } = null!;
 }

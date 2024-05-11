@@ -34,7 +34,7 @@ public class HomeController : Controller
         return View(model);
     }
 
-    private MedicationTime GetMedication(List<Medication> medications, int limitHour) {
+    private static MedicationTime GetMedication(IEnumerable<Medication> medications, int limitHour) {
         Medication? last = medications.FirstOrDefault();
         DateTime? lastDateTime = last != null ? GetDateTime(last) : null;
         return new MedicationTime {
@@ -43,11 +43,11 @@ public class HomeController : Controller
         };
     }
 
-    private DateTime GetDateTime(Medication medication) {
+    private static DateTime GetDateTime(Medication medication) {
         return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
     }
 
-    private List<MedicationViewModel> GetMedications(List<Medication> medications) {
+    private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {
         List<Drug> drugs = _useDrugs.GetDrugs();
         return medications.GroupBy(m => m.Date)
                           .Select(group => new MedicationViewModel {
