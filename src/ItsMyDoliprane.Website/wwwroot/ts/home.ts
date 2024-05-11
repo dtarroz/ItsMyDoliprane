@@ -9,6 +9,11 @@ const $date = document.querySelector("#date") as HTMLInputElement;
 const $hour = document.querySelector("#hour") as HTMLInputElement;
 const $button = document.querySelector("#add") as HTMLButtonElement;
 
+document.addEventListener("visibilitychange", function () {
+    if (document.visibilityState === 'visible')
+        refresh();
+});
+
 $persons.forEach(e => e.addEventListener("change", () => {
     refresh(getCurrentPersonId());
 }));
