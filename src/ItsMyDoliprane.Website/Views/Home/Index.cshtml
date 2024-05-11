@@ -28,15 +28,17 @@
         </svg>
     </div>
     <div class="medication">
-        <select id="person">
+        <div class="persons">
             @foreach (var person in Model.Persons) {
-                @if (person.Key == Model.PersonId) {
-                    <option value="@person.Key" selected>@person.Value</option>
-                } else {
-                    <option value="@person.Key"> @person.Value </option>
-                }
+                <input type="radio" name="person" id="person_@(person.Key)"
+                       data-value="@person.Key"
+                       @(person.Key == Model.PersonId ? "checked" : "") />
+                <label for="person_@(person.Key)" class="persons-item">
+                    <img src="img/person_@(person.Key).png" alt="" />
+                    <span>@person.Value</span>
+                </label>
             }
-        </select>
+        </div>
         <select id="drug">
             @foreach (var drug in Model.Drugs) {
                 <option value="@drug.Key">@drug.Value</option>

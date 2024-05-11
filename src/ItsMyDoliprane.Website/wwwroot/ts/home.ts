@@ -1,6 +1,7 @@
 import { ApiMedication, Medication } from "./api/_medication.js";
 
-const $person = document.querySelector("#person") as HTMLSelectElement;
+const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
+const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
 const $drug = document.querySelector("#drug") as HTMLSelectElement;
 const $customDateLink = document.querySelector("#custom-date-link") as HTMLAnchorElement;
 const $customDate = document.querySelector("#custom-date") as HTMLDivElement;
@@ -8,10 +9,9 @@ const $date = document.querySelector("#date") as HTMLInputElement;
 const $hour = document.querySelector("#hour") as HTMLInputElement;
 const $button = document.querySelector("#add") as HTMLButtonElement;
 
-$person.addEventListener("change", () => {
-    const personId = parseInt($person.value, 10);
-    refresh(personId);
-});
+$persons.forEach(e => e.addEventListener("change", () => {
+    refresh(getCurrentPersonId());
+}));
 
 $customDateLink.addEventListener('click', () => {
     $customDate.classList.add("active");
@@ -22,7 +22,7 @@ $customDateLink.addEventListener('click', () => {
 
 $button.addEventListener("click", () => {
     const medication = {
-        personId: parseInt($person.value, 10),
+        personId: getCurrentPersonId(),
         drugId: parseInt($drug.value, 10),
         date: $date.value,
         hour: $hour.value
@@ -42,4 +42,8 @@ function refresh(personId?: number) {
         document.location.href = `${document.location.origin}${document.location.pathname}?personId=${personId}`;
     else
         document.location.reload();
+}
+
+function getCurrentPersonId(){
+    return parseInt($currentPerson().dataset['value'] ?? '', 10);
 }
