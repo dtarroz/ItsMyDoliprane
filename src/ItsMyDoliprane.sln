@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItsMyDoliprane.Business", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItsMyDoliprane.Repository", "ItsMyDoliprane.Repository\ItsMyDoliprane.Repository.csproj", "{20954185-EE68-49B7-8860-B4271658445A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItsMyDoliprane.Business.Tests", "..\tests\ItsMyDoliprane.Business.Tests\ItsMyDoliprane.Business.Tests.csproj", "{CC3016FB-509F-40CB-B5C8-2F9EAE45FDAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{20954185-EE68-49B7-8860-B4271658445A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20954185-EE68-49B7-8860-B4271658445A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20954185-EE68-49B7-8860-B4271658445A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC3016FB-509F-40CB-B5C8-2F9EAE45FDAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC3016FB-509F-40CB-B5C8-2F9EAE45FDAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC3016FB-509F-40CB-B5C8-2F9EAE45FDAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC3016FB-509F-40CB-B5C8-2F9EAE45FDAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

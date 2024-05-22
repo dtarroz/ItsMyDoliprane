@@ -1,4 +1,4 @@
-import { ApiMedication, Medication } from "./api/_medication.js";
+import { ApiMedication, NewMedication } from "./api/_medication.js";
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
@@ -31,7 +31,7 @@ $button.addEventListener("click", () => {
         drugId: parseInt($drug.value, 10),
         date: $date.value,
         hour: $hour.value
-    } as Medication;
+    } as NewMedication;
     ApiMedication.add(medication).then(() => {
         refresh();
     })

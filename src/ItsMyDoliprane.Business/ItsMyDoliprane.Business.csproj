@@ -10,4 +10,10 @@
     <ProjectReference Include="..\ItsMyDoliprane.Repository\ItsMyDoliprane.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+      <_Parameter1>ItsMyDoliprane.Business.Tests</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>

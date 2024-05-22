@@ -14,9 +14,9 @@ public class ApiMedicationController : ApiController
     }
 
     [HttpPost]
-    public IActionResult Add([FromBody] Medication medication) {
+    public IActionResult Add([FromBody] NewMedication newMedication) {
         return Execute(() => {
-            _useMedications.Add(medication);
+            _useMedications.Add(newMedication);
         });
     }
 }
