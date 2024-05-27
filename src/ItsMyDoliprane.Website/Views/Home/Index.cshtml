@@ -53,6 +53,15 @@
             <button id="add">Ajouter</button>
         </div>
     </div>
+    <div class="progress-bar-container">
+        <time-progress-bar
+            data-caption="Doliprane"
+            data-current="@Model.ProgressBarParacetamol.CurrentValue"
+            data-max="@Model.ProgressBarParacetamol.MaxValue"
+            data-max-full-width="@Model.ProgressBarParacetamol.MaxWidthValue"
+            data-state="@Model.ProgressBarParacetamol.State">
+        </time-progress-bar>
+    </div>
     @if (Model.Medications.Count > 0) {
         @if (Model.DosageParacetamol > 0) {
             <div class="dosage">

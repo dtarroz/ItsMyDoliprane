@@ -6,7 +6,7 @@ namespace ItsMyDoliprane.Business.Medications;
 
 internal class MedicationForParacetamol
 {
-    private static int GetCompositionId() {
+    private static int GetDrugCompositionId() {
         return (int)DrugComposition.Paracetamol;
     }
 
@@ -49,7 +49,7 @@ internal class MedicationForParacetamol
             }
         }
         return new MedicationState {
-            CompositionId = GetCompositionId(),
+            DrugCompositionId = GetDrugCompositionId(),
             Opinion = ChoiceMedicationOpinion(opinions),
             LastMedicationNo = MaxDateTime(lastMedicationsNo),
             NextMedicationYes = MaxDateTime(nextMedicationsYes)
@@ -57,7 +57,7 @@ internal class MedicationForParacetamol
     }
 
     private static Medication? GetLastMedication(IEnumerable<Medication> medications) {
-        return medications.FirstOrDefault(m => m.Dosages.Any(d => d.DrugCompositionId == GetCompositionId()));
+        return medications.FirstOrDefault(m => m.Dosages.Any(d => d.DrugCompositionId == GetDrugCompositionId()));
     }
 
     private static float? GetDurationBetweenDateTime(DateTime? start, DateTime? end) {
@@ -74,7 +74,7 @@ internal class MedicationForParacetamol
     }
 
     private static int GetDosage(IEnumerable<Medication> medications) {
-        return medications.SelectMany(m => m.Dosages).Where(d => d.DrugCompositionId == GetCompositionId()).Sum(d => d.Quantity);
+        return medications.SelectMany(m => m.Dosages).Where(d => d.DrugCompositionId == GetDrugCompositionId()).Sum(d => d.Quantity);
     }
 
     private static MedicationOpinion ChoiceMedicationOpinion(ICollection<MedicationOpinion> opinion) {

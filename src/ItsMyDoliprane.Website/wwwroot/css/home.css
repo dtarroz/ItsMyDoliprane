@@ -1,3 +1,5 @@
+@import "./components/time-progress-bar.css";
+
 :root {
     color-scheme: light dark;
     --background-color-default: #161616;
@@ -131,6 +133,19 @@ input {
     display: flex;
     gap: 10px;
     padding-top: 5px;
+}
+
+.progress-bar-container {
+    width: 200px;
+    padding-bottom: 10px;
+}
+
+.dosage { /* TODO */
+    display: none;
+}
+
+.next-medication { /* TODO */
+    display: none;
 }
 
 .next-medication-since {

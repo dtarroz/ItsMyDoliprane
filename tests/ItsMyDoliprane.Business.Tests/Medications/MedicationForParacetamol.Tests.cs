@@ -15,7 +15,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(new List<Medication>());
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationYes);
@@ -38,7 +38,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationYes);
@@ -73,7 +73,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime, medicationState.LastMedicationNo);
         Assert.Equal(dateTime.AddHours(6), medicationState.NextMedicationYes);
@@ -119,7 +119,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime4, medicationState.LastMedicationNo);
         Assert.Equal(dateTime7.AddDays(1), medicationState.NextMedicationYes);
@@ -176,7 +176,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime4, medicationState.LastMedicationNo);
         Assert.Equal(dateTime7.AddDays(1), medicationState.NextMedicationYes);
@@ -211,7 +211,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Possible, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
@@ -257,7 +257,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Possible, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
@@ -314,7 +314,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
@@ -349,7 +349,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationYes);
@@ -395,7 +395,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.Possible, medicationState.Opinion);
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
@@ -452,7 +452,7 @@ public class MedicationForParacetamol_Tests
         MedicationState medicationState = MedicationForParacetamol.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
-        Assert.Equal(1, medicationState.CompositionId);
+        Assert.Equal(1, medicationState.DrugCompositionId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);

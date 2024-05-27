@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using ItsMyDoliprane.Business;
+using ItsMyDoliprane.Business.Enums;
+using ItsMyDoliprane.Business.Models;
 using Microsoft.AspNetCore.Mvc;
 using ItsMyDoliprane.Models;
 using ItsMyDoliprane.Repository.Models;
@@ -22,6 +24,7 @@ public class HomeController : Controller
 
     public IActionResult Index(int personId = 1) {
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-2));
+        List<MedicationState> states = _useMedications.GetMedicationsStates(personId);
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
             Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
@@ -29,6 +32,7 @@ public class HomeController : Controller
             DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
+            ProgressBarParacetamol = GetProgressBarParacetamol(states),
             Medications = GetMedications(medications)
         };
         return View(model);
@@ -45,6 +49,23 @@ public class HomeController : Controller
 
     private static DateTime GetDateTime(Medication medication) {
         return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
+    }
+
+    private static TimeProgressBar GetProgressBarParacetamol(List<MedicationState> states) {
+        MedicationState paracetamolState = states.Find(s => s.DrugCompositionId == (int)DrugComposition.Paracetamol)!;
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            State = paracetamolState.Opinion.ToString().ToLower(),
+            CurrentValue = GetDuration(paracetamolState.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, paracetamolState.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, maxDateTime)), 6)
+        };
+    }
+
+    private static double GetDuration(DateTime? dateTime1, DateTime? dateTime2) {
+        if (dateTime1 == null || dateTime2 == null)
+            return 0;
+        return (dateTime2.Value - dateTime1.Value).TotalHours;
     }
 
     private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {

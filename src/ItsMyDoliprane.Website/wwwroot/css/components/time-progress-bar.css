@@ -1,0 +1,82 @@
+time-progress-bar {
+    display: block;
+    position: relative;
+}
+
+time-progress-bar .time-title {
+    font-family: Arial, sans-serif;
+    margin-right: 5px;
+}
+
+time-progress-bar .time-progress {
+    --border-radius: 4px;
+    background-color: var(--text-color-default);
+    height: 1rem;
+    border-radius: var(--border-radius);
+    position: relative;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 3px 5px 0 inset;
+    margin-top: 4px;
+    overflow: hidden;
+}
+
+time-progress-bar .time-progress-bar {
+    height: 1rem;
+}
+
+time-progress-bar[data-state="no"] .time-progress-bar {
+    background-color: red;
+}
+
+time-progress-bar[data-state="possible"] .time-progress-bar {
+    background-color: orange;
+}
+
+time-progress-bar .graduations {
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    width: 100%;
+    top: 0.5rem;
+}
+
+time-progress-bar .graduation-bar {
+    background-color: var(--background-color-default);
+    width: 2px;
+    height: 0.5rem;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    position: absolute;
+    transform: translate(-1px, 0);
+    top: 0.5rem;
+}
+
+/* Tooltip text */
+time-progress-bar .tooltip {
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--text-color-default);
+    color: var(--background-color-default);
+    text-align: center;
+    padding: 5px;
+    border-radius: 6px;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -125px;
+    position: absolute;
+    z-index: 1;
+}
+
+time-progress-bar .tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--text-color-default) transparent transparent transparent;
+}
+
+time-progress-bar:hover .tooltip {
+    visibility: visible;
+}
