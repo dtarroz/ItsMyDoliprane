@@ -32,7 +32,7 @@ public class HomeController : Controller
             DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
-            ProgressBarParacetamol = GetProgressBarParacetamol(states),
+            ProgressBarDoliprane = GetProgressBarDoliprane(states),
             Medications = GetMedications(medications)
         };
         return View(model);
@@ -51,15 +51,26 @@ public class HomeController : Controller
         return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
     }
 
-    private static TimeProgressBar GetProgressBarParacetamol(List<MedicationState> states) {
-        MedicationState paracetamolState = states.Find(s => s.DrugCompositionId == (int)DrugComposition.Paracetamol)!;
+    private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
+        MedicationState paracetamolState = states.Find(s => s.DrugId == DrugId.Doliprane)!;
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            State = paracetamolState.Opinion.ToString().ToLower(),
+            Caption = "Doliprane",
+            Tooltip = GetToolTip(paracetamolState),
+            Opinion = paracetamolState.Opinion.ToString().ToLower(),
             CurrentValue = GetDuration(paracetamolState.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, paracetamolState.NextMedicationYes)),
             MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, maxDateTime)), 6)
         };
+    }
+
+    private static string GetToolTip(MedicationState medicationState) {
+        string tooltip = "";
+        if (medicationState.NextMedicationYes != null)
+            tooltip = $"Prise conseillée à partir de {medicationState.NextMedicationYes.Value:HH:mm}";
+        if (medicationState.NextMedicationPossible != null)
+            tooltip += $"<br/>mais possible à partir de {medicationState.NextMedicationPossible.Value:HH:mm}";
+        return tooltip;
     }
 
     private static double GetDuration(DateTime? dateTime1, DateTime? dateTime2) {

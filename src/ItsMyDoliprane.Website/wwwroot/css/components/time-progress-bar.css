@@ -23,12 +23,16 @@ time-progress-bar .time-progress-bar {
     height: 1rem;
 }
 
-time-progress-bar[data-state="no"] .time-progress-bar {
+time-progress-bar[data-opinion="no"] .time-progress-bar {
     background-color: red;
 }
 
-time-progress-bar[data-state="possible"] .time-progress-bar {
+time-progress-bar[data-opinion="warning"] .time-progress-bar {
     background-color: orange;
+}
+
+time-progress-bar[data-opinion="possible"] .time-progress-bar {
+    background-color: green;
 }
 
 time-progress-bar .graduations {

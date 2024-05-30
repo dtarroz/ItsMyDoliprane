@@ -1,6 +1,6 @@
 namespace ItsMyDoliprane.Business.Enums;
 
-public enum DrugComposition
+public enum DrugCompositionId
 {
     Paracetamol = 1
 }

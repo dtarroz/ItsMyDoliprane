@@ -55,11 +55,12 @@
     </div>
     <div class="progress-bar-container">
         <time-progress-bar
-            data-caption="Doliprane"
-            data-current="@Model.ProgressBarParacetamol.CurrentValue"
-            data-max="@Model.ProgressBarParacetamol.MaxValue"
-            data-max-full-width="@Model.ProgressBarParacetamol.MaxWidthValue"
-            data-state="@Model.ProgressBarParacetamol.State">
+            data-caption="@Model.ProgressBarDoliprane.Caption"
+            data-tooltip="@Model.ProgressBarDoliprane.Tooltip"
+            data-current="@Model.ProgressBarDoliprane.CurrentValue"
+            data-max="@Model.ProgressBarDoliprane.MaxValue"
+            data-max-full-width="@Model.ProgressBarDoliprane.MaxWidthValue"
+            data-opinion="@Model.ProgressBarDoliprane.Opinion">
         </time-progress-bar>
     </div>
     @if (Model.Medications.Count > 0) {

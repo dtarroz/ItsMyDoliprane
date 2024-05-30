@@ -15,7 +15,7 @@ export class TimeProgressBar extends HTMLElement {
     }
 
     getProgressBarHtml() {
-        return `<span class="tooltip">Prise conseillée à partir de 20:45</span>
+        return `<span class="tooltip">${this.tooltip()}</span>
                 <div class="time-progress" style = "width: ${this.getProgressWidth()}">
                     <div class="time-progress-bar" 
                          style="width: ${this.getProgressBarWidth()}">
@@ -51,6 +51,10 @@ export class TimeProgressBar extends HTMLElement {
 
     caption() {
         return this.dataset["caption"] ?? "";
+    }
+
+    tooltip() {
+        return this.dataset["tooltip"] ?? "";
     }
 
     max() {

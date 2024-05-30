@@ -8,7 +8,7 @@ public class HomeViewModel
     public float DosageParacetamol { get; set; }    // TODO
     public MedicationTime Medication4 { get; set; } = null!; // TODO
     public MedicationTime Medication6 { get; set; } = null!;    // TODO
-    public TimeProgressBar ProgressBarParacetamol { get; set; } = null!;
+    public TimeProgressBar ProgressBarDoliprane { get; set; } = null!;
     public List<MedicationViewModel> Medications { get; set; } = null!;
 }
 
@@ -20,7 +20,9 @@ public class MedicationTime // TODO
 
 public class TimeProgressBar
 {
-    public string State { get; set; } = null!;
+    public string Caption { get; set; } = null!;
+    public string Tooltip { get; set; } = null!;
+    public string Opinion { get; set; } = null!;
     public double CurrentValue { get; set; }
     public int MaxValue { get; set; }
     public int MaxWidthValue { get; set; }

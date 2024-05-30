@@ -28,7 +28,7 @@ public class UseMedications
     public List<MedicationState> GetMedicationsStates(int personId) {
         List<Medication> medications = GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-1));
         return new List<MedicationState> {
-            MedicationForParacetamol.GetMedicationState(medications)
+            MedicationDoliprane.GetMedicationState(medications)
         };
     }
 }

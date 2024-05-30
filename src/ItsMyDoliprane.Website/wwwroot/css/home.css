@@ -144,10 +144,6 @@ input {
     display: none;
 }
 
-.next-medication { /* TODO */
-    display: none;
-}
-
 .next-medication-since {
     margin-left: 5px;
 }
