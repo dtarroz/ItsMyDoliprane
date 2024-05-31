@@ -52,7 +52,8 @@ internal static class MedicationDoliprane
             Opinion = ChoiceMedicationOpinion(opinions),
             LastMedicationNo = MaxDateTime(lastMedicationsNo),
             NextMedicationPossible = MaxDateTime(nextMedicationsPossible),
-            NextMedicationYes = MaxDateTime(nextMedicationsYes)
+            NextMedicationYes = MaxDateTime(nextMedicationsYes),
+            Dosage = GetDosage(medications)
         };
     }
 

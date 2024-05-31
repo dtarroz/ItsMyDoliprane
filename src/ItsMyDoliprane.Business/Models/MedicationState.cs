@@ -9,6 +9,7 @@ public class MedicationState
     public DateTime? LastMedicationNo { get; init; }
     public DateTime? NextMedicationPossible { get; init; }
     public DateTime? NextMedicationYes { get; init; }
+    public int Dosage { get; init; }
 }
 
 public enum MedicationOpinion
