@@ -2,8 +2,8 @@ export class TimeProgressBar extends HTMLElement {
 
     constructor() {
         super();
-        this.innerHTML = `<span class="time-title">${this.caption()}</span>${this.isProgressEnd() ? this.getEndHtml()
-            : this.getProgressBarHtml()}`;
+        this.innerHTML = `<div tabindex="0"><span class="time-title">${this.caption()}</span>${this.isProgressEnd() ? this.getEndHtml()
+            : this.getProgressBarHtml()}</div>`;
     }
 
     isProgressEnd() {

@@ -68,6 +68,7 @@ time-progress-bar .tooltip {
     margin-left: -125px;
     position: absolute;
     z-index: 1;
+    box-shadow: 0 0 20px rgba(198, 198, 198, 0.5);
 }
 
 time-progress-bar .tooltip::after {
@@ -81,6 +82,6 @@ time-progress-bar .tooltip::after {
     border-color: var(--text-color-default) transparent transparent transparent;
 }
 
-time-progress-bar:hover .tooltip {
+time-progress-bar > div:focus .tooltip {
     visibility: visible;
 }
