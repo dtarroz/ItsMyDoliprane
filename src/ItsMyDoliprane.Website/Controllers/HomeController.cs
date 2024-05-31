@@ -70,8 +70,8 @@ public class HomeController : Controller
             tooltip = $"Prise conseillée à partir de {medicationState.NextMedicationYes.Value:HH:mm}";
         if (medicationState.NextMedicationPossible != null)
             tooltip += $"<br/>mais possible à partir de {medicationState.NextMedicationPossible.Value:HH:mm}";
-        if(medicationState.Dosage > 0)
-            tooltip += $"<br/><br/>{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
+        if (medicationState.Dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
         return tooltip;
     }
 

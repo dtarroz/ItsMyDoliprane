@@ -11,7 +11,10 @@ export class TimeProgressBar extends HTMLElement {
     }
 
     getEndHtml() {
-        return "✅";
+        let html = "✅";
+        if (this.tooltip())
+            html += `<span class="tooltip">${this.tooltip()}</span>`;
+        return html;
     }
 
     getProgressBarHtml() {
@@ -23,7 +26,7 @@ export class TimeProgressBar extends HTMLElement {
                     ${this.getGraduationsHtml()}
                 </div>`;
     }
- 
+
     getGraduationsHtml() {
         let max = this.max();
         let graduations = "";
