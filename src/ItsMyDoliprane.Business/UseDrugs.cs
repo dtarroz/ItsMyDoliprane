@@ -12,6 +12,6 @@ public class UseDrugs
     }
 
     public List<Drug> GetDrugs() {
-        return _drugRepository.GetGrugs();
+        return _drugRepository.GetDrugs();
     }
 }
