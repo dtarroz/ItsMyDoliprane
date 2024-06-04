@@ -1,4 +1,5 @@
 using ItsMyDoliprane.Business;
+using ItsMyDoliprane.Business.Extensions;
 using ItsMyDoliprane.Repository;
 using NLog;
 using NLog.Web;
@@ -10,6 +11,7 @@ try {
 
     // Add services to the container.
     builder.Services.AddControllersWithViews();
+    builder.Services.AddDolipraneBusiness();
     builder.Services.AddTransient<UsePersons>();
     builder.Services.AddTransient<UseDrugs>();
     builder.Services.AddTransient<UseMedications>();

@@ -12,7 +12,8 @@ public class MedicationDoliprane_Tests
 {
     [Fact]
     public void GetMedicationState_Empty() {
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(new List<Medication>());
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(new List<Medication>());
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -36,7 +37,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -72,7 +74,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -119,7 +122,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -166,7 +170,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -213,7 +218,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -260,7 +266,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -307,7 +314,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -354,7 +362,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -412,7 +421,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -470,7 +480,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -528,7 +539,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -564,7 +576,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -611,7 +624,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -658,7 +672,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -705,7 +720,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -752,7 +768,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -810,7 +827,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -846,7 +864,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -893,7 +912,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -940,7 +960,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -998,7 +1019,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationState medicationState = MedicationDoliprane.GetMedicationState(medications);
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane();
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);

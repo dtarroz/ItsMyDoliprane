@@ -4,9 +4,9 @@ using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
-internal static class MedicationDoliprane
+public class MedicationDoliprane
 {
-    public static MedicationState GetMedicationState(List<Medication> medications) {
+    public MedicationState GetMedicationState(List<Medication> medications) {
         Medication? last = GetLastMedication(medications);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         List<MedicationOpinion> opinions = new List<MedicationOpinion>();

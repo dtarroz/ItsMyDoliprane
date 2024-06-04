@@ -8,9 +8,11 @@ namespace ItsMyDoliprane.Business;
 public class UseMedications
 {
     private readonly MedicationRepository _medicationRepository;
+    private readonly MedicationDoliprane _medicationDoliprane;
 
-    public UseMedications(MedicationRepository medicationRepository) {
+    public UseMedications(MedicationRepository medicationRepository, MedicationDoliprane medicationDoliprane) {
         _medicationRepository = medicationRepository;
+        _medicationDoliprane = medicationDoliprane;
     }
 
     public List<Medication> GetMedicationsSinceDate(int personId, DateTime date) {
@@ -28,7 +30,7 @@ public class UseMedications
     public List<MedicationState> GetMedicationsStates(int personId) {
         List<Medication> medications = GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-1));
         return new List<MedicationState> {
-            MedicationDoliprane.GetMedicationState(medications)
+            _medicationDoliprane.GetMedicationState(medications)
         };
     }
 }
