@@ -22,7 +22,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        // TODO Dosage
+        Assert.Equal(0, medicationState.Dosage);
     }
 
     [Fact]
@@ -49,6 +49,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
     }
 
     [Theory]
@@ -112,6 +113,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Theory]
@@ -175,6 +177,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Theory]
@@ -249,6 +252,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(3500, medicationState.Dosage);
     }
 
     [Theory]
@@ -323,6 +327,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(3500, medicationState.Dosage);
     }
 
     [Theory]
@@ -408,6 +413,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(4500, medicationState.Dosage);
     }
 
     [Theory]
@@ -493,6 +499,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(4500, medicationState.Dosage);
     }
 
     [Theory]
@@ -556,6 +563,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Theory]
@@ -619,6 +627,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Theory]
@@ -693,6 +702,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Theory]
@@ -767,6 +777,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Theory]
@@ -852,6 +863,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Theory]
@@ -937,6 +949,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(nextDrug, medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Theory]
@@ -1008,6 +1021,7 @@ public class MedicationHumex_Tests
             Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationYes);
         }
         Assert.Equal(drugId, medicationState.NextDrug);
+        Assert.Equal(1500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1081,6 +1095,7 @@ public class MedicationHumex_Tests
             Assert.Null(medicationState.NextMedicationYes);
             Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
         }
+        Assert.Equal(1500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1168,6 +1183,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(drugId, medicationState.NextDrug);
+        Assert.Equal(3500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1260,6 +1276,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(3500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1358,6 +1375,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(drugId, medicationState.NextDrug);
+        Assert.Equal(4500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1455,6 +1473,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(drugId, medicationState.NextDrug);
+        Assert.Equal(4500, medicationState.Dosage);
     }
 
     [Theory]
@@ -1531,6 +1550,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Theory]
@@ -1606,6 +1626,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Theory]
@@ -1692,6 +1713,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Theory]
@@ -1790,6 +1812,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Theory]
@@ -1887,6 +1910,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -1947,6 +1971,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2007,6 +2032,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2089,6 +2115,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2160,6 +2187,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime21.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime21.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2253,6 +2281,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(5000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2335,6 +2364,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexNuit, medicationState.NextDrug);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -2362,6 +2392,7 @@ public class MedicationHumex_Tests
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexJour, medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
     }
 
     [Fact]
@@ -2389,6 +2420,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexJour, medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
     }
 
     [Fact]
@@ -2416,6 +2448,7 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(DrugId.HumexJour, medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
     }
 
     [Fact]
@@ -2443,5 +2476,6 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
     }
 }

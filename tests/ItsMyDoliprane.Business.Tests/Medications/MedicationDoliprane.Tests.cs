@@ -21,6 +21,7 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
+        Assert.Equal(0, medicationState.Dosage);
     }
 
     [Fact]
@@ -46,6 +47,7 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
+        Assert.Equal(0, medicationState.Dosage);
     }
 
     [Fact]
@@ -83,6 +85,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime3, medicationState.LastMedicationNo);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Fact]
@@ -131,6 +134,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Fact]
@@ -179,8 +183,9 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
-    
+
     [Fact]
     public void GetMedicationState_LessThan4Hours_Dosage2500_Last_LaterThan6Hours() {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
@@ -227,6 +232,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Fact]
@@ -275,6 +281,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -323,6 +330,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -371,6 +379,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -430,6 +439,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -489,6 +499,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -548,6 +559,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -585,8 +597,9 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(2000, medicationState.Dosage);
     }
-    
+
     [Fact]
     public void GetMedicationState_Between4And6Hours_Dosage2500_Last_Between4And6Hours() {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
@@ -633,8 +646,9 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
-    
+
     [Fact]
     public void GetMedicationState_Between4And6Hours_Dosage2500_Last_LaterThan6Hours() {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
@@ -681,6 +695,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Fact]
@@ -729,6 +744,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -777,6 +793,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -836,6 +853,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 
     [Fact]
@@ -873,6 +891,7 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
+        Assert.Equal(2000, medicationState.Dosage);
     }
 
     [Fact]
@@ -921,6 +940,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(2500, medicationState.Dosage);
     }
 
     [Fact]
@@ -969,6 +989,7 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(3000, medicationState.Dosage);
     }
 
     [Fact]
@@ -1028,5 +1049,6 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
+        Assert.Equal(4000, medicationState.Dosage);
     }
 }
