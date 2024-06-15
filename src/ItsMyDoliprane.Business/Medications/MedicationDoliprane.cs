@@ -4,10 +4,10 @@ using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
-public class MedicationDoliprane
+public class MedicationDoliprane : MedicationDrug
 {
-    public MedicationState GetMedicationState(List<Medication> medications) {
-        Medication? last = GetLastMedication(medications);
+    public override MedicationState GetMedicationState(List<Medication> medications) {
+        Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         List<MedicationOpinion> opinions = new List<MedicationOpinion>();
         List<DateTime> lastMedicationsNo = new List<DateTime>();
@@ -53,42 +53,16 @@ public class MedicationDoliprane
             LastMedicationNo = MaxDateTime(lastMedicationsNo),
             NextMedicationPossible = MaxDateTime(nextMedicationsPossible),
             NextMedicationYes = MaxDateTime(nextMedicationsYes),
-            Dosage = GetDosage(medications)
+            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol)
         };
     }
 
-    private static Medication? GetLastMedication(IEnumerable<Medication> medications) {
-        return medications.FirstOrDefault(m => m.Dosages.Any(d => d.DrugCompositionId == (int)DrugCompositionId.Paracetamol));
-    }
-
-    private static float? GetDurationBetweenDateTime(DateTime? start, DateTime? end) {
-        return start != null && end != null ? (float?)(end.Value - start.Value).TotalHours : null;
-    }
-
     private static MedicationOpinion GetDosageOpinion(List<Medication> medications) {
-        int dosage = GetDosage(medications);
+        int dosage = GetDosage(medications, DrugCompositionId.Paracetamol);
         return dosage switch {
             < 2500  => MedicationOpinion.Yes,
             <= 3000 => MedicationOpinion.Warning,
             _       => MedicationOpinion.No
         };
-    }
-
-    private static int GetDosage(IEnumerable<Medication> medications) {
-        return medications.SelectMany(m => m.Dosages)
-                          .Where(d => d.DrugCompositionId == (int)DrugCompositionId.Paracetamol)
-                          .Sum(d => d.Quantity);
-    }
-
-    private static MedicationOpinion ChoiceMedicationOpinion(ICollection<MedicationOpinion> opinion) {
-        if (opinion.Contains(MedicationOpinion.No))
-            return MedicationOpinion.No;
-        if (opinion.Contains(MedicationOpinion.Warning))
-            return MedicationOpinion.Warning;
-        return opinion.Contains(MedicationOpinion.Possible) ? MedicationOpinion.Possible : MedicationOpinion.Yes;
-    }
-
-    private static DateTime? MaxDateTime(IReadOnlyCollection<DateTime> datetimes) {
-        return datetimes.Count > 0 ? datetimes.Max() : null;
     }
 }
