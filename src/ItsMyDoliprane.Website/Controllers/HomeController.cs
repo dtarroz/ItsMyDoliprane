@@ -33,6 +33,7 @@ public class HomeController : Controller
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
             ProgressBarDoliprane = GetProgressBarDoliprane(states),
+            ProgressBarHumex = GetProgressBarHumex(states),
             Medications = GetMedications(medications)
         };
         return View(model);
@@ -52,19 +53,20 @@ public class HomeController : Controller
     }
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
-        MedicationState paracetamolState = states.Find(s => s.DrugId == DrugId.Doliprane)!;
+        MedicationState dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane)!;
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
+            Visible = dolipraneState.Dosage > 0,
             Caption = "Doliprane",
-            Tooltip = GetToolTip(paracetamolState),
-            Opinion = paracetamolState.Opinion.ToString().ToLower(),
-            CurrentValue = GetDuration(paracetamolState.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, paracetamolState.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(paracetamolState.LastMedicationNo, maxDateTime)), 6)
+            Tooltip = GetToolTipParacetamol(dolipraneState),
+            Opinion = dolipraneState.Opinion.ToString().ToLower(),
+            CurrentValue = GetDuration(dolipraneState.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(dolipraneState.LastMedicationNo, dolipraneState.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState.LastMedicationNo, maxDateTime)), 6)
         };
     }
 
-    private static string GetToolTip(MedicationState medicationState) {
+    private static string GetToolTipParacetamol(MedicationState medicationState) {
         string tooltip = "";
         if (medicationState.NextMedicationYes != null)
             tooltip = $"Prise conseillée à partir de {medicationState.NextMedicationYes.Value:HH:mm}";
@@ -79,6 +81,24 @@ public class HomeController : Controller
         if (dateTime1 == null || dateTime2 == null)
             return 0;
         return (dateTime2.Value - dateTime1.Value).TotalHours;
+    }
+
+    private static TimeProgressBar GetProgressBarHumex(List<MedicationState> states) {
+        MedicationState humexState = states.Find(s => s.DrugId == DrugId.Humex)!;
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = humexState.Dosage > 0,
+            Caption = humexState.NextDrug switch {
+                DrugId.HumexJour => "Humex jour",
+                DrugId.HumexNuit => "Humex nuit",
+                _                => "Humex"
+            },
+            Tooltip = GetToolTipParacetamol(humexState),
+            Opinion = humexState.Opinion.ToString().ToLower(),
+            CurrentValue = GetDuration(humexState.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(humexState.LastMedicationNo, humexState.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState.LastMedicationNo, maxDateTime)), 6)
+        };
     }
 
     private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {

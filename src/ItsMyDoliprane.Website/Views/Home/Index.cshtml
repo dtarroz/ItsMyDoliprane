@@ -54,14 +54,26 @@
         </div>
     </div>
     <div class="progress-bar-container">
-        <time-progress-bar
-            data-caption="@Model.ProgressBarDoliprane.Caption"
-            data-tooltip="@Model.ProgressBarDoliprane.Tooltip"
-            data-current="@Model.ProgressBarDoliprane.CurrentValue"
-            data-max="@Model.ProgressBarDoliprane.MaxValue"
-            data-max-full-width="@Model.ProgressBarDoliprane.MaxWidthValue"
-            data-opinion="@Model.ProgressBarDoliprane.Opinion">
-        </time-progress-bar>
+        @if (Model.ProgressBarDoliprane.Visible) {
+            <time-progress-bar
+                data-caption="@Model.ProgressBarDoliprane.Caption"
+                data-tooltip="@Model.ProgressBarDoliprane.Tooltip"
+                data-current="@Model.ProgressBarDoliprane.CurrentValue"
+                data-max="@Model.ProgressBarDoliprane.MaxValue"
+                data-max-full-width="@Model.ProgressBarDoliprane.MaxWidthValue"
+                data-opinion="@Model.ProgressBarDoliprane.Opinion">
+            </time-progress-bar>
+        }
+        @if (Model.ProgressBarHumex.Visible) {
+            <time-progress-bar
+                data-caption="@Model.ProgressBarHumex.Caption"
+                data-tooltip="@Model.ProgressBarHumex.Tooltip"
+                data-current="@Model.ProgressBarHumex.CurrentValue"
+                data-max="@Model.ProgressBarHumex.MaxValue"
+                data-max-full-width="@Model.ProgressBarHumex.MaxWidthValue"
+                data-opinion="@Model.ProgressBarHumex.Opinion">
+            </time-progress-bar>
+        }
     </div>
     @if (Model.Medications.Count > 0) {
         @if (Model.DosageParacetamol > 0) {

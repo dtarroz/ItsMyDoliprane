@@ -137,10 +137,17 @@ input {
 
 .progress-bar-container {
     width: 200px;
-    padding-bottom: 10px;
+}
+
+time-progress-bar {
+    padding-bottom: 15px;
 }
 
 .dosage { /* TODO */
+    display: none;
+}
+
+.next-medication { /* TODO */
     display: none;
 }
 
