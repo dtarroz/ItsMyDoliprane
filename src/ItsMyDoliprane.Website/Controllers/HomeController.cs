@@ -10,25 +10,25 @@ namespace ItsMyDoliprane.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly UsePersons _usePersons;
-    private readonly UseDrugs _useDrugs;
     private readonly UseMedications _useMedications;
     private readonly UseDosages _useDosages;
+    private readonly List<Drug> _drugs;
+    private readonly List<Person> _persons;
 
     public HomeController(UsePersons usePersons, UseDrugs useDrugs, UseMedications useMedications, UseDosages useDosages) {
-        _usePersons = usePersons;
-        _useDrugs = useDrugs;
         _useMedications = useMedications;
         _useDosages = useDosages;
+        _drugs = useDrugs.GetDrugs();
+        _persons = usePersons.GetPersons();
     }
 
     public IActionResult Index(int personId = 1) {
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-2));
-        List<MedicationState> states = _useMedications.GetMedicationsStates(personId);
+        var states = _useMedications.GetMedicationsStates(personId).Where(s => IsDrugAllowForPerson(s.DrugId, personId)).ToList();
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
-            Persons = _usePersons.GetPersons().ToDictionary(p => p.Id, p => p.Name),
-            Drugs = _useDrugs.GetDrugs().Where(d => d.Visible).ToDictionary(p => p.Id, p => p.Name),
+            Persons = _persons.ToDictionary(p => p.Id, p => p.Name),
+            Drugs = GetListDrugs(personId),
             DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
@@ -37,6 +37,24 @@ public class HomeController : Controller
             Medications = GetMedications(medications)
         };
         return View(model);
+    }
+
+    private Dictionary<int, string> GetListDrugs(int personId) {
+        return _drugs.Where(drug => drug.Visible && IsDrugAllowForPerson(drug, personId) ).ToDictionary(p => p.Id, p => p.Name);
+    }
+
+    private bool IsDrugAllowForPerson(DrugId drugId, int personId) {
+        Drug drug = _drugs.Single(p => p.Id == (int)drugId);
+        return IsDrugAllowForPerson(drug, personId);
+    }
+
+    private bool IsDrugAllowForPerson(Drug drug, int personId) {
+        Person person = _persons.Single(p => p.Id == personId);
+        switch (person.IsAdult) {
+            case true when drug.ForAdult:
+            case false when drug.ForChild: return true;
+            default: return false;
+        }
     }
 
     private static MedicationTime GetMedication(IEnumerable<Medication> medications, int limitHour) {
@@ -53,26 +71,26 @@ public class HomeController : Controller
     }
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
-        MedicationState dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane)!;
+        MedicationState? dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = dolipraneState.Dosage > 0,
+            Visible = dolipraneState?.Dosage > 0,
             Caption = "Doliprane",
             Tooltip = GetToolTipParacetamol(dolipraneState),
-            Opinion = dolipraneState.Opinion.ToString().ToLower(),
-            CurrentValue = GetDuration(dolipraneState.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(dolipraneState.LastMedicationNo, dolipraneState.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState.LastMedicationNo, maxDateTime)), 6)
+            Opinion = dolipraneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(dolipraneState?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, dolipraneState?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, maxDateTime)), 6)
         };
     }
 
-    private static string GetToolTipParacetamol(MedicationState medicationState) {
+    private static string GetToolTipParacetamol(MedicationState? medicationState) {
         string tooltip = "";
-        if (medicationState.NextMedicationYes != null)
+        if (medicationState?.NextMedicationYes != null)
             tooltip = $"Prise conseillée à partir de {medicationState.NextMedicationYes.Value:HH:mm}";
-        if (medicationState.NextMedicationPossible != null)
+        if (medicationState?.NextMedicationPossible != null)
             tooltip += $"<br/>mais possible à partir de {medicationState.NextMedicationPossible.Value:HH:mm}";
-        if (medicationState.Dosage > 0)
+        if (medicationState?.Dosage > 0)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
         return tooltip;
     }
@@ -84,34 +102,33 @@ public class HomeController : Controller
     }
 
     private static TimeProgressBar GetProgressBarHumex(List<MedicationState> states) {
-        MedicationState humexState = states.Find(s => s.DrugId == DrugId.Humex)!;
+        MedicationState? humexState = states.Find(s => s.DrugId == DrugId.Humex);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = humexState.Dosage > 0,
-            Caption = humexState.NextDrug switch {
+            Visible = humexState?.Dosage > 0,
+            Caption = humexState?.NextDrug switch {
                 DrugId.HumexJour => "Humex jour",
                 DrugId.HumexNuit => "Humex nuit",
                 _                => "Humex"
             },
             Tooltip = GetToolTipParacetamol(humexState),
-            Opinion = humexState.Opinion.ToString().ToLower(),
-            CurrentValue = GetDuration(humexState.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(humexState.LastMedicationNo, humexState.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState.LastMedicationNo, maxDateTime)), 6)
+            Opinion = humexState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(humexState?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, humexState?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, maxDateTime)), 6)
         };
     }
 
     private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {
-        List<Drug> drugs = _useDrugs.GetDrugs();
         return medications.GroupBy(m => m.Date)
                           .Select(group => new MedicationViewModel {
-                                      Date = DateTime.Parse(group.Key).ToString("dd/MM"),
-                                      Details = group.Select(d => new MedicationDetailViewModel {
-                                                         Drug = drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
-                                                         Hour = d.Hour
-                                                     })
-                                                     .ToList()
-                                  })
+                              Date = DateTime.Parse(group.Key).ToString("dd/MM"),
+                              Details = group.Select(d => new MedicationDetailViewModel {
+                                                 Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
+                                                 Hour = d.Hour
+                                             })
+                                             .ToList()
+                          })
                           .ToList();
     }
 

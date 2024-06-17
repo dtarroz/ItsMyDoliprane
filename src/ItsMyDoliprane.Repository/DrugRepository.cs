@@ -12,14 +12,16 @@ public class DrugRepository : AbstractRepository
         using SqliteConnection connection = CreateConnectionAndOpen();
         using SqliteCommand command = connection.CreateCommand();
         List<Drug> drugs = new List<Drug>();
-        command.CommandText = "SELECT PKEY, NAME, VISIBLE FROM DRUG";
+        command.CommandText = "SELECT PKEY, NAME, VISIBLE, FOR_ADULT, FOR_CHILD FROM DRUG";
         using SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read())
             drugs.Add(new Drug {
-                            Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Visible = reader.GetInt32(2) == 1
-                        });
+                          Id = reader.GetInt32(0),
+                          Name = reader.GetString(1),
+                          Visible = reader.GetInt32(2) == 1,
+                          ForAdult = reader.GetInt32(3) == 1,
+                          ForChild = reader.GetInt32(4) == 1
+                      });
         return drugs;
     }
 }

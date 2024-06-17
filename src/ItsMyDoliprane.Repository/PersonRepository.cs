@@ -12,12 +12,13 @@ public class PersonRepository : AbstractRepository
         using SqliteConnection connection = CreateConnectionAndOpen();
         using SqliteCommand command = connection.CreateCommand();
         List<Person> persons = new List<Person>();
-        command.CommandText = "SELECT PKEY, NAME FROM PERSON";
+        command.CommandText = "SELECT PKEY, NAME, ADULT FROM PERSON ORDER BY PKEY";
         using SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read())
             persons.Add(new Person {
                             Id = reader.GetInt32(0),
-                            Name = reader.GetString(1)
+                            Name = reader.GetString(1),
+                            IsAdult = reader.GetInt32(2) == 1
                         });
         return persons;
     }
