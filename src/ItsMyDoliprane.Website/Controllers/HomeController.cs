@@ -34,13 +34,14 @@ public class HomeController : Controller
             Medication6 = GetMedication(medications, 6),
             ProgressBarDoliprane = GetProgressBarDoliprane(states),
             ProgressBarHumex = GetProgressBarHumex(states),
+            ProgressBarAntibiotique = GetProgressBarAntibiotique(states),
             Medications = GetMedications(medications)
         };
         return View(model);
     }
 
     private Dictionary<int, string> GetListDrugs(int personId) {
-        return _drugs.Where(drug => drug.Visible && IsDrugAllowForPerson(drug, personId) ).ToDictionary(p => p.Id, p => p.Name);
+        return _drugs.Where(drug => drug.Visible && IsDrugAllowForPerson(drug, personId)).ToDictionary(p => p.Id, p => p.Name);
     }
 
     private bool IsDrugAllowForPerson(DrugId drugId, int personId) {
@@ -119,16 +120,39 @@ public class HomeController : Controller
         };
     }
 
+    private static TimeProgressBar GetProgressBarAntibiotique(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Antibiotique);
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = state?.Dosage > 0,
+            Caption = "Antibiotique",
+            Tooltip = GetToolTipAntibiotique(state), //$"{state?.Dosage} prise{(state?.Dosage > 1 ? "s" : "")} d'antibiotique en 24h",
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6)
+        };
+    }
+
+    private static string GetToolTipAntibiotique(MedicationState? state) {
+        string tooltip = "";
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
+        if (state?.Dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} d'antibiotique en 24h";
+        return tooltip;
+    }
+
     private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {
         return medications.GroupBy(m => m.Date)
                           .Select(group => new MedicationViewModel {
-                              Date = DateTime.Parse(group.Key).ToString("dd/MM"),
-                              Details = group.Select(d => new MedicationDetailViewModel {
-                                                 Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
-                                                 Hour = d.Hour
-                                             })
-                                             .ToList()
-                          })
+                                      Date = DateTime.Parse(group.Key).ToString("dd/MM"),
+                                      Details = group.Select(d => new MedicationDetailViewModel {
+                                                         Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
+                                                         Hour = d.Hour
+                                                     })
+                                                     .ToList()
+                                  })
                           .ToList();
     }
 

@@ -6,18 +6,14 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationHumex : MedicationDrug
 {
-    private class RuleMedicationState
+    private class RuleMedicationStateHumex : RuleMedicationState
     {
-        public MedicationOpinion? Opinion { get; init; }
-        public DateTime? LastMedicationNo { get; init; }
-        public DateTime? NextMedicationPossible { get; init; }
-        public DateTime? NextMedicationYes { get; init; }
         public bool BanHumexJour { get; init; }
         public bool BanHumexNuit { get; init; }
     }
 
     public override MedicationState GetMedicationState(List<Medication> medications) {
-        List<RuleMedicationState> rules = new List<RuleMedicationState> {
+        List<RuleMedicationStateHumex> rules = new List<RuleMedicationStateHumex> {
             GetRule4Hours(medications),
             GetRule6HoursAfterHumexNuit(medications),
             GetRuleDosage(medications),
@@ -36,18 +32,14 @@ public class MedicationHumex : MedicationDrug
         };
     }
 
-    private static List<Medication> FilterMedication20(List<Medication> medications) {
-        return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-20)).ToList();
-    }
-
-    private static RuleMedicationState GetRule4Hours(List<Medication> medications) {
+    private static RuleMedicationStateHumex GetRule4Hours(List<Medication> medications) {
         Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         switch (durationSinceLastMedication) {
             case null:
-            case >= 4: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            case >= 4: return new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
             default:
-                return new RuleMedicationState {
+                return new RuleMedicationStateHumex {
                     Opinion = MedicationOpinion.No,
                     LastMedicationNo = last!.DateTime,
                     NextMedicationPossible = last.DateTime.AddHours(4),
@@ -56,16 +48,16 @@ public class MedicationHumex : MedicationDrug
         }
     }
 
-    private static RuleMedicationState GetRule6HoursAfterHumexNuit(List<Medication> medications) {
+    private static RuleMedicationStateHumex GetRule6HoursAfterHumexNuit(List<Medication> medications) {
         Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         if (last?.DrugId != (int)DrugId.HumexNuit)
             last = null;
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         switch (durationSinceLastMedication) {
             case null:
-            case >= 6: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            case >= 6: return new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
             default:
-                return new RuleMedicationState {
+                return new RuleMedicationStateHumex {
                     Opinion = MedicationOpinion.No,
                     LastMedicationNo = last!.DateTime,
                     NextMedicationPossible = last.DateTime.AddHours(6),
@@ -75,11 +67,11 @@ public class MedicationHumex : MedicationDrug
         }
     }
 
-    private static RuleMedicationState GetRuleDosage(List<Medication> medications) {
+    private static RuleMedicationStateHumex GetRuleDosage(List<Medication> medications) {
         MedicationOpinion opinion = GetDosageOpinion(medications);
         Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         if (opinion == MedicationOpinion.Yes)
-            return new RuleMedicationState { Opinion = opinion };
+            return new RuleMedicationStateHumex { Opinion = opinion };
         List<Medication> currentMedications = medications.ToList();
         DateTime currentDateTime;
         do {
@@ -88,7 +80,7 @@ public class MedicationHumex : MedicationDrug
             if (GetDosageOpinion(currentMedications) == MedicationOpinion.Yes)
                 break;
         } while (currentMedications.Count > 0);
-        return new RuleMedicationState {
+        return new RuleMedicationStateHumex {
             Opinion = opinion,
             LastMedicationNo = last!.DateTime,
             NextMedicationPossible = currentDateTime.AddDays(1),
@@ -96,42 +88,44 @@ public class MedicationHumex : MedicationDrug
         };
     }
 
-    private static RuleMedicationState GetRule1Nuit(List<Medication> medications) {
+    private static RuleMedicationStateHumex GetRule1Nuit(List<Medication> medications) {
         List<Medication> medications20 = FilterMedication20(medications);
         int count = medications20.Count(m => m.DrugId == (int)DrugId.HumexNuit);
-        return count >= 1 ? new RuleMedicationState { BanHumexNuit = true } : new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+        return count >= 1
+            ? new RuleMedicationStateHumex { BanHumexNuit = true }
+            : new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
     }
 
-    private static RuleMedicationState GetRule3Jour(List<Medication> medications) {
+    private static RuleMedicationStateHumex GetRule3Jour(List<Medication> medications) {
         List<Medication> medications20 = FilterMedication20(medications);
         int count = medications20.Count(m => m.DrugId == (int)DrugId.HumexJour);
         Medication? last = GetLastMedication(medications20, DrugCompositionId.Paracetamol);
         Medication? last3 = medications20.Where(m => m.DrugId == (int)DrugId.HumexJour).Skip(3).FirstOrDefault();
         if (count >= 3)
-            return new RuleMedicationState {
+            return new RuleMedicationStateHumex {
                 BanHumexJour = true,
                 BanHumexNuit = count > 3,
                 LastMedicationNo = count > 3 ? last?.DateTime : null,
                 NextMedicationPossible = last3?.DateTime.AddHours(20),
                 NextMedicationYes = last3?.DateTime.AddHours(20)
             };
-        return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+        return new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
     }
 
-    private static RuleMedicationState GetBanDrug(List<RuleMedicationState> rules, List<Medication> medications) {
+    private static RuleMedicationStateHumex GetBanDrug(List<RuleMedicationStateHumex> rules, List<Medication> medications) {
         bool banHumexJour = rules.Any(r => r.BanHumexJour);
         bool banHumexNuit = rules.Any(r => r.BanHumexNuit);
         List<Medication> medications20 = FilterMedication20(medications);
         Medication? last = GetLastMedication(medications20, DrugCompositionId.Paracetamol);
         Medication? first = medications20.LastOrDefault(m => m.DrugId is (int)DrugId.HumexJour or (int)DrugId.HumexNuit);
         return banHumexJour && banHumexNuit
-            ? new RuleMedicationState {
+            ? new RuleMedicationStateHumex {
                 Opinion = MedicationOpinion.No,
                 LastMedicationNo = last!.DateTime,
                 NextMedicationPossible = first!.DateTime.AddHours(20),
                 NextMedicationYes = first.DateTime.AddHours(20)
             }
-            : new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            : new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
     }
 
     private DrugId? ChoiceNextDrug(bool banHumexJour, bool banHumexNuit) {

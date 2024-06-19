@@ -6,5 +6,6 @@ public enum DrugId
     Humex = 2,
     CoDoliprane = 3,
     HumexJour = 4,
-    HumexNuit = 5
+    HumexNuit = 5,
+    Antibiotique = 6
 }

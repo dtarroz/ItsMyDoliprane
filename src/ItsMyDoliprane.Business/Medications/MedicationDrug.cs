@@ -20,6 +20,10 @@ public abstract class MedicationDrug
         return medications.FirstOrDefault(m => m.Dosages.Any(d => d.DrugCompositionId == (int)drugCompositionId));
     }
 
+    protected static Medication? GetLastMedication(IEnumerable<Medication> medications, DrugId drugId) {
+        return medications.FirstOrDefault(m => m.DrugId == (int)drugId);
+    }
+
     protected static DateTime? MaxDateTime(IEnumerable<DateTime?> datetimes) {
         List<DateTime> filteredDateTime = datetimes.Where(d => d != null).Select(d => d!.Value).ToList();
         return MaxDateTime(filteredDateTime);
@@ -40,5 +44,13 @@ public abstract class MedicationDrug
         if (opinions.Contains(MedicationOpinion.Warning))
             return MedicationOpinion.Warning;
         return opinions.Contains(MedicationOpinion.Possible) ? MedicationOpinion.Possible : MedicationOpinion.Yes;
+    }
+
+    protected static int GetNbDrug(IEnumerable<Medication> medications, DrugId drug) {
+        return medications.Count(d => d.DrugId == (int)drug);
+    }
+
+    protected static List<Medication> FilterMedication20(IEnumerable<Medication> medications) {
+        return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-20)).ToList();
     }
 }

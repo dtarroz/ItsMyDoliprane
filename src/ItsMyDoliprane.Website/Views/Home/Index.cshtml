@@ -74,6 +74,16 @@
                 data-opinion="@Model.ProgressBarHumex.Opinion">
             </time-progress-bar>
         }
+        @if (Model.ProgressBarAntibiotique.Visible) {
+            <time-progress-bar
+                data-caption="@Model.ProgressBarAntibiotique.Caption"
+                data-tooltip="@Model.ProgressBarAntibiotique.Tooltip"
+                data-current="@Model.ProgressBarAntibiotique.CurrentValue"
+                data-max="@Model.ProgressBarAntibiotique.MaxValue"
+                data-max-full-width="@Model.ProgressBarAntibiotique.MaxWidthValue"
+                data-opinion="@Model.ProgressBarAntibiotique.Opinion">
+            </time-progress-bar>
+        }
     </div>
     @if (Model.Medications.Count > 0) {
         @if (Model.DosageParacetamol > 0) {
