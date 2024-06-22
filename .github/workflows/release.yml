@@ -34,7 +34,8 @@ jobs:
       - name: Publish
         run: dotnet publish -c Release -r linux-x64 --self-contained -o publish
       - name: Zip
-        run: zip -j -r publish.zip publish/*
+        run: zip -r publish.zip *
+        working-directory: publish
       - name: Generate date string
         id: date
         run: echo "date=$(TZ='Europe/Paris' date +'%y%m%d%H%M')" >> $GITHUB_OUTPUT
