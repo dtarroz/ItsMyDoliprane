@@ -4,7 +4,7 @@ on:
 
 env:
   DOTNET_VERSION: "6.0"
-  PROJECT_NAME: "WebApplication1"
+  PROJECT_NAME: "ItsMyDoliprane.Website"
 
 jobs:
   publish_website_release:
