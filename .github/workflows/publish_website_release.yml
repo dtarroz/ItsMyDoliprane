@@ -1,0 +1,68 @@
+name: Publish Website Release (manual)
+on:
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: "6.0"
+  PROJECT_NAME: "WebApplication1"
+
+jobs:
+  publish_website_release:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: src
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore
+      - name: Npm Install
+        run: |
+          if [ -e package.json ]; then
+            npm install
+          fi
+        working-directory: src/${{ env.PROJECT_NAME }}
+      - name: Transpile and bundle Typescript
+        run: |
+          if [ -e package.json ]; then
+            npm run bundle
+          fi
+        working-directory: src/${{ env.PROJECT_NAME }}
+      - name: Publish
+        run: dotnet publish ${{ env.PROJECT_NAME }} -c Release -r linux-x64 --self-contained -o publish
+      - name: Zip
+        run: zip -r ../publish.zip *
+        working-directory: src/publish
+      - name: Generate date string
+        id: date
+        run: echo "date=$(TZ='Europe/Paris' date +'%y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
+      - name: Get previous tag
+        id: prev_tag
+        run: echo "tag=$(git describe --tags $(git rev-list --tags --max-count=1))" >> $GITHUB_OUTPUT
+      - name: Get previous commits
+        id: prev_commits
+        run: |
+          if [ -z "${{ steps.prev_tag.outputs.tag }}" ]; then
+            echo commits=$(git log --oneline | tr '\n' '\r\n') >> $GITHUB_OUTPUT
+          else
+            echo commits=$(git log ${{ steps.prev_tag.outputs.tag }}..HEAD --oneline | tr '\n' '\r\n') >> $GITHUB_OUTPUT
+          fi
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./src/publish.zip
+          asset_name: publish.zip
+          tag: v${{ steps.date.outputs.date }}
+          body: |
+            ## Commits
+            ${{ steps.prev_commits.outputs.commits }}
