@@ -7,5 +7,6 @@ public enum DrugId
     CoDoliprane = 3,
     HumexJour = 4,
     HumexNuit = 5,
-    Antibiotique = 6
+    Antibiotique = 6,
+    Diosmectite = 7
 }
