@@ -8,5 +8,6 @@ public enum DrugId
     HumexJour = 4,
     HumexNuit = 5,
     Antibiotique = 6,
-    Diosmectite = 7
+    Diosmectite = 7,
+    Ibuprofene = 8
 }
