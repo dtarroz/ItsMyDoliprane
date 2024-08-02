@@ -87,10 +87,12 @@ public class HomeController : Controller
 
     private static string GetToolTipParacetamol(MedicationState? medicationState) {
         string tooltip = "";
+        string? nextMedicationYes = medicationState?.NextMedicationYes?.ToString("HH:mm");
+        string? nextMedicationPossible = medicationState?.NextMedicationPossible?.ToString("HH:mm");
         if (medicationState?.NextMedicationYes != null)
-            tooltip = $"Prise conseillée à partir de {medicationState.NextMedicationYes.Value:HH:mm}";
-        if (medicationState?.NextMedicationPossible != null)
-            tooltip += $"<br/>mais possible à partir de {medicationState.NextMedicationPossible.Value:HH:mm}";
+            tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
+        if (medicationState?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
+            tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
         if (medicationState?.Dosage > 0)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
         return tooltip;
@@ -126,7 +128,7 @@ public class HomeController : Controller
         return new TimeProgressBar {
             Visible = state?.Dosage > 0,
             Caption = "Antibiotique",
-            Tooltip = GetToolTipAntibiotique(state), //$"{state?.Dosage} prise{(state?.Dosage > 1 ? "s" : "")} d'antibiotique en 24h",
+            Tooltip = GetToolTipAntibiotique(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
