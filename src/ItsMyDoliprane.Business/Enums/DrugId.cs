@@ -9,5 +9,6 @@ public enum DrugId
     HumexNuit = 5,
     Antibiotique = 6,
     Diosmectite = 7,
-    Ibuprofene = 8
+    Ibuprofene = 8,
+    Smecta = 9
 }
