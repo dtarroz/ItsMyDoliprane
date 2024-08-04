@@ -8,9 +8,7 @@ public class HomeViewModel
     public float DosageParacetamol { get; set; }    // TODO
     public MedicationTime Medication4 { get; set; } = null!; // TODO
     public MedicationTime Medication6 { get; set; } = null!;    // TODO
-    public TimeProgressBar ProgressBarDoliprane { get; set; } = null!;
-    public TimeProgressBar ProgressBarHumex { get; set; } = null!;
-    public TimeProgressBar ProgressBarAntibiotique { get; set; } = null!;
+    public List<TimeProgressBar> TimeProgressBars { get; set; } = null!;
     public List<MedicationViewModel> Medications { get; set; } = null!;
 }
 

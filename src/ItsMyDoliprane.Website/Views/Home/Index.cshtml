@@ -54,34 +54,14 @@
         </div>
     </div>
     <div class="progress-bar-container">
-        @if (Model.ProgressBarDoliprane.Visible) {
+        @foreach (TimeProgressBar timeProgressBar in Model.TimeProgressBars.Where(timeProgressBar => timeProgressBar.Visible)) {
             <time-progress-bar
-                data-caption="@Model.ProgressBarDoliprane.Caption"
-                data-tooltip="@Model.ProgressBarDoliprane.Tooltip"
-                data-current="@Model.ProgressBarDoliprane.CurrentValue"
-                data-max="@Model.ProgressBarDoliprane.MaxValue"
-                data-max-full-width="@Model.ProgressBarDoliprane.MaxWidthValue"
-                data-opinion="@Model.ProgressBarDoliprane.Opinion">
-            </time-progress-bar>
-        }
-        @if (Model.ProgressBarHumex.Visible) {
-            <time-progress-bar
-                data-caption="@Model.ProgressBarHumex.Caption"
-                data-tooltip="@Model.ProgressBarHumex.Tooltip"
-                data-current="@Model.ProgressBarHumex.CurrentValue"
-                data-max="@Model.ProgressBarHumex.MaxValue"
-                data-max-full-width="@Model.ProgressBarHumex.MaxWidthValue"
-                data-opinion="@Model.ProgressBarHumex.Opinion">
-            </time-progress-bar>
-        }
-        @if (Model.ProgressBarAntibiotique.Visible) {
-            <time-progress-bar
-                data-caption="@Model.ProgressBarAntibiotique.Caption"
-                data-tooltip="@Model.ProgressBarAntibiotique.Tooltip"
-                data-current="@Model.ProgressBarAntibiotique.CurrentValue"
-                data-max="@Model.ProgressBarAntibiotique.MaxValue"
-                data-max-full-width="@Model.ProgressBarAntibiotique.MaxWidthValue"
-                data-opinion="@Model.ProgressBarAntibiotique.Opinion">
+                data-caption="@timeProgressBar.Caption"
+                data-tooltip="@timeProgressBar.Tooltip"
+                data-current="@timeProgressBar.CurrentValue"
+                data-max="@timeProgressBar.MaxValue"
+                data-max-full-width="@timeProgressBar.MaxWidthValue"
+                data-opinion="@timeProgressBar.Opinion">
             </time-progress-bar>
         }
     </div>

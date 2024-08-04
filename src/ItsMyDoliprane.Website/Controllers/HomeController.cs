@@ -32,9 +32,7 @@ public class HomeController : Controller
             DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
             Medication4 = GetMedication(medications, 4),
             Medication6 = GetMedication(medications, 6),
-            ProgressBarDoliprane = GetProgressBarDoliprane(states),
-            ProgressBarHumex = GetProgressBarHumex(states),
-            ProgressBarAntibiotique = GetProgressBarAntibiotique(states),
+            TimeProgressBars = GetTimeProgressBars(states),
             Medications = GetMedications(medications)
         };
         return View(model);
@@ -69,6 +67,15 @@ public class HomeController : Controller
 
     private static DateTime GetDateTime(Medication medication) {
         return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
+    }
+
+    private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states) {
+        return new List<TimeProgressBar> {
+            GetProgressBarDoliprane(states),
+            GetProgressBarHumex(states),
+            GetProgressBarAntibiotique(states),
+            GetProgressBarSmecta(states)
+        };
     }
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
@@ -142,6 +149,29 @@ public class HomeController : Controller
             tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
         if (state?.Dosage > 0)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} d'antibiotique en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarSmecta(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Smecta);
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = state?.Dosage > 0 || state?.Opinion != MedicationOpinion.Yes,
+            Caption = "Smecta",
+            Tooltip = GetToolTipSmecta(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6)
+        };
+    }
+
+    private static string GetToolTipSmecta(MedicationState? state) {
+        string tooltip = "";
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
+        if (state?.Dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} de smecta en 24h";
         return tooltip;
     }
 
