@@ -50,6 +50,10 @@ public abstract class MedicationDrug
         return medications.Count(d => d.DrugId == (int)drug);
     }
 
+    protected static int GetNbDrugComposition(IEnumerable<Medication> medications, DrugCompositionId drugComposition) {
+        return medications.Count(m => m.Dosages.Any(d => d.DrugCompositionId == (int)drugComposition));
+    }
+
     protected static List<Medication> FilterMedication20(IEnumerable<Medication> medications) {
         return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-20)).ToList();
     }

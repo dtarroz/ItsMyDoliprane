@@ -9,5 +9,6 @@ public static class ServiceCollectionExtension
         serviceCollection.AddTransient<MedicationDoliprane>();
         serviceCollection.AddTransient<MedicationHumex>();
         serviceCollection.AddTransient<MedicationAntibiotique>();
+        serviceCollection.AddTransient<MedicationSmecta>();
     }
 }
