@@ -10,5 +10,6 @@ public static class ServiceCollectionExtension
         serviceCollection.AddTransient<MedicationHumex>();
         serviceCollection.AddTransient<MedicationAntibiotique>();
         serviceCollection.AddTransient<MedicationSmecta>();
+        serviceCollection.AddTransient<MedicationAllDrug>();
     }
 }

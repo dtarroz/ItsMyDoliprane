@@ -4,7 +4,7 @@ namespace ItsMyDoliprane.Business.Models;
 
 public class MedicationState
 {
-    public DrugId DrugId { get; init; }
+    public DrugId? DrugId { get; init; }
     public MedicationOpinion Opinion { get; init; }
     public DateTime? LastMedicationNo { get; init; }
     public DateTime? NextMedicationPossible { get; init; }

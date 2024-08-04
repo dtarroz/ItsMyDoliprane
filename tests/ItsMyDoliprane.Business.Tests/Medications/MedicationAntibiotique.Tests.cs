@@ -12,8 +12,8 @@ public class MedicationAntibiotique_Tests
 {
     [Fact]
     public void GetMedicationState_Empty() {
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique();
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(new List<Medication>());
+        MedicationAntibiotique medication = new MedicationAntibiotique();
+        MedicationState medicationState = medication.GetMedicationState(new List<Medication>());
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -39,8 +39,8 @@ public class MedicationAntibiotique_Tests
                 }
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique();
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications);
+        MedicationAntibiotique medication = new MedicationAntibiotique();
+        MedicationState medicationState = medication.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -62,8 +62,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique();
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications);
+        MedicationAntibiotique medication = new MedicationAntibiotique();
+        MedicationState medicationState = medication.GetMedicationState(medications);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);

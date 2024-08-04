@@ -37,7 +37,9 @@ public class HomeController : Controller
         return _drugs.Where(drug => drug.Visible && IsDrugAllowForPerson(drug, personId)).ToDictionary(p => p.Id, p => p.Name);
     }
 
-    private bool IsDrugAllowForPerson(DrugId drugId, int personId) {
+    private bool IsDrugAllowForPerson(DrugId? drugId, int personId) {
+        if (drugId == null)
+            return true;
         Drug drug = _drugs.Single(p => p.Id == (int)drugId);
         return IsDrugAllowForPerson(drug, personId);
     }
@@ -53,11 +55,34 @@ public class HomeController : Controller
 
     private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states) {
         return new List<TimeProgressBar> {
+            GetProgressBarAllDrug(states),
             GetProgressBarDoliprane(states),
             GetProgressBarHumex(states),
             GetProgressBarAntibiotique(states),
             GetProgressBarSmecta(states)
         };
+    }
+
+    private static TimeProgressBar GetProgressBarAllDrug(List<MedicationState> states) {
+        MedicationState? medicationState = states.Find(s => s.DrugId == null);
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = medicationState?.Opinion == MedicationOpinion.No,
+            Caption = "⚠️ Tous les médicaments",
+            Tooltip = GetToolTipAllDrug(medicationState),
+            Opinion = medicationState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(medicationState?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, medicationState?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, maxDateTime)), 6)
+        };
+    }
+
+    private static string GetToolTipAllDrug(MedicationState? medicationState) {
+        string tooltip = "";
+        string? nextMedicationYes = medicationState?.NextMedicationYes?.ToString("HH:mm");
+        if (medicationState?.NextMedicationYes != null)
+            tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
+        return tooltip;
     }
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
