@@ -11,13 +11,11 @@ namespace ItsMyDoliprane.Controllers;
 public class HomeController : Controller
 {
     private readonly UseMedications _useMedications;
-    private readonly UseDosages _useDosages;
     private readonly List<Drug> _drugs;
     private readonly List<Person> _persons;
 
-    public HomeController(UsePersons usePersons, UseDrugs useDrugs, UseMedications useMedications, UseDosages useDosages) {
+    public HomeController(UsePersons usePersons, UseDrugs useDrugs, UseMedications useMedications) {
         _useMedications = useMedications;
-        _useDosages = useDosages;
         _drugs = useDrugs.GetDrugs();
         _persons = usePersons.GetPersons();
     }
@@ -29,9 +27,6 @@ public class HomeController : Controller
             PersonId = personId,
             Persons = _persons.ToDictionary(p => p.Id, p => p.Name),
             Drugs = GetListDrugs(personId),
-            DosageParacetamol = _useDosages.GetDosageSinceDate(personId, 1, DateTime.Now.AddDays(-1)) / 1000f,
-            Medication4 = GetMedication(medications, 4),
-            Medication6 = GetMedication(medications, 6),
             TimeProgressBars = GetTimeProgressBars(states),
             Medications = GetMedications(medications)
         };
@@ -54,19 +49,6 @@ public class HomeController : Controller
             case false when drug.ForChild: return true;
             default: return false;
         }
-    }
-
-    private static MedicationTime GetMedication(IEnumerable<Medication> medications, int limitHour) {
-        Medication? last = medications.FirstOrDefault();
-        DateTime? lastDateTime = last != null ? GetDateTime(last) : null;
-        return new MedicationTime {
-            Ok = lastDateTime == null || (DateTime.Now - lastDateTime.Value).TotalHours > limitHour,
-            NextHour = lastDateTime?.AddHours(limitHour).ToString("HH:mm")
-        };
-    }
-
-    private static DateTime GetDateTime(Medication medication) {
-        return DateTime.Parse($"{medication.Date} {medication.Hour}:00");
     }
 
     private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states) {
@@ -176,12 +158,12 @@ public class HomeController : Controller
     }
 
     private List<MedicationViewModel> GetMedications(IEnumerable<Medication> medications) {
-        return medications.GroupBy(m => m.Date)
+        return medications.GroupBy(m => m.DateTime.Date)
                           .Select(group => new MedicationViewModel {
-                                      Date = DateTime.Parse(group.Key).ToString("dd/MM"),
+                                      Date = group.Key.ToString("dd/MM"),
                                       Details = group.Select(d => new MedicationDetailViewModel {
                                                          Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
-                                                         Hour = d.Hour
+                                                         Hour = d.DateTime.ToString("HH:mm")
                                                      })
                                                      .ToList()
                                   })

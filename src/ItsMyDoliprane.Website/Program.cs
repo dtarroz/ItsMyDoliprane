@@ -15,11 +15,9 @@ try {
     builder.Services.AddTransient<UsePersons>();
     builder.Services.AddTransient<UseDrugs>();
     builder.Services.AddTransient<UseMedications>();
-    builder.Services.AddTransient<UseDosages>();
     builder.Services.AddTransient<PersonRepository>();
     builder.Services.AddTransient<DrugRepository>();
     builder.Services.AddTransient<MedicationRepository>();
-    builder.Services.AddTransient<DosageRepository>();
 
     // NLog: Setup NLog for Dependency injection
     builder.Logging.ClearProviders();

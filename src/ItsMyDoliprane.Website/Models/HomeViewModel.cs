@@ -5,17 +5,8 @@ public class HomeViewModel
     public int PersonId { get; set; }
     public Dictionary<int, string> Persons { get; set; } = null!;
     public Dictionary<int, string> Drugs { get; set; } = null!;
-    public float DosageParacetamol { get; set; }    // TODO
-    public MedicationTime Medication4 { get; set; } = null!; // TODO
-    public MedicationTime Medication6 { get; set; } = null!;    // TODO
     public List<TimeProgressBar> TimeProgressBars { get; set; } = null!;
     public List<MedicationViewModel> Medications { get; set; } = null!;
-}
-
-public class MedicationTime // TODO
-{
-    public bool Ok { get; init; }
-    public string? NextHour { get; init; }
 }
 
 public class TimeProgressBar

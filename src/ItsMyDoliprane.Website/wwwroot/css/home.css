@@ -143,14 +143,6 @@ time-progress-bar {
     padding-bottom: 15px;
 }
 
-.dosage { /* TODO */
-    display: none;
-}
-
-.next-medication { /* TODO */
-    display: none;
-}
-
 .next-medication-since {
     margin-left: 5px;
 }

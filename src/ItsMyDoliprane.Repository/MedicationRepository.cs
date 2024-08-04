@@ -48,9 +48,7 @@ public class MedicationRepository : AbstractRepository
         using SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read())
             medications.Add(new Medication {
-                DrugId = reader.GetInt32(0), // TODO
-                Date = reader.GetString(1),  // TODO
-                Hour = reader.GetString(2),
+                DrugId = reader.GetInt32(0), 
                 DateTime = reader.GetDateTime(3)
             });
         return medications;
