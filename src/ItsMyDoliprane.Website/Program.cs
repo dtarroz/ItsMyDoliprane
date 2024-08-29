@@ -1,6 +1,7 @@
 using ItsMyDoliprane.Business;
 using ItsMyDoliprane.Business.Extensions;
 using ItsMyDoliprane.Repository;
+using Microsoft.Net.Http.Headers;
 using NLog;
 using NLog.Web;
 
@@ -36,7 +37,11 @@ try {
     }
 
     app.UseHttpsRedirection();
-    app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions {
+        OnPrepareResponse = ctx => {
+            ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000";
+        }
+    });
 
     app.UseRouting();
 
