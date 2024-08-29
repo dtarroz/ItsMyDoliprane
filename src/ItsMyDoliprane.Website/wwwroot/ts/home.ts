@@ -1,6 +1,6 @@
 import { ApiMedication, NewMedication } from "./api/_medication.js";
 import './components/time-progress-bar.js';
-import './components/button-test.js';
+//import './components/button-test.js';
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
@@ -12,8 +12,8 @@ const $hour = document.querySelector("#hour") as HTMLInputElement;
 const $button = document.querySelector("#add") as HTMLButtonElement;
 
 document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === 'visible')
-        refresh();
+   // if (document.visibilityState === 'visible')
+   //     refresh();
 });
 
 $persons.forEach(e => e.addEventListener("change", () => {
