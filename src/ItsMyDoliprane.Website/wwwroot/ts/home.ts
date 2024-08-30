@@ -1,6 +1,6 @@
 import { ApiMedication, NewMedication } from "./api/_medication.js";
 import './components/time-progress-bar.js';
-//import './components/button-test.js';
+import './components/button-test.js';
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
