@@ -37,11 +37,15 @@ try {
     }
 
     app.UseHttpsRedirection();
-    app.UseStaticFiles(new StaticFileOptions {
-        OnPrepareResponse = ctx => {
-            ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000";
-        }
-    });
+    if (app.Environment.IsDevelopment())
+        app.UseStaticFiles();
+    else
+        app.UseStaticFiles(new StaticFileOptions {
+            OnPrepareResponse = ctx => {
+                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000";
+            }
+        });
+        
 
     app.UseRouting();
 

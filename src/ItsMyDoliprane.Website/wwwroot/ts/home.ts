@@ -48,7 +48,7 @@ function refresh(personId?: number) {
     if (personId)
         document.location.href = `${document.location.origin}${document.location.pathname}?personId=${personId}`;
     else
-        document.location.reload();
+        document.location.href = document.location.href;
 }
 
 function getCurrentPersonId(){
