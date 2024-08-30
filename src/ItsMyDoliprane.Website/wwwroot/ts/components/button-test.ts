@@ -2,7 +2,7 @@ export class ButtonTest extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot!.innerHTML = `${this.styles()}<button>Testoros</button>`;
+        this.shadowRoot!.innerHTML = `${this.styles()}<button>Testoromos</button>`;
     }
     
     private styles(){
