@@ -3,9 +3,12 @@ export class ButtonTest extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.shadowRoot!.innerHTML = `${this.styles()}<button>Testoromos</button>`;
+        this.shadowRoot!.querySelector('button')!.addEventListener('click', () => {
+            document.location.reload();
+        });
     }
-    
-    private styles(){
+
+    private styles() {
         return `
         <style>
             button {
