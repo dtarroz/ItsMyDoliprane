@@ -2,9 +2,9 @@ export class ButtonTest extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.shadowRoot!.innerHTML = `${this.styles()}<button>Testeur ${Date.now()}</button>`;
+        this.shadowRoot!.innerHTML = `${this.styles()}<button>Testor ${Date.now()}</button>`;
         this.shadowRoot!.querySelector('button')!.addEventListener('click', () => {
-            document.location.href = document.location.href;
+            document.location = document.location;
         });
     }
 
