@@ -42,7 +42,7 @@ try {
     else
         app.UseStaticFiles(new StaticFileOptions {
             OnPrepareResponse = ctx => {
-                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000";
+                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000,immutable";
             }
         });
         
