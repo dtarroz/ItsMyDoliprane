@@ -3,11 +3,6 @@
     "wwwroot/ts/**/*.ts",
     "wwwroot/lib/**/*.d.ts"
   ],
-  "paths": {
-    "lib/*": [
-      "./wwwroot/lib/*"
-    ]
-  },
   "compilerOptions": {
     "types": [],
     "noEmitOnError": true,
