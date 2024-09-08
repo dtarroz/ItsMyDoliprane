@@ -1,7 +1,6 @@
 {
   "include": [
-    "wwwroot/ts/**/*.ts",
-    "wwwroot/lib/**/*.d.ts"
+    "wwwroot/ts/**/*.ts"
   ],
   "compilerOptions": {
     "types": [],
