@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using ItsMyDoliprane.Business;
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Models;
@@ -21,7 +21,7 @@ public class HomeController : Controller
     }
 
     public IActionResult Index(int personId = 1) {
-        List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddDays(-2));
+        List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddMonths(-1));
         var states = _useMedications.GetMedicationsStates(personId).Where(s => IsDrugAllowForPerson(s.DrugId, personId)).ToList();
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
