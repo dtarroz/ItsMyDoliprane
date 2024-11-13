@@ -1,7 +1,7 @@
 import { ApiMedication, type NewMedication } from './api/_medication.js';
 import './components/time-progress-bar.js';
 import { ImlButton } from '../lib/itsmylib.components/iml-button.js';
-import '../lib/itsmylib.components/iml-icon-pen.js';
+import '../lib/itsmylib.components/iml-icon-pen-square.js';
 import '../lib/itsmylib.components/iml-icon-trash.js';
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
