@@ -107,6 +107,8 @@ input {
     font-size: 0.9rem;
     padding: 5px;
     font-family: Arial, sans-serif;
+    background-color: white;
+    color: black;
 }
 
 .medication a {
