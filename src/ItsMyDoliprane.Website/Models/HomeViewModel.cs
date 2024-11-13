@@ -28,6 +28,7 @@ public class MedicationViewModel
 
 public class MedicationDetailViewModel
 {
+    public int Id { get; init; }
     public string Hour { get; init; } = null!;
     public string Drug { get; init; } = null!;
 }

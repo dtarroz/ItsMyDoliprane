@@ -2,6 +2,7 @@ namespace ItsMyDoliprane.Repository.Models;
 
 public class Medication
 {
+    public int Id { get; init; }
     public int DrugId { get; init; }
     public DateTime DateTime { get; set; }
     public List<MedicationDosage> Dosages { get; set; } = null!;

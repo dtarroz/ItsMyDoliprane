@@ -187,9 +187,11 @@ public class HomeController : Controller
                           .Select(group => new MedicationViewModel {
                                       Date = group.Key.ToString("dd/MM"),
                                       Details = group.Select(d => new MedicationDetailViewModel {
-                                                         Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name ?? "",
-                                                         Hour = d.DateTime.ToString("HH:mm")
-                                                     })
+                                                                 Id = d.Id,
+                                                                 Drug = _drugs.Find(dr => dr.Id == d.DrugId)?.Name
+                                                                        ?? "",
+                                                                 Hour = d.DateTime.ToString("HH:mm")
+                                                             })
                                                      .ToList()
                                   })
                           .ToList();

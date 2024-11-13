@@ -1,6 +1,8 @@
 import { ApiMedication, type NewMedication } from './api/_medication.js';
 import './components/time-progress-bar.js';
 import { ImlButton } from '../lib/itsmylib.components/iml-button.js';
+import '../lib/itsmylib.components/iml-icon-pen.js';
+import '../lib/itsmylib.components/iml-icon-trash.js';
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
@@ -10,6 +12,8 @@ const $customDate = document.querySelector('#custom-date') as HTMLDivElement;
 const $date = document.querySelector('#date') as HTMLInputElement;
 const $hour = document.querySelector('#hour') as HTMLInputElement;
 const $button = document.querySelector('#add') as ImlButton;
+const $editMedication = document.querySelector('[data-medication-edit]') as HTMLElement | null;
+const $deleteMedications = document.querySelectorAll<HTMLElement>('[data-medication-delete]');
 
 document.addEventListener('visibilitychange', function () {
     if (document.visibilityState === 'visible')
@@ -41,6 +45,22 @@ $button.addEventListener('iml-button:click', () => {
         alert(error);
     });
 });
+
+$editMedication?.addEventListener('click', () => {
+    $deleteMedications.forEach(m => m.classList.toggle('icon-active'));
+});
+
+$deleteMedications.forEach(m => m.addEventListener('click', () => {
+    if (confirm('Voulez-vous supprimer cette medication ?')) {
+        const medicationId = parseInt(m.dataset['medicationId'] ?? '', 10);
+        ApiMedication.delete(medicationId).then(() => {
+            refresh();
+        })
+        .catch((error: string) => {
+            alert(error);
+        });
+    }
+}));
 
 // ---------------------------------------------------------
 

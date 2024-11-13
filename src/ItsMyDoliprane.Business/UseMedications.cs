@@ -47,4 +47,8 @@ public class UseMedications
             _medicationSmecta.GetMedicationState(medications)
         };
     }
+
+    public void Delete(int medicationId) {
+        _medicationRepository.Delete(medicationId);
+    }
 }

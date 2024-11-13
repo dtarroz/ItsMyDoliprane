@@ -66,7 +66,10 @@
     </div>
     @if (Model.Medications.Count > 0) {
         <div class="history">
-            <span>Historique des 30 derniers jours</span>
+            <span class="history-title">
+                <span>Historique des 30 derniers jours</span>
+                <iml-icon-pen class="icon-active icon-edit" data-medication-edit></iml-icon-pen>
+            </span>
             @foreach (MedicationViewModel medication in Model.Medications) {
                 <div class="history-date">
                     <span>@medication.Date</span>
@@ -74,6 +77,7 @@
                         <div class="history-detail">
                             <span>@detail.Hour</span>
                             <span>@detail.Drug</span>
+                            <iml-icon-trash class="icon-delete" data-medication-id="@detail.Id" data-medication-delete></iml-icon-trash>
                         </div>
                     }
                 </div>

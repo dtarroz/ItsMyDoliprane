@@ -4,11 +4,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-import { ImlHTMLElement } from './lib/iml-htmlelement.js';
+import { ImlHTMLElement } from './lib/iml-html-element.js';
 import { customElement, property } from './lib/decorators.js';
 let ImlButton = class ImlButton extends ImlHTMLElement {
     constructor() {
         super(...arguments);
+        Object.defineProperty(this, "$button", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: null
+        });
         /** Le mode de rendu du bouton */
         Object.defineProperty(this, "mode", {
             enumerable: true,
@@ -23,31 +29,30 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
             writable: true,
             value: void 0
         });
-        /** Le bouton est inactif si la valeur est égal à true */
-        Object.defineProperty(this, "disabled", {
+        /** L'état du rendu du bouton */
+        Object.defineProperty(this, "status", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: false
+            value: 'active'
         });
     }
-    html() {
-        return `<button class="${this.componentClass()}"><slot></slot></button>`;
+    /** Déclenche l'événement click sur le bouton */
+    click() {
+        this.$button?.click();
     }
-    componentClass() {
-        let classMap = [this.mode];
-        if (this.disabled)
-            classMap.push('disabled');
-        return classMap.join(' ');
+    html() {
+        return `<button class="${this.mode} ${this.status}"><slot></slot></button>`;
     }
     renderUpdated() {
-        this.queryShadowSelector('button, a')?.addEventListener('click', (event) => {
-            if (this.disabled)
-                return;
-            if (!this.dispatchCustomEvent('iml-button:click', { cancelable: true }))
-                event.preventDefault();
-            else if (this.redirectToUrl)
-                document.location = this.redirectToUrl;
+        this.$button = this.queryShadowSelector('button');
+        this.$button.addEventListener('click', (event) => {
+            if (this.status == 'active') {
+                if (!this.dispatchCustomEvent('iml-button:click', { cancelable: true }))
+                    event.preventDefault();
+                else if (this.redirectToUrl)
+                    document.location = this.redirectToUrl;
+            }
         });
     }
     css() {
@@ -55,7 +60,6 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
         <!--suppress CssUnresolvedCustomProperty -->
         <style>
             :host {
-                --font-size: var(--iml-button-font-size, 0.91rem);
                 width: 150px;
             }
             
@@ -66,8 +70,7 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
                 width: 100%;
                 font-family: Arial, sans-serif;
                 font-weight: bold;
-                font-size: var(--font-size);
-                cursor: pointer;
+                font-size: var(--iml-button-font-size, 0.91rem);
             }
             
             .primary {
@@ -75,7 +78,7 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
                 background-color: hsl(60, 94%, 42%);
             }
             
-            .primary:not(.disabled):hover {
+            .primary.active:hover {
                 background-color: hsl(60, 94%, 47%);
             }
             
@@ -85,8 +88,12 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
                 border: 1px solid  #c6c6c6;
             }
             
-            .secondary:not(.disabled):hover {
+            .secondary.active:hover {
                 border: 1px solid hsl(60, 94%, 47%);
+            }
+            
+            .active:hover {
+                cursor: pointer;
             }
             
             .disabled {
@@ -97,14 +104,14 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
     }
 };
 __decorate([
-    property()
+    property({ render: true })
 ], ImlButton.prototype, "mode", void 0);
 __decorate([
     property()
 ], ImlButton.prototype, "redirectToUrl", void 0);
 __decorate([
-    property()
-], ImlButton.prototype, "disabled", void 0);
+    property({ render: true })
+], ImlButton.prototype, "status", void 0);
 ImlButton = __decorate([
     customElement('iml-button')
 ], ImlButton);

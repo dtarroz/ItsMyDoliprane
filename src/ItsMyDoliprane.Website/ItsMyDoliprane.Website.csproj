@@ -17,4 +17,10 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="5.3.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ItsMyLib.Components.TagHelpers">
+      <HintPath>..\References\ItsMyLib.Components.TagHelpers.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

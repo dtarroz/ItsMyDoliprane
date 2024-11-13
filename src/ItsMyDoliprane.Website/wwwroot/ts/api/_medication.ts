@@ -12,4 +12,9 @@ export class ApiMedication {
         return httpToJson<null>("POST", "api/medication", newMedication).then(() => {
         });
     }
+
+    static delete(medicationId: number): Promise<void> {
+        return httpToJson<null>("DELETE", "api/medication", medicationId).then(() => {
+        });
+    }
 }

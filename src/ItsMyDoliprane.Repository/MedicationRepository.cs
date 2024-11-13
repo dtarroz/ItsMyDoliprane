@@ -35,7 +35,7 @@ public class MedicationRepository : AbstractRepository
 
     private static List<Medication> GetHeaderMedicationsSinceDate(int personId, DateTime date, SqliteCommand command) {
         List<Medication> medications = new List<Medication>();
-        command.CommandText = @"SELECT DRUG_PKEY, strftime('%Y-%m-%d', DATETIME(DATE, 'unixepoch')),
+        command.CommandText = @"SELECT PKEY, DRUG_PKEY, strftime('%Y-%m-%d', DATETIME(DATE, 'unixepoch')),
                                     strftime('%H:%M', DATETIME(DATE, 'unixepoch')),
                                     DATETIME(DATE, 'unixepoch') 
                                 FROM MEDICATION 
@@ -48,8 +48,9 @@ public class MedicationRepository : AbstractRepository
         using SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read())
             medications.Add(new Medication {
-                DrugId = reader.GetInt32(0), 
-                DateTime = reader.GetDateTime(3)
+                Id = reader.GetInt32(0),
+                DrugId = reader.GetInt32(1), 
+                DateTime = reader.GetDateTime(4)
             });
         return medications;
     }
@@ -62,6 +63,14 @@ public class MedicationRepository : AbstractRepository
         command.Parameters.AddWithValue("$personId", newMedication.PersonId);
         command.Parameters.AddWithValue("$drugId", newMedication.DrugId);
         command.Parameters.AddWithValue("$date", $"{newMedication.Date} {newMedication.Hour}:00");
+        command.ExecuteNonQuery();
+    }
+
+    public void Delete(int medicationId) {
+        using SqliteConnection connection = CreateConnectionAndOpenWithForeignKeys();
+        using SqliteCommand command = connection.CreateCommand();
+        command.CommandText = "DELETE FROM MEDICATION WHERE PKEY = $medicationId";
+        command.Parameters.AddWithValue("$medicationId", medicationId);
         command.ExecuteNonQuery();
     }
 }

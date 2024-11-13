@@ -19,4 +19,11 @@ public class ApiMedicationController : ApiController
             _useMedications.Add(newMedication);
         });
     }
+
+    [HttpDelete]
+    public IActionResult Delete([FromBody] int medicationId) {
+        return Execute(() => {
+            _useMedications.Delete(medicationId);
+        });
+    }
 }
