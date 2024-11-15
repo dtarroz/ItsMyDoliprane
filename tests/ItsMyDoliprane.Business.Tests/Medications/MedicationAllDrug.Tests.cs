@@ -101,7 +101,7 @@ public class MedicationAllDrug_Tests
         Assert.NotNull(medicationState);
         Assert.Null(medicationState.DrugId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
-        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Equal(dateTime3, medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);

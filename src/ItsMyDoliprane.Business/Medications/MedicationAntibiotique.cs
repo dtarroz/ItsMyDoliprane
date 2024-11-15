@@ -6,10 +6,17 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationAntibiotique : MedicationDrug
 {
+    private readonly MedicationAllDrug _medicationAllDrug;
+
+    public MedicationAntibiotique(MedicationAllDrug medicationAllDrug) {
+        _medicationAllDrug = medicationAllDrug;
+    }
+
     public override MedicationState GetMedicationState(List<Medication> medications) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> {
             GetRule4Hours(medications),
-            GetRule3Drug(medications)
+            GetRule3Drug(medications),
+            GetRuleAllDrug(medications)
         };
         return new MedicationState {
             DrugId = DrugId.Antibiotique,
@@ -48,6 +55,16 @@ public class MedicationAntibiotique : MedicationDrug
             LastMedicationNo = count >= 3 ? last?.DateTime : null,
             NextMedicationPossible = last3?.DateTime.AddHours(20),
             NextMedicationYes = last3?.DateTime.AddHours(20)
+        };
+    }
+
+    private RuleMedicationState GetRuleAllDrug(List<Medication> medications) {
+        MedicationState state = _medicationAllDrug.GetMedicationState(medications);
+        return new RuleMedicationState {
+            Opinion = state.Opinion,
+            LastMedicationNo = state.LastMedicationNo,
+            NextMedicationPossible = state.NextMedicationPossible,
+            NextMedicationYes = state.NextMedicationYes
         };
     }
 

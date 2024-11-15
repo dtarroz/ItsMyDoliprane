@@ -6,6 +6,12 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationDoliprane : MedicationDrug
 {
+    private readonly MedicationAllDrug _medicationAllDrug;
+
+    public MedicationDoliprane(MedicationAllDrug medicationAllDrug) {
+        _medicationAllDrug = medicationAllDrug;
+    }
+
     public override MedicationState GetMedicationState(List<Medication> medications) {
         Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
@@ -47,6 +53,14 @@ public class MedicationDoliprane : MedicationDrug
                 }
             }
         }
+        MedicationState medicationStateAllDrug = _medicationAllDrug.GetMedicationState(medications);
+        opinions.Add(medicationStateAllDrug.Opinion);
+        if (medicationStateAllDrug.LastMedicationNo != null)
+            lastMedicationsNo.Add(medicationStateAllDrug.LastMedicationNo.Value);
+        if (medicationStateAllDrug.NextMedicationPossible != null)
+            nextMedicationsPossible.Add(medicationStateAllDrug.NextMedicationPossible.Value);
+        if (medicationStateAllDrug.NextMedicationYes != null)
+            nextMedicationsYes.Add(medicationStateAllDrug.NextMedicationYes.Value);
         return new MedicationState {
             DrugId = DrugId.Doliprane,
             Opinion = ChoiceMedicationOpinion(opinions),

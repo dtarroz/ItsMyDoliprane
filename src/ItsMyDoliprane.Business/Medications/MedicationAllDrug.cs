@@ -7,9 +7,7 @@ namespace ItsMyDoliprane.Business.Medications;
 public class MedicationAllDrug : MedicationDrug
 {
     public override MedicationState GetMedicationState(List<Medication> medications) {
-        List<RuleMedicationState> rules = new List<RuleMedicationState> {
-            GetRule2Hours(medications)
-        };
+        List<RuleMedicationState> rules = new List<RuleMedicationState> { GetRule2Hours(medications) };
         return new MedicationState {
             DrugId = null,
             Opinion = ChoiceMedicationOpinion(rules.Select(r => r.Opinion).ToList()),
@@ -26,7 +24,11 @@ public class MedicationAllDrug : MedicationDrug
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         switch (durationSinceLastMedication) {
             case null:
-            case >= 2: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            case >= 2:
+                return new RuleMedicationState {
+                    Opinion = MedicationOpinion.Yes,
+                    LastMedicationNo = last?.DateTime
+                };
             default:
                 return new RuleMedicationState {
                     Opinion = MedicationOpinion.No,
