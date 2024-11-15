@@ -7,7 +7,7 @@ import '../lib/itsmylib.components/iml-icon-trash.js';
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
 const $drug = document.querySelector('#drug') as HTMLSelectElement;
-const $customDateLink = document.querySelector('#custom-date-link') as HTMLAnchorElement;
+const $customDateLink = document.querySelector('#custom-date-link') as HTMLSpanElement;
 const $customDate = document.querySelector('#custom-date') as HTMLDivElement;
 const $date = document.querySelector('#date') as HTMLInputElement;
 const $hour = document.querySelector('#hour') as HTMLInputElement;

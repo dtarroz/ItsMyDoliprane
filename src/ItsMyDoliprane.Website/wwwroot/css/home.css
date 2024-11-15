@@ -111,10 +111,12 @@ input {
     color: black;
 }
 
-.medication a {
+.datetime-title {
     color: var(--link-color-default);
     font-size: 0.9rem;
     padding-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .datetime {
