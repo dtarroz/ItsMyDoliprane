@@ -129,6 +129,16 @@ input {
     padding-top: 5px;
 }
 
+.datetime-date {
+    width: 125px;
+    box-sizing: border-box;
+}
+
+.datetime-hour {
+    width: 61px;
+    box-sizing: border-box;
+}
+
 .progress-bar-container {
     width: 200px;
 }
