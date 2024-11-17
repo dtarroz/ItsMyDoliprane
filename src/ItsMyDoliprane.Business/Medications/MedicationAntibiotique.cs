@@ -12,11 +12,11 @@ public class MedicationAntibiotique : MedicationDrug
         _medicationAllDrug = medicationAllDrug;
     }
 
-    public override MedicationState GetMedicationState(List<Medication> medications) {
+    public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> {
             GetRule4Hours(medications),
             GetRule3Drug(medications),
-            GetRuleAllDrug(medications)
+            GetRuleAllDrug(medications, isAdult)
         };
         return new MedicationState {
             DrugId = DrugId.Antibiotique,
@@ -58,8 +58,8 @@ public class MedicationAntibiotique : MedicationDrug
         };
     }
 
-    private RuleMedicationState GetRuleAllDrug(List<Medication> medications) {
-        MedicationState state = _medicationAllDrug.GetMedicationState(medications);
+    private RuleMedicationState GetRuleAllDrug(List<Medication> medications, bool isAdult) {
+        MedicationState state = _medicationAllDrug.GetMedicationState(medications, isAdult);
         return new RuleMedicationState {
             Opinion = state.Opinion,
             LastMedicationNo = state.LastMedicationNo,

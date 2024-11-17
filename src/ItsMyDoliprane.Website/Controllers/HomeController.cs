@@ -22,7 +22,9 @@ public class HomeController : Controller
 
     public IActionResult Index(int personId = 1) {
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddMonths(-1));
-        var states = _useMedications.GetMedicationsStates(personId).Where(s => IsDrugAllowForPerson(s.DrugId, personId)).ToList();
+        var states = _useMedications.GetMedicationsStates(personId, PersonIsAdult(personId))
+                                    .Where(s => IsDrugAllowForPerson(s.DrugId, personId))
+                                    .ToList();
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
             Persons = _persons.ToDictionary(p => p.Id, p => p.Name),
@@ -45,12 +47,16 @@ public class HomeController : Controller
     }
 
     private bool IsDrugAllowForPerson(Drug drug, int personId) {
-        Person person = _persons.Single(p => p.Id == personId);
-        switch (person.IsAdult) {
+        switch (PersonIsAdult(personId)) {
             case true when drug.ForAdult:
             case false when drug.ForChild: return true;
             default: return false;
         }
+    }
+
+    private bool PersonIsAdult(int personId) {
+        Person person = _persons.Single(p => p.Id == personId);
+        return person.IsAdult;
     }
 
     private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states) {

@@ -6,7 +6,7 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationAllDrug : MedicationDrug
 {
-    public override MedicationState GetMedicationState(List<Medication> medications) {
+    public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> { GetRule2Hours(medications) };
         return new MedicationState {
             DrugId = null,

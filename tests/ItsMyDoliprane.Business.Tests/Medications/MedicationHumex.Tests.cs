@@ -13,7 +13,7 @@ public class MedicationHumex_Tests
     [Fact]
     public void GetMedicationState_Empty() {
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(new List<Medication>());
+        MedicationState medicationState = medicationHumex.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -41,7 +41,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -105,7 +105,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -169,7 +169,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -244,7 +244,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -319,7 +319,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -405,7 +405,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -491,7 +491,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -555,7 +555,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -619,7 +619,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -694,7 +694,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -769,7 +769,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -855,7 +855,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -941,7 +941,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1007,7 +1007,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1078,7 +1078,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1175,7 +1175,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1262,7 +1262,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1367,7 +1367,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1465,7 +1465,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1542,7 +1542,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1618,7 +1618,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1705,7 +1705,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1804,7 +1804,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1902,7 +1902,7 @@ public class MedicationHumex_Tests
                                 }
                             });
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -1963,7 +1963,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2024,7 +2024,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2107,7 +2107,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2179,7 +2179,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2273,7 +2273,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2356,7 +2356,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2384,7 +2384,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2412,7 +2412,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2440,7 +2440,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);
@@ -2468,7 +2468,7 @@ public class MedicationHumex_Tests
             }
         };
         MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug());
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications);
+        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Humex, medicationState.DrugId);

@@ -13,7 +13,7 @@ public class MedicationSmecta_Tests
     [Fact]
     public void GetMedicationState_Empty() {
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(new List<Medication>());
+        MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -40,7 +40,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -79,7 +79,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -118,7 +118,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -157,7 +157,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -196,7 +196,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -246,7 +246,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -296,7 +296,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -346,7 +346,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -396,7 +396,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -457,7 +457,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -518,7 +518,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -579,7 +579,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -640,7 +640,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -712,7 +712,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -784,7 +784,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -856,7 +856,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -928,7 +928,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1011,7 +1011,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1094,7 +1094,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1177,7 +1177,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1260,7 +1260,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1290,7 +1290,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1364,7 +1364,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);
@@ -1427,7 +1427,7 @@ public class MedicationSmecta_Tests
             }
         };
         MedicationSmecta medication = new MedicationSmecta();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Smecta, medicationState.DrugId);

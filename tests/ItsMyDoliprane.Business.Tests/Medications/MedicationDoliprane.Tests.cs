@@ -10,10 +10,12 @@ namespace ItsMyDoliprane.Business.Tests.Medications;
 
 public class MedicationDoliprane_Tests
 {
-    [Fact]
-    public void GetMedicationState_Empty() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Empty(bool isAdult) {
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(new List<Medication>());
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(new List<Medication>(), isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -24,8 +26,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(0, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_EmptyAndOtherDrugComposition() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_EmptyAndOtherDrugComposition(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         List<Medication> medications = new List<Medication> {
             new() {
@@ -40,7 +44,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -51,8 +55,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(0, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage2000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage2000(bool isAdult) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         List<Medication> medications = new List<Medication> {
@@ -78,19 +84,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime3, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime3.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(2000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_LessThan4Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_LessThan4Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(1);
@@ -127,19 +135,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_Between4And6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_Between4And6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(3);
@@ -176,19 +186,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
+        Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_LaterThan6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage2500_Last_LaterThan6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(7);
@@ -225,7 +237,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -236,8 +248,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_LessThan4Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_LessThan4Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(1);
@@ -274,19 +288,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_Between4And6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_Between4And6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(3);
@@ -323,19 +339,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
+        Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_LaterThan6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage3000_Last_LaterThan6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeLast = DateTime.Now.AddDays(1).AddHours(7);
@@ -372,7 +390,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -383,8 +401,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_LessThan4Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_LessThan4Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeBeforeLast = DateTime.Now.AddDays(-1).AddHours(1);
@@ -432,19 +452,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime2.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(4000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_Between4And6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_Between4And6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeBeforeLast = DateTime.Now.AddDays(-1).AddHours(3);
@@ -492,19 +514,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
-        Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationPossible);
+        Assert.Equal(isAdult ? dateTimeBeforeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(4000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_LaterThan6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Dosage4000_Last_LaterThan6Hours(bool isAdult) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTimeBeforeLast = DateTime.Now.AddDays(-1).AddHours(7);
@@ -552,7 +576,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -563,8 +587,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(4000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage2000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage2000(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         List<Medication> medications = new List<Medication> {
@@ -590,19 +616,24 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Possible, medicationState.Opinion);
+        Assert.Equal(isAdult ? MedicationOpinion.Possible : MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
-        Assert.Null(medicationState.NextMedicationPossible);
+        if (isAdult)
+            Assert.Null(medicationState.NextMedicationPossible);
+        else
+            Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(2000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage2500_Last_Between4And6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage2500_Last_Between4And6Hours(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddMinutes(30);
@@ -639,19 +670,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(isAdult ? MedicationOpinion.Warning : MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
-        Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
+        Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage2500_Last_LaterThan6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage2500_Last_LaterThan6Hours(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(4);
@@ -688,19 +721,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(isAdult ? MedicationOpinion.Warning : MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage3000_Last_Between4And6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage3000_Last_Between4And6Hours(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddMinutes(30);
@@ -737,19 +772,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(isAdult ? MedicationOpinion.Warning : MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
-        Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
+        Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage3000_Last_LaterThan6Hours() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage3000_Last_LaterThan6Hours(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(4);
@@ -786,19 +823,21 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(isAdult ? MedicationOpinion.Warning : MedicationOpinion.No, medicationState.Opinion);
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_Between4And6Hours_Dosage4000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Between4And6Hours_Dosage4000(bool isAdult) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -846,7 +885,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -857,8 +896,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(4000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LaterThan6Hours_Dosage2000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LaterThan6Hours_Dosage2000(bool isAdult) {
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
         DateTime dateTime12 = DateTime.Now.AddHours(-12);
         List<Medication> medications = new List<Medication> {
@@ -884,7 +925,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -895,8 +936,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(2000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LaterThan6Hours_Dosage2500() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LaterThan6Hours_Dosage2500(bool isAdult) {
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
         DateTime dateTime12 = DateTime.Now.AddHours(-12);
         DateTime dateTime14 = DateTime.Now.AddHours(-14);
@@ -933,7 +976,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -944,8 +987,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(2500, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LaterThan6Hours_Dosage3000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LaterThan6Hours_Dosage3000(bool isAdult) {
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
         DateTime dateTime12 = DateTime.Now.AddHours(-12);
         DateTime dateTime14 = DateTime.Now.AddHours(-14);
@@ -982,7 +1027,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
@@ -993,8 +1038,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(3000, medicationState.Dosage);
     }
 
-    [Fact]
-    public void GetMedicationState_LaterThan6Hours_Dosage4000() {
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LaterThan6Hours_Dosage4000(bool isAdult) {
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
         DateTime dateTime12 = DateTime.Now.AddHours(-12);
         DateTime dateTime14 = DateTime.Now.AddHours(-14);
@@ -1042,7 +1089,7 @@ public class MedicationDoliprane_Tests
             }
         };
         MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
-        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications);
+        MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);

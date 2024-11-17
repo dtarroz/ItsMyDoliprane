@@ -12,7 +12,7 @@ public class MedicationDoliprane : MedicationDrug
         _medicationAllDrug = medicationAllDrug;
     }
 
-    public override MedicationState GetMedicationState(List<Medication> medications) {
+    public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         Medication? last = GetLastMedication(medications, DrugCompositionId.Paracetamol);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         List<MedicationOpinion> opinions = new List<MedicationOpinion>();
@@ -26,13 +26,21 @@ public class MedicationDoliprane : MedicationDrug
             case < 4:
                 opinions.Add(MedicationOpinion.No);
                 lastMedicationsNo.Add(last!.DateTime);
-                nextMedicationsPossible.Add(last.DateTime.AddHours(4));
+                nextMedicationsPossible.Add(last.DateTime.AddHours(isAdult ? 4 : 6));
                 nextMedicationsYes.Add(last.DateTime.AddHours(6));
                 break;
             case < 6:
-                opinions.Add(MedicationOpinion.Possible);
-                lastMedicationsNo.Add(last!.DateTime);
-                nextMedicationsYes.Add(last.DateTime.AddHours(6));
+                if (isAdult) {
+                    opinions.Add(MedicationOpinion.Possible);
+                    lastMedicationsNo.Add(last!.DateTime);
+                    nextMedicationsYes.Add(last.DateTime.AddHours(6));
+                }
+                else {
+                    opinions.Add(MedicationOpinion.No);
+                    lastMedicationsNo.Add(last!.DateTime);
+                    nextMedicationsPossible.Add(last.DateTime.AddHours(6));
+                    nextMedicationsYes.Add(last.DateTime.AddHours(6));
+                }
                 break;
             default:
                 opinions.Add(MedicationOpinion.Yes);
@@ -53,7 +61,7 @@ public class MedicationDoliprane : MedicationDrug
                 }
             }
         }
-        MedicationState medicationStateAllDrug = _medicationAllDrug.GetMedicationState(medications);
+        MedicationState medicationStateAllDrug = _medicationAllDrug.GetMedicationState(medications, isAdult);
         opinions.Add(medicationStateAllDrug.Opinion);
         if (medicationStateAllDrug.LastMedicationNo != null)
             lastMedicationsNo.Add(medicationStateAllDrug.LastMedicationNo.Value);

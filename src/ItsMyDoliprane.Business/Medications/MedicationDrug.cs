@@ -6,7 +6,7 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public abstract class MedicationDrug
 {
-    public abstract MedicationState GetMedicationState(List<Medication> medications);
+    public abstract MedicationState GetMedicationState(List<Medication> medications, bool isAdult);
 
     protected static int GetDosage(IEnumerable<Medication> medications, DrugCompositionId drugCompositionId) {
         return medications.SelectMany(m => m.Dosages).Where(d => d.DrugCompositionId == (int)drugCompositionId).Sum(d => d.Quantity);

@@ -13,7 +13,7 @@ public class MedicationAllDrug_Tests
     [Fact]
     public void GetMedicationState_Empty() {
         MedicationAllDrug medication = new MedicationAllDrug();
-        MedicationState medicationState = medication.GetMedicationState(new List<Medication>());
+        MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
         Assert.Null(medicationState.DrugId);
@@ -40,7 +40,7 @@ public class MedicationAllDrug_Tests
             }
         };
         MedicationAllDrug medication = new MedicationAllDrug();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Null(medicationState.DrugId);
@@ -68,7 +68,7 @@ public class MedicationAllDrug_Tests
             }
         };
         MedicationAllDrug medication = new MedicationAllDrug();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Null(medicationState.DrugId);
@@ -96,7 +96,7 @@ public class MedicationAllDrug_Tests
             }
         };
         MedicationAllDrug medication = new MedicationAllDrug();
-        MedicationState medicationState = medication.GetMedicationState(medications);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Null(medicationState.DrugId);

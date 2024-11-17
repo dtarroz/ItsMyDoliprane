@@ -6,7 +6,7 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationSmecta : MedicationDrug
 {
-    public override MedicationState GetMedicationState(List<Medication> medications) {
+    public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> {
             GetRule4Hours(medications),
             GetRule2Hours(medications),

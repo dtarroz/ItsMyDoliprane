@@ -18,14 +18,14 @@ public class MedicationHumex : MedicationDrug
         _medicationAllDrug = medicationAllDrug;
     }
 
-    public override MedicationState GetMedicationState(List<Medication> medications) {
+    public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationStateHumex> rules = new List<RuleMedicationStateHumex> {
             GetRule4Hours(medications),
             GetRule6HoursAfterHumexNuit(medications),
             GetRuleDosage(medications),
             GetRule1Nuit(medications),
             GetRule3Jour(medications),
-            GetRuleAllDrug(medications)
+            GetRuleAllDrug(medications, isAdult)
         };
         rules.Add(GetBanDrug(rules, medications));
         return new MedicationState {
@@ -119,8 +119,8 @@ public class MedicationHumex : MedicationDrug
         return new RuleMedicationStateHumex { Opinion = MedicationOpinion.Yes };
     }
 
-    private RuleMedicationStateHumex GetRuleAllDrug(List<Medication> medications) {
-        MedicationState state = _medicationAllDrug.GetMedicationState(medications);
+    private RuleMedicationStateHumex GetRuleAllDrug(List<Medication> medications, bool isAdult) {
+        MedicationState state = _medicationAllDrug.GetMedicationState(medications, isAdult);
         return new RuleMedicationStateHumex {
             Opinion = state.Opinion,
             LastMedicationNo = state.LastMedicationNo,
