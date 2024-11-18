@@ -11,5 +11,6 @@ public static class ServiceCollectionExtension
         serviceCollection.AddTransient<MedicationAntibiotique>();
         serviceCollection.AddTransient<MedicationSmecta>();
         serviceCollection.AddTransient<MedicationAllDrug>();
+        serviceCollection.AddTransient<MedicationIbuprofene>();
     }
 }

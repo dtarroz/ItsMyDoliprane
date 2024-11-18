@@ -63,6 +63,7 @@ public class HomeController : Controller
         return new List<TimeProgressBar> {
             GetProgressBarAllDrug(states),
             GetProgressBarDoliprane(states),
+            GetProgressBarIbuprofene(states),
             GetProgressBarHumex(states),
             GetProgressBarAntibiotique(states),
             GetProgressBarSmecta(states)
@@ -115,6 +116,31 @@ public class HomeController : Controller
             tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
         if (medicationState?.Dosage > 0)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarIbuprofene(List<MedicationState> states) {
+        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
+        MedicationState? dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane);
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = ibuprofeneState?.Dosage > 0 || (dolipraneState?.Dosage > 0 && ibuprofeneState?.Opinion != MedicationOpinion.Yes),
+            Caption = "Ibuprofène",
+            Tooltip = GetToolTipIbuprofene(ibuprofeneState),
+            Opinion = ibuprofeneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(ibuprofeneState?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, ibuprofeneState?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, maxDateTime)), 6)
+        };
+    }
+
+    private static string GetToolTipIbuprofene(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {nextMedicationYes}";
+        if (state?.Dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} d'ibuprofène en 24h";
         return tooltip;
     }
 

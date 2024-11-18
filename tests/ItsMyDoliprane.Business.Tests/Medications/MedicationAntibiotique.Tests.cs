@@ -86,8 +86,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -115,8 +115,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -144,8 +144,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -179,8 +179,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -214,8 +214,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -255,8 +255,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -296,8 +296,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -322,8 +322,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -365,8 +365,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
@@ -402,8 +402,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medicationAntibiotique = new MedicationAntibiotique(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);

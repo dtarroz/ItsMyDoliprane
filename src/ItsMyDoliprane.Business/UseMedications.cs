@@ -13,16 +13,18 @@ public class UseMedications
     private readonly MedicationAntibiotique _medicationAntibiotique;
     private readonly MedicationSmecta _medicationSmecta;
     private readonly MedicationAllDrug _medicationAllDrug;
+    private readonly MedicationIbuprofene _medicationIbuprofene;
 
     public UseMedications(MedicationRepository medicationRepository, MedicationDoliprane medicationDoliprane,
                           MedicationHumex medicationHumex, MedicationAntibiotique medicationAntibiotique, MedicationSmecta medicationSmecta,
-                          MedicationAllDrug medicationAllDrug) {
+                          MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene) {
         _medicationRepository = medicationRepository;
         _medicationDoliprane = medicationDoliprane;
         _medicationHumex = medicationHumex;
         _medicationAntibiotique = medicationAntibiotique;
         _medicationSmecta = medicationSmecta;
         _medicationAllDrug = medicationAllDrug;
+        _medicationIbuprofene = medicationIbuprofene;
     }
 
     public List<Medication> GetMedicationsSinceDate(int personId, DateTime date) {
@@ -42,6 +44,7 @@ public class UseMedications
         return new List<MedicationState> {
             _medicationAllDrug.GetMedicationState(medications, isAdult),
             _medicationDoliprane.GetMedicationState(medications, isAdult),
+            _medicationIbuprofene.GetMedicationState(medications, isAdult),
             _medicationHumex.GetMedicationState(medications, isAdult),
             _medicationAntibiotique.GetMedicationState(medications, isAdult),
             _medicationSmecta.GetMedicationState(medications, isAdult)
