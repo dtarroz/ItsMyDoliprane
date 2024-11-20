@@ -1099,4 +1099,447 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
         Assert.Equal(4000, medicationState.Dosage);
     }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Smecta(bool isAdult) {
+        DateTime dateTime1 = DateTime.Now.AddHours(-1).AddMinutes(1);
+        DateTime dateTime3 = DateTime.Now.AddHours(-3);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Smecta,
+                DateTime = dateTime1,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Diosmectite,
+                        Quantity = 3000
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTime3,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTime1, medicationState.LastMedicationNo);
+        Assert.Equal(isAdult ? dateTime1.AddHours(2) : dateTime3.AddHours(6), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime3.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours__Doliprane_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-5);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours__Doliprane_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-7);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours__Doliprane_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-6).AddMinutes(1);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours__Doliprane_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-7);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-5);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours__Doliprane_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(-1);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-6).AddMinutes(1);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours__Doliprane_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-5);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-6);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Doliprane_LessThan4Hours(bool isAdult) {
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-3);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeDoli, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeDoli.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Doliprane_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-5);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(isAdult ? MedicationOpinion.Possible : MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeDoli, medicationState.LastMedicationNo);
+        if (isAdult)
+            Assert.Null(medicationState.NextMedicationPossible);
+        else
+            Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Doliprane_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-7);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 1000
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1000, medicationState.Dosage);
+    }
 }

@@ -2479,4 +2479,444 @@ public class MedicationHumex_Tests
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(500, medicationState.Dosage);
     }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_LessThan4Hours_Smecta(bool isAdult) {
+        DateTime dateTime1 = DateTime.Now.AddHours(-1).AddMinutes(1);
+        DateTime dateTime3 = DateTime.Now.AddHours(-3);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Smecta,
+                DateTime = dateTime1,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Diosmectite,
+                        Quantity = 3000
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTime3,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTime1, medicationState.LastMedicationNo);
+        Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours__Humex_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-5);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_LessThan3Hours__Humex_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-2);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-7);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours__Humex_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-6).AddMinutes(1);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_Between3And4Hours__Humex_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(30);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-7);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-5);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(0, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours__Humex_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-4).AddMinutes(-1);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-6).AddMinutes(1);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeHum.AddHours(6), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeHum.AddHours(6), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan4Hours__Humex_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-5);
+        DateTime dateTimeHum = DateTime.Now.AddHours(-6);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Humex_LessThan4Hours(bool isAdult) {
+        DateTime dateTimeHum = DateTime.Now.AddHours(-3);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeHum, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeHum.AddHours(4), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeHum.AddHours(4), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Humex_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeHum = DateTime.Now.AddHours(-5);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Ibuprofene_GreaterThan6Hours__Humex_GreaterThan6Hours(bool isAdult) {
+        DateTime dateTimeHum = DateTime.Now.AddHours(-7);
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Humex,
+                DateTime = dateTimeHum,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            },
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            }
+        };
+        MedicationHumex medication = new MedicationHumex(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Humex, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(500, medicationState.Dosage);
+    }
 }

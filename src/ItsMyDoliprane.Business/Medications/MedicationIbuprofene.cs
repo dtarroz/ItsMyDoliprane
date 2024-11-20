@@ -41,7 +41,10 @@ public class MedicationIbuprofene : MedicationDrug
             case >= 8: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
             case >= 6:
                 return new RuleMedicationState {
-                    Opinion = durationSinceLastMedicationParacetamol >= 3 ? MedicationOpinion.Warning : MedicationOpinion.No,
+                    Opinion =
+                        durationSinceLastMedicationParacetamol >= 3 && durationSinceLastMedicationParacetamol < durationSinceLastMedication
+                            ? MedicationOpinion.Warning
+                            : MedicationOpinion.No,
                     LastMedicationNo = last!.DateTime,
                     NextMedicationPossible = last.DateTime.AddHours(8),
                     NextMedicationYes = last.DateTime.AddHours(8)
@@ -98,18 +101,21 @@ public class MedicationIbuprofene : MedicationDrug
                 };
             }
             default: {
-                MedicationOpinion option = durationSinceLastMedicationIbuprofene switch {
-                    null => MedicationOpinion.Yes,
-                    >= 8 => MedicationOpinion.Yes,
-                    >= 6 => MedicationOpinion.Warning,
-                    _    => MedicationOpinion.No
-                };
-                return new RuleMedicationState {
-                    Opinion = option,
-                    LastMedicationNo = option != MedicationOpinion.Yes ? lastParacetamol!.DateTime : null,
-                    NextMedicationPossible = option != MedicationOpinion.Yes ? lastParacetamol!.DateTime.AddHours(4) : null,
-                    NextMedicationYes = option != MedicationOpinion.Yes ? lastParacetamol!.DateTime.AddHours(4) : null
-                };
+                if (durationSinceLastMedicationParacetamol < durationSinceLastMedicationIbuprofene) {
+                    MedicationOpinion option = durationSinceLastMedicationIbuprofene switch {
+                        null => MedicationOpinion.Yes,
+                        >= 8 => MedicationOpinion.Yes,
+                        >= 6 => MedicationOpinion.Warning,
+                        _    => MedicationOpinion.No
+                    };
+                    return new RuleMedicationState {
+                        Opinion = option,
+                        LastMedicationNo = option != MedicationOpinion.Yes ? lastParacetamol!.DateTime : null,
+                        NextMedicationPossible = option != MedicationOpinion.Yes ? lastIbuprofene?.DateTime.AddHours(8) : null,
+                        NextMedicationYes = option != MedicationOpinion.Yes ? lastIbuprofene?.DateTime.AddHours(8) : null
+                    };
+                }
+                return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
             }
         }
     }

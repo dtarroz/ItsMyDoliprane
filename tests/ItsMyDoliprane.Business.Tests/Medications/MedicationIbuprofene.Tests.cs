@@ -88,8 +88,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -360,8 +360,8 @@ public class MedicationIbuprofene_Tests
                 }
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -394,8 +394,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -428,8 +428,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -462,8 +462,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -490,8 +490,8 @@ public class MedicationIbuprofene_Tests
                 }
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -524,8 +524,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -558,8 +558,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -592,8 +592,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -620,8 +620,8 @@ public class MedicationIbuprofene_Tests
                 }
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -654,8 +654,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -688,8 +688,8 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
@@ -722,8 +722,116 @@ public class MedicationIbuprofene_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationIbuprofene medicationAntibiotique = new MedicationIbuprofene(new MedicationAllDrug());
-        MedicationState medicationState = medicationAntibiotique.GetMedicationState(medications, true);
+        MedicationIbuprofene  medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState =  medication.GetMedicationState(medications, true);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
+        Assert.Null(medicationState.LastMedicationNo);
+        Assert.Null(medicationState.NextMedicationPossible);
+        Assert.Null(medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1, medicationState.Dosage);
+    }
+    
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Doliprane_GreaterThan6Hours__Ibuprofene_LessThan6Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-5);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Doliprane_GreaterThan6Hours__Ibuprofene_LessThan8Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-7);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Equal(1, medicationState.Dosage);
+    }
+
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void GetMedicationState_Doliprane_GreaterThan6Hours__Ibuprofene_GreaterThan8Hours(bool isAdult) {
+        DateTime dateTimeIbu = DateTime.Now.AddHours(-9);
+        DateTime dateTimeDoli = DateTime.Now.AddHours(-20);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.Ibuprofene,
+                DateTime = dateTimeIbu,
+                Dosages = new List<MedicationDosage>()
+            },
+            new() {
+                DrugId = (int)DrugId.Doliprane,
+                DateTime = dateTimeDoli,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                        Quantity = 500
+                    }
+                }
+            }
+        };
+        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug());
+        MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);

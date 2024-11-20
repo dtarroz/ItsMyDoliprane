@@ -94,9 +94,10 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
         MedicationState? dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane);
+        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = dolipraneState?.Dosage > 0,
+            Visible = dolipraneState?.Dosage > 0 || (ibuprofeneState?.Dosage > 0 && dolipraneState?.Opinion != MedicationOpinion.Yes),
             Caption = "Doliprane",
             Tooltip = GetToolTipParacetamol(dolipraneState),
             Opinion = dolipraneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
@@ -152,9 +153,10 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarHumex(List<MedicationState> states) {
         MedicationState? humexState = states.Find(s => s.DrugId == DrugId.Humex);
+        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = humexState?.Dosage > 0,
+            Visible = humexState?.Dosage > 0 || (ibuprofeneState?.Dosage > 0 && humexState?.Opinion != MedicationOpinion.Yes),
             Caption = humexState?.NextDrug switch {
                 DrugId.HumexJour => "Humex jour",
                 DrugId.HumexNuit => "Humex nuit",

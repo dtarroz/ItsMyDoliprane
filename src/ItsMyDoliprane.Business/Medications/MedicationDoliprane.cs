@@ -69,6 +69,15 @@ public class MedicationDoliprane : MedicationDrug
             nextMedicationsPossible.Add(medicationStateAllDrug.NextMedicationPossible.Value);
         if (medicationStateAllDrug.NextMedicationYes != null)
             nextMedicationsYes.Add(medicationStateAllDrug.NextMedicationYes.Value);
+        RuleMedicationState ruleParacetamol = GetRuleIbuprofene(medications);
+        if (ruleParacetamol.Opinion != null)
+            opinions.Add(ruleParacetamol.Opinion.Value);
+        if (ruleParacetamol.LastMedicationNo != null)
+            lastMedicationsNo.Add(ruleParacetamol.LastMedicationNo.Value);
+        if (ruleParacetamol.NextMedicationPossible != null)
+            nextMedicationsPossible.Add(ruleParacetamol.NextMedicationPossible.Value);
+        if (ruleParacetamol.NextMedicationYes != null)
+            nextMedicationsYes.Add(ruleParacetamol.NextMedicationYes.Value);
         return new MedicationState {
             DrugId = DrugId.Doliprane,
             Opinion = ChoiceMedicationOpinion(opinions),
@@ -86,5 +95,52 @@ public class MedicationDoliprane : MedicationDrug
             <= 3000 => MedicationOpinion.Warning,
             _       => MedicationOpinion.No
         };
+    }
+
+    private static RuleMedicationState GetRuleIbuprofene(IEnumerable<Medication> medications) {
+        List<Medication> medications24 = medications.ToList();
+        Medication? lastIbuprofene = GetLastMedication(medications24, DrugId.Ibuprofene);
+        Medication? lastParacetamol = GetLastMedication(medications24, DrugCompositionId.Paracetamol);
+        float? durationSinceLastMedicationIbuprofene = GetDurationBetweenDateTime(lastIbuprofene?.DateTime, DateTime.Now);
+        float? durationSinceLastMedicationParacetamol = GetDurationBetweenDateTime(lastParacetamol?.DateTime, DateTime.Now);
+        switch (durationSinceLastMedicationIbuprofene) {
+            case null: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            case < 3:
+                return new RuleMedicationState {
+                    Opinion = MedicationOpinion.No,
+                    LastMedicationNo = lastIbuprofene!.DateTime,
+                    NextMedicationPossible = lastIbuprofene.DateTime.AddHours(4),
+                    NextMedicationYes = lastIbuprofene.DateTime.AddHours(4)
+                };
+            case >= 3 and < 4: {
+                MedicationOpinion option = durationSinceLastMedicationParacetamol switch {
+                    null => MedicationOpinion.Warning,
+                    >= 6 => MedicationOpinion.Warning,
+                    _    => MedicationOpinion.No
+                };
+                return new RuleMedicationState {
+                    Opinion = option,
+                    LastMedicationNo = lastIbuprofene!.DateTime,
+                    NextMedicationPossible = lastIbuprofene.DateTime.AddHours(4),
+                    NextMedicationYes = lastIbuprofene.DateTime.AddHours(4)
+                };
+            }
+            default: {
+                if (durationSinceLastMedicationIbuprofene < durationSinceLastMedicationParacetamol) {
+                    MedicationOpinion option = durationSinceLastMedicationParacetamol switch {
+                        null => MedicationOpinion.Yes,
+                        >= 6 => MedicationOpinion.Yes,
+                        _    => MedicationOpinion.No
+                    };
+                    return new RuleMedicationState {
+                        Opinion = option,
+                        LastMedicationNo = option != MedicationOpinion.Yes ? lastIbuprofene!.DateTime : null,
+                        NextMedicationPossible = option != MedicationOpinion.Yes ? lastParacetamol?.DateTime.AddHours(6) : null,
+                        NextMedicationYes = option != MedicationOpinion.Yes ? lastParacetamol?.DateTime.AddHours(6) : null
+                    };
+                }
+                return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            }
+        }
     }
 }
