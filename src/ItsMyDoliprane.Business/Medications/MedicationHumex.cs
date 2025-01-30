@@ -36,7 +36,8 @@ public class MedicationHumex : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = ChoiceNextDrug(rules.Any(r => r.BanHumexJour), rules.Any(r => r.BanHumexNuit)),
-            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol)
+            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol),
+            NumberMedication = GetNbDrug(medications)
         };
     }
 
@@ -209,5 +210,10 @@ public class MedicationHumex : MedicationDrug
             <= 3500 => MedicationOpinion.Warning,
             _       => MedicationOpinion.No
         };
+    }
+
+    private static int GetNbDrug(IEnumerable<Medication> medications) {
+        List<Medication> medications20 = FilterMedication20(medications);
+        return GetNbDrug(medications20, DrugId.HumexJour) + GetNbDrug(medications20, DrugId.HumexNuit);
     }
 }

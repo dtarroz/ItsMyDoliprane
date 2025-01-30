@@ -2,16 +2,27 @@ export class TimeProgressBar extends HTMLElement {
 
     constructor() {
         super();
-        this.innerHTML = `<div tabindex="0"><span class="time-title">${this.caption()}</span>${this.isProgressEnd() ? this.getEndHtml()
-            : this.getProgressBarHtml()}</div>`;
+        this.innerHTML = `<div tabindex="0"><span class="time-title">${this.caption()}</span>${this.isProgressEnd()
+            ? `${this.getEndHtml()}${this.getMedicationHtml()}`
+            : `${this.getMedicationHtml()}${this.getProgressBarHtml()}`}</div>`;
     }
 
     isProgressEnd() {
         return this.current() >= this.max();
     }
 
+    getMedicationHtml() {
+        let numberMedication = this.numberMedication();
+        let html = '<div class="time-medication">';
+        for (let i = 0; i < numberMedication; i++) {
+            html += '<svg><use xlink:href="#doliprane"></use></svg>';
+        }
+        html += '</div>';
+        return html;
+    }
+
     getEndHtml() {
-        let html = "✅";
+        let html = '<span class="time-title-end">✅</span>';
         if (this.tooltip())
             html += `<span class="tooltip">${this.tooltip()}</span>`;
         return html;
@@ -29,7 +40,7 @@ export class TimeProgressBar extends HTMLElement {
 
     getGraduationsHtml() {
         let max = this.max();
-        let graduations = "";
+        let graduations = '';
         for (let i = 0; i < max - 1; i++) {
             const left = (i + 1) * 100 / max;
             graduations += `<div class="graduation-bar" style="left:${left}%"></div>`;
@@ -53,24 +64,28 @@ export class TimeProgressBar extends HTMLElement {
     }
 
     caption() {
-        return this.dataset["caption"] ?? "";
+        return this.dataset['caption'] ?? '';
     }
 
     tooltip() {
-        return this.dataset["tooltip"] ?? "";
+        return this.dataset['tooltip'] ?? '';
     }
 
     max() {
-        return parseInt(this.dataset["max"] ?? "0", 10);
+        return parseInt(this.dataset['max'] ?? '0', 10);
     }
 
     maxFullWidth() {
-        return parseInt(this.dataset["maxFullWidth"] ?? "0", 10);
+        return parseInt(this.dataset['maxFullWidth'] ?? '0', 10);
     }
 
     current() {
-        return parseFloat(this.dataset["current"] ?? "0");
+        return parseFloat(this.dataset['current'] ?? '0');
+    }
+
+    numberMedication() {
+        return parseInt(this.dataset['numberMedication'] ?? '0', 10);
     }
 }
 
-customElements.define("time-progress-bar", TimeProgressBar);
+customElements.define('time-progress-bar', TimeProgressBar);

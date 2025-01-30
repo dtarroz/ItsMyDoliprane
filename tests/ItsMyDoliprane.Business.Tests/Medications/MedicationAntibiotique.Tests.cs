@@ -23,6 +23,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(0, medicationState.Dosage);
+        Assert.Equal(0, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -51,6 +52,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(0, medicationState.Dosage);
+        Assert.Equal(0, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -74,6 +76,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(1, medicationState.Dosage);
+        Assert.Equal(1, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -97,6 +100,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(1, medicationState.Dosage);
+        Assert.Equal(1, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -126,6 +130,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(2, medicationState.Dosage);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -155,6 +160,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(2, medicationState.Dosage);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -190,6 +196,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(3, medicationState.Dosage);
+        Assert.Equal(3, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -225,6 +232,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(3, medicationState.Dosage);
+        Assert.Equal(3, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -266,6 +274,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(4, medicationState.Dosage);
+        Assert.Equal(4, medicationState.NumberMedication);
     }
 
     [Fact]
@@ -307,6 +316,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(4, medicationState.Dosage);
+        Assert.Equal(4, medicationState.NumberMedication);
     }
 
 
@@ -333,6 +343,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(nb, medicationState.Dosage);
+        Assert.Equal(nb, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -376,6 +387,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(nb, medicationState.Dosage);
+        Assert.Equal(nb, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -421,5 +433,6 @@ public class MedicationAntibiotique_Tests
         }
         Assert.Null(medicationState.NextDrug);
         Assert.Equal(nb, medicationState.Dosage);
+        Assert.Equal(nb, medicationState.NumberMedication);
     }
 }

@@ -84,7 +84,8 @@ public class MedicationDoliprane : MedicationDrug
             LastMedicationNo = MaxDateTime(lastMedicationsNo),
             NextMedicationPossible = MaxDateTime(nextMedicationsPossible),
             NextMedicationYes = MaxDateTime(nextMedicationsYes),
-            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol)
+            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol),
+            NumberMedication = GetNbDrug(medications)
         };
     }
 
@@ -142,5 +143,9 @@ public class MedicationDoliprane : MedicationDrug
                 return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
             }
         }
+    }
+
+    private static int GetNbDrug(IEnumerable<Medication> medications) {
+        return GetNbDrug(medications, DrugId.Doliprane);
     }
 }

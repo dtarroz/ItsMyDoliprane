@@ -8,6 +8,21 @@ time-progress-bar .time-title {
     margin-right: 5px;
 }
 
+time-progress-bar .time-title-end {
+    margin-right: 5px;
+}
+
+time-progress-bar .time-medication {
+    display: inline;
+    position: absolute;
+}
+
+time-progress-bar .time-medication svg {
+    width: 18px;
+    height: 18px;
+    position: relative;
+}
+
 time-progress-bar .time-progress {
     --border-radius: 4px;
     background-color: var(--text-color-default);

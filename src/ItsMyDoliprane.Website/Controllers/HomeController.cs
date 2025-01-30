@@ -80,7 +80,8 @@ public class HomeController : Controller
             Opinion = medicationState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(medicationState?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, medicationState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = medicationState?.NumberMedication ?? 0
         };
     }
 
@@ -103,7 +104,8 @@ public class HomeController : Controller
             Opinion = dolipraneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(dolipraneState?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, dolipraneState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = dolipraneState?.NumberMedication ?? 0
         };
     }
 
@@ -131,7 +133,8 @@ public class HomeController : Controller
             Opinion = ibuprofeneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(ibuprofeneState?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, ibuprofeneState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = ibuprofeneState?.NumberMedication ?? 0
         };
     }
 
@@ -166,7 +169,8 @@ public class HomeController : Controller
             Opinion = humexState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(humexState?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, humexState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = humexState?.NumberMedication ?? 0
         };
     }
 
@@ -180,7 +184,8 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
         };
     }
 
@@ -203,7 +208,8 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6)
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
         };
     }
 

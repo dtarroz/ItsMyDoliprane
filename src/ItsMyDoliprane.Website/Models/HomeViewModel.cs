@@ -18,6 +18,7 @@ public class TimeProgressBar
     public double CurrentValue { get; set; }
     public int MaxValue { get; set; }
     public int MaxWidthValue { get; set; }
+    public int NumberMedication { get; set; }
 }
 
 public class MedicationViewModel

@@ -26,7 +26,8 @@ public class MedicationIbuprofene : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
-            Dosage = GetNbDrug(medications)
+            Dosage = GetNbDrug(medications),
+            NumberMedication = GetNbDrug(medications)
         };
     }
 
