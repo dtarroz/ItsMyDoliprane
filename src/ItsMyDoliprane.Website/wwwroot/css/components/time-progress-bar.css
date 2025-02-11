@@ -3,24 +3,26 @@ time-progress-bar {
     position: relative;
 }
 
+time-progress-bar .time-title-container {
+    display: flex;
+}
+
 time-progress-bar .time-title {
     font-family: Arial, sans-serif;
-    margin-right: 5px;
+    margin-right: 3px;
+    display: flex;
 }
 
 time-progress-bar .time-title-end {
-    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    padding-top: 1px;
 }
 
-time-progress-bar .time-medication {
-    display: inline;
-    position: absolute;
-}
-
-time-progress-bar .time-medication svg {
+time-progress-bar .time-title-medication {
     width: 18px;
     height: 18px;
-    position: relative;
 }
 
 time-progress-bar .time-progress {
