@@ -10,5 +10,6 @@ public enum DrugId
     Antibiotique = 6,
     Diosmectite = 7,
     Ibuprofene = 8,
-    Smecta = 9
+    Smecta = 9,
+    Probiotique = 10
 }
