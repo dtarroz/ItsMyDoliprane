@@ -3,5 +3,6 @@ namespace ItsMyDoliprane.Business.Enums;
 public enum DrugCompositionId
 {
     Paracetamol = 1,
-    Diosmectite = 2
+    Diosmectite = 2,
+    Tramadol = 3
 }

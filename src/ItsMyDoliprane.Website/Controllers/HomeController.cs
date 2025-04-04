@@ -66,6 +66,7 @@ public class HomeController : Controller
             GetProgressBarIbuprofene(states),
             GetProgressBarHumex(states),
             GetProgressBarAntibiotique(states),
+            GetProgressBarTopalgic(states),
             GetProgressBarSmecta(states)
         };
     }
@@ -219,6 +220,34 @@ public class HomeController : Controller
             tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
         if (state?.Dosage > 0)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} de smecta en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarTopalgic(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Topalgic);
+        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        return new TimeProgressBar {
+            Visible = state?.Dosage > 0 || (state != null && state.Opinion != MedicationOpinion.Yes),
+            Caption = "Topalgic",
+            Tooltip = GetToolTipTopalgic(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
+        };
+    }
+
+    private static string GetToolTipTopalgic(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        string? nextMedicationPossible = state?.NextMedicationPossible?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
+        if (state?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
+            tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
+        if (state?.Dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} de topalgic en 24h";
         return tooltip;
     }
 

@@ -14,10 +14,11 @@ public class UseMedications
     private readonly MedicationSmecta _medicationSmecta;
     private readonly MedicationAllDrug _medicationAllDrug;
     private readonly MedicationIbuprofene _medicationIbuprofene;
+    private readonly MedicationTopalgic _medicationTopalgic;
 
     public UseMedications(MedicationRepository medicationRepository, MedicationDoliprane medicationDoliprane,
                           MedicationHumex medicationHumex, MedicationAntibiotique medicationAntibiotique, MedicationSmecta medicationSmecta,
-                          MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene) {
+                          MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene, MedicationTopalgic medicationTopalgic) {
         _medicationRepository = medicationRepository;
         _medicationDoliprane = medicationDoliprane;
         _medicationHumex = medicationHumex;
@@ -25,6 +26,7 @@ public class UseMedications
         _medicationSmecta = medicationSmecta;
         _medicationAllDrug = medicationAllDrug;
         _medicationIbuprofene = medicationIbuprofene;
+        _medicationTopalgic = medicationTopalgic;
     }
 
     public List<Medication> GetMedicationsSinceDate(int personId, DateTime date) {
@@ -47,7 +49,8 @@ public class UseMedications
             _medicationIbuprofene.GetMedicationState(medications, isAdult),
             _medicationHumex.GetMedicationState(medications, isAdult),
             _medicationAntibiotique.GetMedicationState(medications, isAdult),
-            _medicationSmecta.GetMedicationState(medications, isAdult)
+            _medicationSmecta.GetMedicationState(medications, isAdult),
+            _medicationTopalgic.GetMedicationState(medications, isAdult)
         };
     }
 

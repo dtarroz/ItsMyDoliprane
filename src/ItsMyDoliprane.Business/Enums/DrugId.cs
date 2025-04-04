@@ -11,5 +11,6 @@ public enum DrugId
     Diosmectite = 7,
     Ibuprofene = 8,
     Smecta = 9,
-    Probiotique = 10
+    Probiotique = 10,
+    Topalgic = 11
 }
