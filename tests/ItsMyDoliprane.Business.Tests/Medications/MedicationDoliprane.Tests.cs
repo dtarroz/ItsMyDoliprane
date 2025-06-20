@@ -4,6 +4,8 @@ using ItsMyDoliprane.Business.Enums;
 using Xunit;
 using ItsMyDoliprane.Business.Medications;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Business.Tests.Mocks;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Tests.Medications;
@@ -14,7 +16,8 @@ public class MedicationDoliprane_Tests
     [InlineData(true)]
     [InlineData(false)]
     public void GetMedicationState_Empty(bool isAdult) {
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(new List<Medication>(), isAdult);
 
         Assert.NotNull(medicationState);
@@ -44,7 +47,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -85,7 +89,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -137,7 +142,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -189,7 +195,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -241,7 +248,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -293,7 +301,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -345,7 +354,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -397,7 +407,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -460,7 +471,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -523,7 +535,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -586,7 +599,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -627,7 +641,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -682,7 +697,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -734,7 +750,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -786,7 +803,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -838,7 +856,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -901,7 +920,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -942,7 +962,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -994,7 +1015,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1046,7 +1068,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1109,7 +1132,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medicationDoliprane = new MedicationDoliprane(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medicationDoliprane.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1150,7 +1174,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1176,7 +1201,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1213,7 +1239,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1250,7 +1277,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1276,7 +1304,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1313,7 +1342,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1350,7 +1380,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1376,7 +1407,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1413,7 +1445,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1450,7 +1483,8 @@ public class MedicationDoliprane_Tests
                 }
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1487,7 +1521,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1524,7 +1559,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -1564,7 +1600,8 @@ public class MedicationDoliprane_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationDoliprane medication = new MedicationDoliprane(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationDoliprane medication = new(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);

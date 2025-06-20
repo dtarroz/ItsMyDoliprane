@@ -1,15 +1,26 @@
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
 public abstract class MedicationDrug
 {
+    private readonly IDrugRepository _drugRepository;
+
+    protected MedicationDrug(IDrugRepository drugRepository) {
+        _drugRepository = drugRepository;
+    }
+
     public abstract MedicationState GetMedicationState(List<Medication> medications, bool isAdult);
 
     protected static int GetDosage(IEnumerable<Medication> medications, DrugCompositionId drugCompositionId) {
-        return medications.SelectMany(m => m.Dosages).Where(d => d.DrugCompositionId == (int)drugCompositionId).Sum(d => d.Quantity);
+        return GetDosage(medications, (int)drugCompositionId);
+    }
+
+    private static int GetDosage(IEnumerable<Medication> medications, int drugCompositionId) {
+        return medications.SelectMany(m => m.Dosages).Where(d => d.DrugCompositionId == drugCompositionId).Sum(d => d.Quantity);
     }
 
     protected static float? GetDurationBetweenDateTime(DateTime? start, DateTime? end) {
@@ -56,5 +67,14 @@ public abstract class MedicationDrug
 
     protected static List<Medication> FilterMedication20(IEnumerable<Medication> medications) {
         return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-20)).ToList();
+    }
+
+    protected static List<Medication> FilterMedication(IEnumerable<Medication> medications, int hour) {
+        return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-1 * hour)).ToList();
+    }
+
+    protected Dictionary<DrugCompositionId, int> GetDosages(List<Medication> medications, DrugId drug) {
+        List<MedicationDosage> dosages = _drugRepository.GetDosages((int)drug);
+        return dosages.Select(d => d.DrugCompositionId).ToDictionary(d => (DrugCompositionId)d, d => GetDosage(medications, d));
     }
 }

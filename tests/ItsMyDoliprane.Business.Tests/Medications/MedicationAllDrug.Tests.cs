@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Medications;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Business.Tests.Mocks;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 using Xunit;
 
@@ -12,7 +14,8 @@ public class MedicationAllDrug_Tests
 {
     [Fact]
     public void GetMedicationState_Empty() {
-        MedicationAllDrug medication = new MedicationAllDrug();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAllDrug medication = new MedicationAllDrug(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
@@ -40,7 +43,8 @@ public class MedicationAllDrug_Tests
                 }
             }
         };
-        MedicationAllDrug medication = new MedicationAllDrug();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAllDrug medication = new MedicationAllDrug(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -69,7 +73,8 @@ public class MedicationAllDrug_Tests
                 }
             }
         };
-        MedicationAllDrug medication = new MedicationAllDrug();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAllDrug medication = new MedicationAllDrug(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -98,7 +103,8 @@ public class MedicationAllDrug_Tests
                 }
             }
         };
-        MedicationAllDrug medication = new MedicationAllDrug();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAllDrug medication = new MedicationAllDrug(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);

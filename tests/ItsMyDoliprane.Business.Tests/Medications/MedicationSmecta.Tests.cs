@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Medications;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Business.Tests.Mocks;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 using Xunit;
 
@@ -12,7 +14,8 @@ public class MedicationSmecta_Tests
 {
     [Fact]
     public void GetMedicationState_Empty() {
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
@@ -40,7 +43,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -80,7 +84,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -120,7 +125,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -160,7 +166,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -200,7 +207,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -251,7 +259,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -302,7 +311,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -353,7 +363,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -404,7 +415,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -466,7 +478,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -528,7 +541,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -590,7 +604,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -652,7 +667,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -725,7 +741,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -798,7 +815,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -871,7 +889,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -944,7 +963,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1028,7 +1048,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1112,7 +1133,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1196,7 +1218,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1280,7 +1303,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1311,7 +1335,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1386,7 +1411,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1450,7 +1476,8 @@ public class MedicationSmecta_Tests
                 }
             }
         };
-        MedicationSmecta medication = new MedicationSmecta();
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationSmecta medication = new MedicationSmecta(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -1472,4 +1499,3 @@ public class MedicationSmecta_Tests
         Assert.Equal(nb, medicationState.NumberMedication);
     }
 }
-

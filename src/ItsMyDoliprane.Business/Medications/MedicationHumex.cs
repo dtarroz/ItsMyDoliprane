@@ -1,5 +1,6 @@
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
@@ -14,7 +15,7 @@ public class MedicationHumex : MedicationDrug
 
     private readonly MedicationAllDrug _medicationAllDrug;
 
-    public MedicationHumex(MedicationAllDrug medicationAllDrug) {
+    public MedicationHumex(MedicationAllDrug medicationAllDrug, IDrugRepository drugRepository) : base(drugRepository) {
         _medicationAllDrug = medicationAllDrug;
     }
 
@@ -37,6 +38,7 @@ public class MedicationHumex : MedicationDrug
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = ChoiceNextDrug(rules.Any(r => r.BanHumexJour), rules.Any(r => r.BanHumexNuit)),
             Dosage = GetDosage(medications, DrugCompositionId.Paracetamol),
+            Dosages = GetDosages(medications, DrugId.Humex),
             NumberMedication = GetNbDrug(medications)
         };
     }

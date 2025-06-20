@@ -1,13 +1,13 @@
-﻿using ItsMyDoliprane.Repository;
+﻿using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business;
 
 public class UseDrugs
 {
-    private readonly DrugRepository _drugRepository;
+    private readonly IDrugRepository _drugRepository;
 
-    public UseDrugs(DrugRepository drugRepository) {
+    public UseDrugs(IDrugRepository drugRepository) {
         _drugRepository = drugRepository;
     }
 

@@ -1,10 +1,12 @@
-﻿using ItsMyDoliprane.Repository.Models;
+﻿using ItsMyDoliprane.Repository.Boundary;
+using ItsMyDoliprane.Repository.Models;
+using ItsMyDoliprane.Repository.Tables;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 
 namespace ItsMyDoliprane.Repository;
 
-public class DrugRepository : AbstractRepository
+public class DrugRepository : AbstractRepository, IDrugRepository
 {
     public DrugRepository(IConfiguration configuration) : base(configuration) { }
 
@@ -23,5 +25,11 @@ public class DrugRepository : AbstractRepository
                           ForChild = reader.GetInt32(4) == 1
                       });
         return drugs;
+    }
+
+    public List<MedicationDosage> GetDosages(int drugId) {
+        using SqliteConnection connection = CreateConnectionAndOpen();
+        using SqliteCommand command = connection.CreateCommand();
+        return DrugDosageTable.GetDosages(drugId, command);
     }
 }

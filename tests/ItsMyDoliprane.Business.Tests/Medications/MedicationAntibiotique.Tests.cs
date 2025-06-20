@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Medications;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Business.Tests.Mocks;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 using Xunit;
 
@@ -12,7 +14,8 @@ public class MedicationAntibiotique_Tests
 {
     [Fact]
     public void GetMedicationState_Empty() {
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
@@ -41,7 +44,8 @@ public class MedicationAntibiotique_Tests
                 }
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -65,7 +69,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -89,7 +94,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -119,7 +125,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -149,7 +156,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -185,7 +193,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -221,7 +230,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -263,7 +273,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -305,7 +316,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -319,7 +331,6 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
-
     [Theory]
     [InlineData(-19, 1)]
     [InlineData(-21, 0)]
@@ -332,7 +343,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -376,7 +388,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -414,7 +427,8 @@ public class MedicationAntibiotique_Tests
                 Dosages = new List<MedicationDosage>()
             }
         };
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug());
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);

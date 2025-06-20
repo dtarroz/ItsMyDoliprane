@@ -1,4 +1,5 @@
 ﻿using ItsMyDoliprane.Repository.Models;
+using ItsMyDoliprane.Repository.Tables;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Configuration;
 
@@ -13,24 +14,8 @@ public class MedicationRepository : AbstractRepository
         using SqliteCommand command = connection.CreateCommand();
         List<Medication> medications = GetHeaderMedicationsSinceDate(personId, date, command);
         foreach (Medication medication in medications)
-            medication.Dosages = GetDosages(medication.DrugId, command);
+            medication.Dosages = DrugDosageTable.GetDosages(medication.DrugId, command);
         return medications;
-    }
-
-    private static List<MedicationDosage> GetDosages(int drugId, SqliteCommand command) {
-        List<MedicationDosage> dosages = new List<MedicationDosage>();
-        command.CommandText = @"SELECT DRUG_COMPOSITION_PKEY, QUANTITY 
-                                FROM DRUG_DOSAGE 
-                                WHERE DRUG_PKEY = $drugId";
-        command.Parameters.Clear();
-        command.Parameters.AddWithValue("$drugId", drugId);
-        using SqliteDataReader reader = command.ExecuteReader();
-        while (reader.Read())
-            dosages.Add(new MedicationDosage {
-                            DrugCompositionId = reader.GetInt32(0),
-                            Quantity = reader.GetInt32(1)
-                        });
-        return dosages;
     }
 
     private static List<Medication> GetHeaderMedicationsSinceDate(int personId, DateTime date, SqliteCommand command) {

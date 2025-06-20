@@ -1,11 +1,14 @@
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
 public class MedicationAllDrug : MedicationDrug
 {
+    public MedicationAllDrug(IDrugRepository drugRepository) : base(drugRepository) { }
+
     public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> { GetRule2Hours(medications) };
         return new MedicationState {
@@ -16,6 +19,7 @@ public class MedicationAllDrug : MedicationDrug
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
             Dosage = 0,
+            Dosages = new Dictionary<DrugCompositionId, int>(),
             NumberMedication = 0
         };
     }

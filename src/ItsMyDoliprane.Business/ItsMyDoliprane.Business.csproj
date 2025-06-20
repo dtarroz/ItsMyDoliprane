@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ItsMyDoliprane.Generator\ItsMyDoliprane.Generator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\ItsMyDoliprane.Repository\ItsMyDoliprane.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="Medications\*.med" />
   </ItemGroup>
 
   <ItemGroup>

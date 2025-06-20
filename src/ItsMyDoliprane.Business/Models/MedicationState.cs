@@ -11,6 +11,7 @@ public class MedicationState
     public DateTime? NextMedicationYes { get; init; }
     public DrugId? NextDrug { get; init; }
     public int Dosage { get; init; }
+    public Dictionary<DrugCompositionId, int> Dosages { get; init; } = null!;
     public int NumberMedication { get; init; }
 }
 

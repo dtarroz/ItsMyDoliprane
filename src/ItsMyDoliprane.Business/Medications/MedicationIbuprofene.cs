@@ -1,5 +1,6 @@
 using ItsMyDoliprane.Business.Enums;
 using ItsMyDoliprane.Business.Models;
+using ItsMyDoliprane.Repository.Boundary;
 using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
@@ -8,7 +9,7 @@ public class MedicationIbuprofene : MedicationDrug
 {
     private readonly MedicationAllDrug _medicationAllDrug;
 
-    public MedicationIbuprofene(MedicationAllDrug medicationAllDrug) {
+    public MedicationIbuprofene(MedicationAllDrug medicationAllDrug, IDrugRepository drugRepository) : base(drugRepository) {
         _medicationAllDrug = medicationAllDrug;
     }
 
@@ -27,6 +28,7 @@ public class MedicationIbuprofene : MedicationDrug
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
             Dosage = GetNbDrug(medications),
+            Dosages = GetDosages(medications, DrugId.Ibuprofene),
             NumberMedication = GetNbDrug(medications)
         };
     }

@@ -1,6 +1,7 @@
 using ItsMyDoliprane.Business;
 using ItsMyDoliprane.Business.Extensions;
 using ItsMyDoliprane.Repository;
+using ItsMyDoliprane.Repository.Boundary;
 using Microsoft.Net.Http.Headers;
 using NLog;
 using NLog.Web;
@@ -17,7 +18,7 @@ try {
     builder.Services.AddTransient<UseDrugs>();
     builder.Services.AddTransient<UseMedications>();
     builder.Services.AddTransient<PersonRepository>();
-    builder.Services.AddTransient<DrugRepository>();
+    builder.Services.AddTransient<IDrugRepository, DrugRepository>();
     builder.Services.AddTransient<MedicationRepository>();
 
     // NLog: Setup NLog for Dependency injection
