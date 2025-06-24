@@ -202,24 +202,26 @@ public class HomeController : Controller
     private static TimeProgressBar GetProgressBarSmecta(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Smecta);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
+        int count = state?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Diosmectite)?.Number ?? 0;
         return new TimeProgressBar {
-            Visible = state?.Dosage > 0 || state?.Opinion != MedicationOpinion.Yes,
+            Visible = count > 0 || state?.Opinion != MedicationOpinion.Yes,
             Caption = "Smecta",
             Tooltip = GetToolTipSmecta(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
             MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
-            NumberMedication = state?.NumberMedication ?? 0
+            NumberMedication = count
         };
     }
 
     private static string GetToolTipSmecta(MedicationState? state) {
         string tooltip = "";
+        int count = state?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Diosmectite)?.Number ?? 0;
         if (state?.NextMedicationYes != null)
             tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
-        if (state?.Dosage > 0)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} de smecta en 24h";
+        if (count > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{count} prise{(count > 1 ? "s" : "")} de smecta en 24h";
         return tooltip;
     }
 

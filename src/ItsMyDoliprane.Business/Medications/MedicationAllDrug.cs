@@ -19,7 +19,7 @@ public class MedicationAllDrug : MedicationDrug
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
             Dosage = 0,
-            Dosages = new Dictionary<DrugCompositionId, int>(),
+            Dosages = new List<MedicationStateDosage>(),
             NumberMedication = 0
         };
     }

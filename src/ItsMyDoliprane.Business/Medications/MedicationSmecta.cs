@@ -77,6 +77,6 @@ public class MedicationSmecta : MedicationDrug
 
     private static int GetNbDrug(IEnumerable<Medication> medications) {
         List<Medication> medications20 = FilterMedication20(medications);
-        return GetNbDrugComposition(medications20, DrugCompositionId.Diosmectite);
+        return GetNbDrug(medications20, DrugId.Smecta);
     }
 }

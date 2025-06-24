@@ -400,6 +400,15 @@ public class CheckFileMedicament_Tests
                       0-10 : Oui
                       10+ : Non
                 FIN", 1, "Adulte", "DOSAGE Toto2_Compo")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Adulte SUR 20h
+                    DOSAGE Toto2_Compo
+                      0-0 : Oui
+                      0+ : Non
+                    PRISE Toto1
+                      0-10 : Oui
+                      10+ : Non
+                FIN", 1, "Adulte", "DOSAGE Toto2_Compo")]
     public void ThrowIfNotValid_Plage_MinMax(string content, int indexMedicament, string categorie, string regle) {
         List<FileMedicament> fileMedicaments = ParseMedFile.Parse(content);
         Exception? exception = Assert.Throws<Exception>(() => CheckFileMedicament_ThrowIfNotValid(fileMedicaments));

@@ -11,7 +11,7 @@ public class MedicationState
     public DateTime? NextMedicationYes { get; init; }
     public DrugId? NextDrug { get; init; }
     public int Dosage { get; init; }
-    public Dictionary<DrugCompositionId, int> Dosages { get; init; } = null!;
+    public List<MedicationStateDosage> Dosages { get; init; } = null!;
     public int NumberMedication { get; init; }
 }
 
@@ -21,4 +21,11 @@ public enum MedicationOpinion
     Possible,
     Warning,
     No
+}
+
+public class MedicationStateDosage
+{
+    public DrugCompositionId DrugCompositionId { get; set; }
+    public int TotalQuantity { get; set; }
+    public int Number { get; set; }
 }

@@ -62,7 +62,11 @@ public abstract class MedicationDrug
     }
 
     protected static int GetNbDrugComposition(IEnumerable<Medication> medications, DrugCompositionId drugComposition) {
-        return medications.Count(m => m.Dosages.Any(d => d.DrugCompositionId == (int)drugComposition));
+        return GetNbDrugComposition(medications, (int)drugComposition);
+    }
+
+    private static int GetNbDrugComposition(IEnumerable<Medication> medications, int drugComposition) {
+        return medications.Count(m => m.Dosages.Any(d => d.DrugCompositionId == drugComposition));
     }
 
     protected static List<Medication> FilterMedication20(IEnumerable<Medication> medications) {
@@ -73,8 +77,13 @@ public abstract class MedicationDrug
         return medications.Where(m => m.DateTime > DateTime.Now.AddHours(-1 * hour)).ToList();
     }
 
-    protected Dictionary<DrugCompositionId, int> GetDosages(List<Medication> medications, DrugId drug) {
+    protected List<MedicationStateDosage> GetDosages(List<Medication> medications, DrugId drug) {
         List<MedicationDosage> dosages = _drugRepository.GetDosages((int)drug);
-        return dosages.Select(d => d.DrugCompositionId).ToDictionary(d => (DrugCompositionId)d, d => GetDosage(medications, d));
+        return dosages.Select(dosage => new MedicationStateDosage {
+                                  DrugCompositionId = (DrugCompositionId)dosage.DrugCompositionId,
+                                  TotalQuantity = GetDosage(medications, dosage.DrugCompositionId),
+                                  Number = GetNbDrugComposition(medications, dosage.DrugCompositionId)
+                              })
+                      .ToList();
     }
 }

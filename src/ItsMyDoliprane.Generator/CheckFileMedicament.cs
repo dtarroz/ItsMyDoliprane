@@ -172,7 +172,7 @@ namespace ItsMyDoliprane.Generator
         }
 
         private static void CheckPlagesMaxGreaterThanMin(List<FilePlage> plages) {
-            if (plages.Any(p => p.Min > p.Max))
+            if (plages.Any(p => p.Min >= p.Max))
                 throw new Exception("Erreur d'interval de plages");
         }
 

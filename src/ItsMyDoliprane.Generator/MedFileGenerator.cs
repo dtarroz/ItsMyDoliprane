@@ -67,7 +67,7 @@ namespace ItsMyDoliprane.Generator
         }
 
         private Dictionary<string, string> ConvertToFile(List<FileMedicament> medicaments) {
-            return ClassMedicament.ConvertToClassFile(medicaments, _drugId, _drugCompositionId);
+            return ClassMedicament.ConvertToClassFile(medicaments, _drugCompositionId);
         }
 
         private void ErrorCompilation(string code, string error) {
