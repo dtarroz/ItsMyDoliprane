@@ -1,0 +1,25 @@
+MEDICAMENT Antibiotique
+  POSOLOGIE Adulte SUR 20h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Antibiotique
+      0-4 : Non
+      4+ : Oui
+    PRISE Antibiotique
+      0-3 : Oui
+      3+ : Non
+    
+      
+  POSOLOGIE Enfant SUR 20h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Antibiotique
+      0-4 : Non
+      4+ : Oui
+    PRISE Antibiotique
+      0-3 : Oui
+      3+ : Non
+    
+FIN

@@ -31,8 +31,7 @@ public class MedicationAllDrug : MedicationDrug
             case null:
             case >= 2:
                 return new RuleMedicationState {
-                    Opinion = MedicationOpinion.Yes,
-                    LastMedicationNo = last?.DateTime
+                    Opinion = MedicationOpinion.Yes
                 };
             default:
                 return new RuleMedicationState {

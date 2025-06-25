@@ -179,7 +179,7 @@ public class HomeController : Controller
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Antibiotique);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = state?.Dosage > 0,
+            Visible = state?.NumberMedication > 0 || state?.Opinion != MedicationOpinion.Yes,
             Caption = "Antibiotique",
             Tooltip = GetToolTipAntibiotique(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
@@ -194,8 +194,9 @@ public class HomeController : Controller
         string tooltip = "";
         if (state?.NextMedicationYes != null)
             tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
-        if (state?.Dosage > 0)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} d'antibiotique en 24h";
+        if (state?.NumberMedication > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'antibiotique en 24h";
         return tooltip;
     }
 

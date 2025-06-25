@@ -54,7 +54,7 @@ public class MedicationDoliprane_Tests
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Doliprane, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
-        Assert.Equal(dateTime2, medicationState.LastMedicationNo);
+        Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Equal(0, medicationState.Dosage);

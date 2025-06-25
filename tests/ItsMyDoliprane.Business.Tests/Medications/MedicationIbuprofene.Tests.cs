@@ -53,7 +53,7 @@ public class MedicationIbuprofene_Tests
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
-        Assert.Equal(dateTime2, medicationState.LastMedicationNo);
+        Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);

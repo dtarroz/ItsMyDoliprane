@@ -15,7 +15,7 @@ public class MedicationAntibiotique_Tests
     [Fact]
     public void GetMedicationState_Empty() {
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), true);
 
         Assert.NotNull(medicationState);
@@ -25,13 +25,13 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
     [Fact]
     public void GetMedicationState_EmptyAndOtherDrugComposition() {
-        DateTime dateTime2 = DateTime.Now.AddHours(-2);
+        DateTime dateTime2 = DateTime.Now.AddHours(-2).AddSeconds(-1);
         List<Medication> medications = new List<Medication> {
             new() {
                 DrugId = 1,
@@ -45,17 +45,17 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
-        Assert.Equal(dateTime2, medicationState.LastMedicationNo);
+        Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -70,7 +70,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -80,7 +80,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -95,7 +95,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -105,7 +105,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -126,7 +126,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -136,7 +136,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(2, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -157,7 +157,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -167,7 +167,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(2, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -194,7 +194,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -204,7 +204,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(3, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -231,7 +231,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -241,7 +241,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(3, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -274,7 +274,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -284,7 +284,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime7.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(4, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -317,7 +317,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -327,7 +327,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(4, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -344,7 +344,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -354,7 +354,7 @@ public class MedicationAntibiotique_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(nb, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(nb, medicationState.NumberMedication);
     }
 
@@ -389,7 +389,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -399,7 +399,7 @@ public class MedicationAntibiotique_Tests
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddHours(20), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(nb, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(nb, medicationState.NumberMedication);
     }
 
@@ -428,7 +428,7 @@ public class MedicationAntibiotique_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationAntibiotique medication = new MedicationAntibiotique(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -446,7 +446,7 @@ public class MedicationAntibiotique_Tests
             Assert.Null(medicationState.NextMedicationYes);
         }
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(nb, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(nb, medicationState.NumberMedication);
     }
 }
