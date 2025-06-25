@@ -5,9 +5,9 @@ using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
-public class MedicationSmecta : MedicationDrug
+public class MedicationSmecta_Old : MedicationDrug
 {
-    public MedicationSmecta(IDrugRepository drugRepository) : base(drugRepository) { }
+    public MedicationSmecta_Old(IDrugRepository drugRepository) : base(drugRepository) { }
     
     public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
         List<RuleMedicationState> rules = new List<RuleMedicationState> {
