@@ -49,7 +49,7 @@ namespace ItsMyDoliprane.Generator
             switch (regle.Type) {
                 case "PRISE":          return GetMethodPrise(regle, posologie, drugCompositionId);
                 case "DOSAGE":         return GetMethodDosage(regle, posologie);
-                case "ATTENDRE APRES": return GetMethodAttendreApres(regle, posologie);
+                case "ATTENDRE APRES": return GetMethodAttendreApres(regle, posologie, drugCompositionId);
                 default:               throw new Exception($"Regle '{regle.Type}' inconnue");
             }
         }
@@ -99,11 +99,51 @@ namespace ItsMyDoliprane.Generator
             throw new NotImplementedException();
         }
 
-        private static MethodRegle GetMethodAttendreApres(FileRegle regle, FilePosologie posologie) {
-            throw new NotImplementedException();
+        private static MethodRegle GetMethodAttendreApres(FileRegle regle, FilePosologie posologie, List<string> drugCompositionId) {
+            bool isDrugComposition = IsDrug(regle.Medicament, drugCompositionId);
+            string last = isDrugComposition
+                ? $"Medication last = GetLastMedication(medications, DrugCompositionId.{regle.Medicament});"
+                : $"Medication last = GetLastMedication(medications, DrugId.{regle.Medicament});";
+            FilePlage plageNon = regle.Plages[0];
+            FilePlage plageAvertissement = regle.Plages.FirstOrDefault(p => p.Avis == "Avertissement");
+            FilePlage plagePossible = regle.Plages.FirstOrDefault(p => p.Avis == "Possible");
+            FilePlage plageOui = regle.Plages.Last();
+            string switchNon = $@"<= {plageNon.Max} => new RuleMedicationState {{
+                Opinion = MedicationOpinion.No,
+                LastMedicationNo = last.DateTime,
+                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui.Min}),
+                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+            }},";
+            string switchAvertissement = plageAvertissement != null
+                ? $@"<= {plageAvertissement.Max} => new RuleMedicationState {{
+                Opinion = MedicationOpinion.Warning,
+                LastMedicationNo = last.DateTime,
+                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui.Min}),
+                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+            }},"
+                : "";
+            string switchPossible = plagePossible != null
+                ? $@"<= {plagePossible.Max} => new RuleMedicationState {{
+                Opinion = MedicationOpinion.Possible,
+                LastMedicationNo = last.DateTime,
+                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+            }},"
+                : "";
+            string switchOui = $"_ => new RuleMedicationState {{ Opinion = MedicationOpinion.Yes }},";
+            return new MethodRegle {
+                Name = $"GetRuleAttendreApres{regle.Medicament}{posologie.Categorie}",
+                Content = $@"{last}
+        float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
+        return durationSinceLastMedication switch {{
+            {switchNon}
+            {switchAvertissement}
+            {switchPossible}
+            {switchOui}
+        }};"
+            };
         }
 
-        private static bool IsDrug(string drug, List<string> drugId) {
+        private static bool IsDrug(string drug, ICollection<string> drugId) {
             return drugId.Contains(drug);
         }
 

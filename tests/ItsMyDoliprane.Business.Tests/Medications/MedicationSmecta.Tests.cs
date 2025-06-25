@@ -38,7 +38,7 @@ public class MedicationSmecta_Tests
         List<Medication> medications = new List<Medication> {
             new() {
                 DrugId = 1,
-                DateTime = DateTime.Now.AddHours(-2),
+                DateTime = DateTime.Now.AddHours(-2).AddSeconds(-1),
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = 1,
