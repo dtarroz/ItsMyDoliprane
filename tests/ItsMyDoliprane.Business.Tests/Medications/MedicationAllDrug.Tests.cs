@@ -25,7 +25,7 @@ public class MedicationAllDrug_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -54,7 +54,7 @@ public class MedicationAllDrug_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -84,7 +84,7 @@ public class MedicationAllDrug_Tests
         Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -114,7 +114,7 @@ public class MedicationAllDrug_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 }

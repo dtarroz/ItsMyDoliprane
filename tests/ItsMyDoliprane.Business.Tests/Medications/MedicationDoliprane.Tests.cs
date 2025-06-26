@@ -26,7 +26,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(0, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(0, medicationState.Dosages[0].Number);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -57,7 +60,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(0, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(0, medicationState.Dosages[0].Number);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -99,7 +105,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime3, medicationState.LastMedicationNo);
         Assert.Equal(dateTime3.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(2000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(2, medicationState.Dosages[0].Number);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -112,7 +121,7 @@ public class MedicationDoliprane_Tests
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(1);
         List<Medication> medications = new List<Medication> {
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime2,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -152,8 +161,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -165,7 +177,7 @@ public class MedicationDoliprane_Tests
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(3);
         List<Medication> medications = new List<Medication> {
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime2,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -205,8 +217,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -218,7 +233,7 @@ public class MedicationDoliprane_Tests
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(7);
         List<Medication> medications = new List<Medication> {
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime2,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -258,8 +273,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -311,7 +329,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -364,7 +385,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -417,7 +441,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -481,7 +508,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTime2.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(4000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(4, medicationState.Dosages[0].Number);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -545,7 +575,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(isAdult ? dateTimeBeforeLast.AddDays(1) : dateTime2.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime2.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(4000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(4, medicationState.Dosages[0].Number);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -609,7 +642,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime2, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeBeforeLast.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(4000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(4, medicationState.Dosages[0].Number);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -654,7 +690,10 @@ public class MedicationDoliprane_Tests
         else
             Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(2000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(2, medicationState.Dosages[0].Number);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -667,7 +706,7 @@ public class MedicationDoliprane_Tests
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddMinutes(30);
         List<Medication> medications = new List<Medication> {
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime5,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -707,8 +746,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -720,7 +762,7 @@ public class MedicationDoliprane_Tests
         DateTime dateTimeLast = DateTime.Now.AddDays(-1).AddHours(4);
         List<Medication> medications = new List<Medication> {
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime5,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -760,8 +802,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -813,7 +858,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(isAdult ? dateTimeLast.AddDays(1) : dateTime5.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(6), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -866,7 +914,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeLast.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -930,7 +981,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime5, medicationState.LastMedicationNo);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(4000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(4, medicationState.Dosages[0].Number);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -972,7 +1026,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.LastMedicationNo);
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
-        Assert.Equal(2000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(2, medicationState.Dosages[0].Number);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -1005,7 +1062,7 @@ public class MedicationDoliprane_Tests
                 }
             },
             new() {
-                DrugId = 1,
+                DrugId = (int)DrugId.Humex,
                 DateTime = dateTime14,
                 Dosages = new List<MedicationDosage> {
                     new() {
@@ -1025,8 +1082,11 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(2500, medicationState.Dosage);
-        Assert.Equal(3, medicationState.NumberMedication);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(2500, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
+        Assert.Equal(2, medicationState.NumberMedication);
     }
 
     [Theory]
@@ -1078,7 +1138,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(3000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(3, medicationState.Dosages[0].Number);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -1142,7 +1205,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTime9, medicationState.LastMedicationNo);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime14.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(4000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(4, medicationState.Dosages[0].Number);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -1185,7 +1251,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(isAdult ? dateTime1.AddHours(2) : dateTime3.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime3.AddHours(6), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1212,7 +1281,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(0, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(0, medicationState.Dosages[0].Number);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -1250,7 +1322,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1288,7 +1363,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1315,7 +1393,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(0, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(0, medicationState.Dosages[0].Number);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -1353,7 +1434,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1391,7 +1475,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1418,7 +1505,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(0, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(0, medicationState.Dosages[0].Number);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -1456,7 +1546,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1494,7 +1587,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1532,7 +1628,10 @@ public class MedicationDoliprane_Tests
         Assert.Equal(dateTimeDoli.AddHours(isAdult ? 4 : 6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1573,7 +1672,10 @@ public class MedicationDoliprane_Tests
             Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(6), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -1611,7 +1713,10 @@ public class MedicationDoliprane_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1000, medicationState.Dosage);
+        Assert.Single(medicationState.Dosages);
+        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
+        Assert.Equal(1000, medicationState.Dosages[0].TotalQuantity);
+        Assert.Equal(1, medicationState.Dosages[0].Number);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 }

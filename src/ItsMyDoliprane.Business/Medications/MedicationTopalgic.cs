@@ -26,7 +26,6 @@ public class MedicationTopalgic : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
-            Dosage = GetNbDrug(medications),
             Dosages = GetDosages(medications, DrugId.Topalgic),
             NumberMedication = GetNbDrug(medications)
         };

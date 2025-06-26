@@ -26,7 +26,6 @@ public class MedicationAntibiotique_Old : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
-            Dosage = GetNbDrug(medications),
             Dosages = GetDosages(FilterMedication20(medications), DrugId.Antibiotique),
             NumberMedication = GetNbDrug(medications)
         };

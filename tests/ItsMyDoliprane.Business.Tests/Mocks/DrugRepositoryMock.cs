@@ -19,6 +19,20 @@ public class DrugRepositoryMock : IDrugRepository
                     Quantity = 3000
                 }
             };
+        if (drugId == (int)DrugId.Doliprane)
+            return new List<MedicationDosage> {
+                new() {
+                    DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                    Quantity = 1000
+                }
+            };
+        if (drugId == (int)DrugId.Humex)
+            return new List<MedicationDosage> {
+                new() {
+                    DrugCompositionId = (int)DrugCompositionId.Paracetamol,
+                    Quantity = 500
+                }
+            };
         return new List<MedicationDosage>();
     }
 }

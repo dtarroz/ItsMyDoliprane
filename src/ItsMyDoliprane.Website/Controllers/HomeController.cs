@@ -95,18 +95,17 @@ public class HomeController : Controller
     }
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
-        MedicationState? dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane);
-        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Doliprane);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = dolipraneState?.Dosage > 0 || (ibuprofeneState?.Dosage > 0 && dolipraneState?.Opinion != MedicationOpinion.Yes),
+            Visible = GetMedicationStateVisible(state, states),
             Caption = "Doliprane",
-            Tooltip = GetToolTipParacetamol(dolipraneState),
-            Opinion = dolipraneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
-            CurrentValue = GetDuration(dolipraneState?.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, dolipraneState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(dolipraneState?.LastMedicationNo, maxDateTime)), 6),
-            NumberMedication = dolipraneState?.NumberMedication ?? 0
+            Tooltip = GetToolTipParacetamol(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
         };
     }
 
@@ -114,28 +113,28 @@ public class HomeController : Controller
         string tooltip = "";
         string? nextMedicationYes = medicationState?.NextMedicationYes?.ToString("HH:mm");
         string? nextMedicationPossible = medicationState?.NextMedicationPossible?.ToString("HH:mm");
+        int dosage = medicationState?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Paracetamol)?.TotalQuantity ?? 0;
         if (medicationState?.NextMedicationYes != null)
             tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
         if (medicationState?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
             tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
-        if (medicationState?.Dosage > 0)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{medicationState.Dosage / 1000.0}g de paracétamol en 24h";
+        if (dosage > 0)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{dosage / 1000.0}g de paracétamol en 24h";
         return tooltip;
     }
 
     private static TimeProgressBar GetProgressBarIbuprofene(List<MedicationState> states) {
-        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
-        MedicationState? dolipraneState = states.Find(s => s.DrugId == DrugId.Doliprane);
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Ibuprofene);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = ibuprofeneState?.Dosage > 0 || (dolipraneState?.Dosage > 0 && ibuprofeneState?.Opinion != MedicationOpinion.Yes),
+            Visible = GetMedicationStateVisible(state, states),
             Caption = "Ibuprofène",
-            Tooltip = GetToolTipIbuprofene(ibuprofeneState),
-            Opinion = ibuprofeneState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
-            CurrentValue = GetDuration(ibuprofeneState?.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, ibuprofeneState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(ibuprofeneState?.LastMedicationNo, maxDateTime)), 6),
-            NumberMedication = ibuprofeneState?.NumberMedication ?? 0
+            Tooltip = GetToolTipIbuprofene(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
         };
     }
 
@@ -144,8 +143,9 @@ public class HomeController : Controller
         string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
         if (state?.NextMedicationYes != null)
             tooltip = $"Prise possible à partir de {nextMedicationYes}";
-        if (state?.Dosage > 0)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} d'ibuprofène en 24h";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'ibuprofène en 24h";
         return tooltip;
     }
 
@@ -156,22 +156,21 @@ public class HomeController : Controller
     }
 
     private static TimeProgressBar GetProgressBarHumex(List<MedicationState> states) {
-        MedicationState? humexState = states.Find(s => s.DrugId == DrugId.Humex);
-        MedicationState? ibuprofeneState = states.Find(s => s.DrugId == DrugId.Ibuprofene);
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Humex);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = humexState?.Dosage > 0 || (ibuprofeneState?.Dosage > 0 && humexState?.Opinion != MedicationOpinion.Yes),
-            Caption = humexState?.NextDrug switch {
+            Visible = GetMedicationStateVisible(state, states),
+            Caption = state?.NextDrug switch {
                 DrugId.HumexJour => "Humex jour",
                 DrugId.HumexNuit => "Humex nuit",
                 _                => "Humex"
             },
-            Tooltip = GetToolTipParacetamol(humexState),
-            Opinion = humexState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
-            CurrentValue = GetDuration(humexState?.LastMedicationNo, DateTime.Now),
-            MaxValue = (int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, humexState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(humexState?.LastMedicationNo, maxDateTime)), 6),
-            NumberMedication = humexState?.NumberMedication ?? 0
+            Tooltip = GetToolTipParacetamol(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
+            NumberMedication = state?.NumberMedication ?? 0
         };
     }
 
@@ -179,7 +178,7 @@ public class HomeController : Controller
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Antibiotique);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = state?.NumberMedication > 0 || state?.Opinion != MedicationOpinion.Yes,
+            Visible = GetMedicationStateVisible(state, states),
             Caption = "Antibiotique",
             Tooltip = GetToolTipAntibiotique(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
@@ -194,9 +193,9 @@ public class HomeController : Controller
         string tooltip = "";
         if (state?.NextMedicationYes != null)
             tooltip = $"Prise possible à partir de {state.NextMedicationYes.Value:HH:mm}";
-        if (state?.NumberMedication > 0)
+        if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
-                $"{(tooltip != "" ? "<br/><br/>" : "")}{state.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'antibiotique en 24h";
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'antibiotique en 24h";
         return tooltip;
     }
 
@@ -205,7 +204,7 @@ public class HomeController : Controller
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         int count = state?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Diosmectite)?.Number ?? 0;
         return new TimeProgressBar {
-            Visible = count > 0 || state?.Opinion != MedicationOpinion.Yes,
+            Visible = GetMedicationStateVisible(state, states),
             Caption = "Smecta",
             Tooltip = GetToolTipSmecta(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
@@ -230,7 +229,7 @@ public class HomeController : Controller
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Topalgic);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
-            Visible = state?.Dosage > 0 || (state != null && state.Opinion != MedicationOpinion.Yes),
+            Visible = GetMedicationStateVisible(state, states),
             Caption = "Topalgic",
             Tooltip = GetToolTipTopalgic(state),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
@@ -249,8 +248,9 @@ public class HomeController : Controller
             tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
         if (state?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
             tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
-        if (state?.Dosage > 0)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state.Dosage} prise{(state.Dosage > 1 ? "s" : "")} de topalgic en 24h";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de topalgic en 24h";
         return tooltip;
     }
 
@@ -267,6 +267,17 @@ public class HomeController : Controller
                                                      .ToList()
                                   })
                           .ToList();
+    }
+
+    private static bool GetMedicationStateVisible(MedicationState? state, List<MedicationState> states) {
+        MedicationState allState = states.Single(s => s.DrugId == null);
+        if ((state?.NumberMedication ?? 0) > 0)
+            return true;
+        if ((state?.Opinion ?? MedicationOpinion.Yes) == MedicationOpinion.Yes)
+            return false;
+        if (allState.Opinion == MedicationOpinion.Yes)
+            return true;
+        return (state!.NextMedicationYes!.Value - allState.NextMedicationYes!.Value).TotalMinutes != 0;
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -85,7 +85,6 @@ public class MedicationDoliprane : MedicationDrug
             LastMedicationNo = MaxDateTime(lastMedicationsNo),
             NextMedicationPossible = MaxDateTime(nextMedicationsPossible),
             NextMedicationYes = MaxDateTime(nextMedicationsYes),
-            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol),
             Dosages = GetDosages(medications, DrugId.Doliprane),
             NumberMedication = GetNbDrug(medications)
         };

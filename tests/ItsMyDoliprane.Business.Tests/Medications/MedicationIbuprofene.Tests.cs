@@ -27,7 +27,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -57,7 +57,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -82,7 +82,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime5.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -107,7 +107,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -138,7 +138,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime5.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime5.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(2, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -169,7 +169,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(2, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(2, medicationState.NumberMedication);
     }
 
@@ -206,7 +206,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(3, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -243,7 +243,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime15.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime15.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(3, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(3, medicationState.NumberMedication);
     }
 
@@ -286,7 +286,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(4, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -329,7 +329,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime15.AddDays(1), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime15.AddDays(1), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(4, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(4, medicationState.NumberMedication);
     }
 
@@ -365,7 +365,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationPossible);
         Assert.Equal(dateTime1.AddHours(2), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -395,7 +395,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -431,7 +431,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -467,7 +467,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -503,7 +503,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -533,7 +533,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -569,7 +569,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -605,7 +605,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -641,7 +641,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeDoli.AddHours(4), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -671,7 +671,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(0, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(0, medicationState.NumberMedication);
     }
 
@@ -707,7 +707,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -743,7 +743,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -779,7 +779,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -817,7 +817,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -855,7 +855,7 @@ public class MedicationIbuprofene_Tests
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 
@@ -893,7 +893,7 @@ public class MedicationIbuprofene_Tests
         Assert.Null(medicationState.NextMedicationPossible);
         Assert.Null(medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
-        Assert.Equal(1, medicationState.Dosage);
+        Assert.Empty(medicationState.Dosages);
         Assert.Equal(1, medicationState.NumberMedication);
     }
 }

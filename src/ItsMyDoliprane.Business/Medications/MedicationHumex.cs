@@ -37,7 +37,6 @@ public class MedicationHumex : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = ChoiceNextDrug(rules.Any(r => r.BanHumexJour), rules.Any(r => r.BanHumexNuit)),
-            Dosage = GetDosage(medications, DrugCompositionId.Paracetamol),
             Dosages = GetDosages(medications, DrugId.Humex),
             NumberMedication = GetNbDrug(medications)
         };

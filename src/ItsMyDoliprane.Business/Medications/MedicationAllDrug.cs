@@ -18,7 +18,6 @@ public class MedicationAllDrug : MedicationDrug
             NextMedicationPossible = MaxDateTime(rules.Select(r => r.NextMedicationPossible).ToList()),
             NextMedicationYes = MaxDateTime(rules.Select(r => r.NextMedicationYes).ToList()),
             NextDrug = null,
-            Dosage = 0,
             Dosages = new List<MedicationStateDosage>(),
             NumberMedication = 0
         };

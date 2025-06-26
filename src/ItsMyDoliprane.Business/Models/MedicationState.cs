@@ -10,7 +10,6 @@ public class MedicationState
     public DateTime? NextMedicationPossible { get; init; }
     public DateTime? NextMedicationYes { get; init; }
     public DrugId? NextDrug { get; init; }
-    public int Dosage { get; init; }
     public List<MedicationStateDosage> Dosages { get; init; } = null!;
     public int NumberMedication { get; init; }
 }
