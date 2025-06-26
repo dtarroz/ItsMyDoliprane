@@ -1,0 +1,10 @@
+MEDICAMENT Probiotique      
+  POSOLOGIE Enfant SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Antibiotique
+      0-2 : Non
+      2-3 : Possible
+      3+ : Oui
+FIN
