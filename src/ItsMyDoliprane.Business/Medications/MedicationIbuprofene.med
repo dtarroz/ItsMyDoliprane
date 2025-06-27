@@ -1,0 +1,34 @@
+MEDICAMENT Ibuprofene
+  POSOLOGIE Adulte SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Ibuprofene
+      0-6 : Non
+      6-8 : Avertissement
+      8+ : Oui
+    ATTENDRE APRES Paracetamol
+      0-3 : Non
+      3-4 : Avertissement
+      4+ : Oui
+    PRISE Ibuprofene
+      0-3 : Oui
+      3+ : Non
+      
+  POSOLOGIE Enfant SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Ibuprofene
+       0-6 : Non
+       6-8 : Avertissement
+       8+ : Oui
+    ATTENDRE APRES Paracetamol
+      0-3 : Non
+      3-4 : Avertissement
+      4+ : Oui
+    PRISE Ibuprofene
+      0-3 : Oui
+      3+ : Non
+    
+FIN

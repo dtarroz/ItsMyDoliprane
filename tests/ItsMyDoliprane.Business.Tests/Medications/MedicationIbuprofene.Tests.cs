@@ -17,7 +17,7 @@ public class MedicationIbuprofene_Tests
     [InlineData(false)]
     public void GetMedicationState_Empty(bool isAdult) {
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(new List<Medication>(), isAdult);
 
         Assert.NotNull(medicationState);
@@ -33,7 +33,7 @@ public class MedicationIbuprofene_Tests
 
     [Fact]
     public void GetMedicationState_EmptyAndOtherDrugComposition() {
-        DateTime dateTime2 = DateTime.Now.AddHours(-2);
+        DateTime dateTime2 = DateTime.Now.AddHours(-2).AddSeconds(-1);
         List<Medication> medications = new List<Medication> {
             new() {
                 DrugId = 1,
@@ -47,7 +47,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -72,7 +72,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -97,7 +97,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -128,7 +128,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -159,7 +159,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -196,7 +196,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -233,7 +233,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -276,7 +276,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -319,7 +319,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -355,7 +355,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -385,7 +385,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -421,7 +421,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -457,7 +457,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -493,7 +493,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -523,7 +523,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -559,7 +559,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -595,7 +595,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -631,7 +631,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -661,7 +661,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -697,13 +697,13 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
-        Assert.Equal(dateTimeDoli, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
@@ -733,13 +733,13 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
         Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
-        Assert.Equal(dateTimeDoli, medicationState.LastMedicationNo);
+        Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
         Assert.Null(medicationState.NextDrug);
@@ -769,7 +769,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, true);
 
         Assert.NotNull(medicationState);
@@ -807,7 +807,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
@@ -845,12 +845,12 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
         Assert.Equal(DrugId.Ibuprofene, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
         Assert.Equal(dateTimeIbu, medicationState.LastMedicationNo);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationPossible);
         Assert.Equal(dateTimeIbu.AddHours(8), medicationState.NextMedicationYes);
@@ -883,7 +883,7 @@ public class MedicationIbuprofene_Tests
             }
         };
         IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationIbuprofene medication = new MedicationIbuprofene(new MedicationAllDrug(drugRepository), drugRepository);
+        MedicationIbuprofene medication = new MedicationIbuprofene(drugRepository);
         MedicationState medicationState = medication.GetMedicationState(medications, isAdult);
 
         Assert.NotNull(medicationState);
