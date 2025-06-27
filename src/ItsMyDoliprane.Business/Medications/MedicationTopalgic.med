@@ -1,0 +1,13 @@
+MEDICAMENT Topalgic      
+  POSOLOGIE Enfant SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Topalgic
+      0-6 : Non
+      6-8 : Possible
+      8+ : Oui
+    PRISE Topalgic
+      0-4 : Oui
+      4+ : Non
+FIN
