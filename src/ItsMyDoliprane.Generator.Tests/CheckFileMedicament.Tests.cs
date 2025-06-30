@@ -295,6 +295,24 @@ public class CheckFileMedicament_Tests
                       0-3 : Oui
                       3+ : Non
                 FIN", 2, "Enfant", "PRISE Toto3", "Toto3")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 20h
+                    ATTENDRE APRES Toto1
+                      0-3 : Non
+                      3+ : Oui
+                    DOSAGE Toto1
+                      0-3 : Oui
+                      3+ : Non
+                FIN", 1, "Enfant", "DOSAGE Toto1", "Toto1")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 20h
+                    ATTENDRE APRES Toto1
+                      0-3 : Non
+                      3+ : Oui
+                    DOSAGE Toto3
+                      0-3 : Oui
+                      3+ : Non
+                FIN", 1, "Enfant", "DOSAGE Toto3", "Toto3")]
     public void ThrowIfNotValid_Regle_DrugOrDrugComposition(string content, int indexMedicament, string categorie, string regle, string medicament) {
         List<FileMedicament> fileMedicaments = ParseMedFile.Parse(content);
         Exception? exception = Assert.Throws<Exception>(() => CheckFileMedicament_ThrowIfNotValid(fileMedicaments));
@@ -597,21 +615,21 @@ public class CheckFileMedicament_Tests
                     DOSAGE Toto2_Compo
                       0-3 : Oui
                       3+ : Non
-                    DOSAGE Toto1
+                    DOSAGE Toto1_Compo
                       0-3 : Oui
                       3-10 : Non
                       10+ : Avertissement
-                FIN", 1, "Adulte", "DOSAGE Toto1")]
+                FIN", 1, "Adulte", "DOSAGE Toto1_Compo")]
     [TestCase(@"MEDICAMENT Toto1
                   POSOLOGIE Adulte SUR 24h
                     DOSAGE Toto2_Compo
                       0-3 : Oui
                       3+ : Non
-                    DOSAGE Toto1
+                    DOSAGE Toto1_Compo
                       0-3 : Oui
                       3-10 : Non
                       10+ : Avertissement
-                FIN", 1, "Adulte", "DOSAGE Toto1")]
+                FIN", 1, "Adulte", "DOSAGE Toto1_Compo")]
     [TestCase(@"MEDICAMENT Toto1
                   POSOLOGIE Adulte SUR 24h
                     DOSAGE Toto2_Compo

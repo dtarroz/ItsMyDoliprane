@@ -1,0 +1,36 @@
+MEDICAMENT Doliprane
+
+  POSOLOGIE Adulte SUR 24h
+    DOSAGE Paracetamol
+      0-3000 : Oui
+      3000-4000 : Avertissement
+      4000+ : Non
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Paracetamol
+      0-4 : Non
+      4-6 : Possible
+      6+ : Oui
+    ATTENDRE APRES Ibuprofene
+      0-3 : Non
+      3-4 : Avertissement
+      4+ : Oui
+      
+  POSOLOGIE Enfant SUR 24h
+    PRISE Paracetamol
+      0-3 : Oui
+      4 : Avertissement
+      4+ : Non
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Paracetamol
+      0-6 : Non
+      6+ : Oui
+    ATTENDRE APRES Ibuprofene
+      0-3 : Non
+      3-4 : Avertissement
+      4+ : Oui
+      
+FIN

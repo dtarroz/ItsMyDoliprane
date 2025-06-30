@@ -7,7 +7,7 @@ namespace ItsMyDoliprane.Business.Medications;
 
 public abstract class MedicationDrug
 {
-    private readonly IDrugRepository _drugRepository;
+    protected readonly IDrugRepository _drugRepository;
 
     protected MedicationDrug(IDrugRepository drugRepository) {
         _drugRepository = drugRepository;

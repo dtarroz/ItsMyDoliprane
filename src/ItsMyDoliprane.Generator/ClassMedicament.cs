@@ -16,21 +16,22 @@ namespace ItsMyDoliprane.Generator
         }
 
         private static string ConvertTo(FileMedicament fileMedicament, List<string> drugCompositionId) {
-            MethodPosologie methodPosologieAdulte = GetMethodPosologie(GetPosologie(fileMedicament, "Adulte"), drugCompositionId);
-            MethodPosologie methodPosologieEnfant = GetMethodPosologie(GetPosologie(fileMedicament, "Enfant"), drugCompositionId);
-            return Generate(fileMedicament.Nom, methodPosologieAdulte, methodPosologieEnfant);
+            string nom = fileMedicament.Nom;
+            MethodPosologie methodPosologieAdulte = GetMethodPosologie(nom, GetPosologie(fileMedicament, "Adulte"), drugCompositionId);
+            MethodPosologie methodPosologieEnfant = GetMethodPosologie(nom, GetPosologie(fileMedicament, "Enfant"), drugCompositionId);
+            return Generate(nom, methodPosologieAdulte, methodPosologieEnfant);
         }
 
         private static FilePosologie GetPosologie(FileMedicament fileMedicament, string categorie) {
             return fileMedicament.Posologies.FirstOrDefault(p => p.Categorie == categorie);
         }
 
-        private static MethodPosologie GetMethodPosologie(FilePosologie posologie, List<string> drugCompositionId) {
+        private static MethodPosologie GetMethodPosologie(string nom, FilePosologie posologie, List<string> drugCompositionId) {
             if (posologie == null)
                 return GetMethodPosologieEmpty();
             return new MethodPosologie {
                 MedicationFilterHour = posologie.DureeHeures,
-                Methods = posologie.Regles.Select(r => GetMethodFromRegle(r, posologie, drugCompositionId)).ToList()
+                Methods = posologie.Regles.Select(r => GetMethodFromRegle(nom, r, posologie, drugCompositionId)).ToList()
             };
         }
 
@@ -45,10 +46,11 @@ namespace ItsMyDoliprane.Generator
             return new MethodRegle { Name = "NoPosologie" };
         }
 
-        private static MethodRegle GetMethodFromRegle(FileRegle regle, FilePosologie posologie, List<string> drugCompositionId) {
+        private static MethodRegle GetMethodFromRegle(string nom, FileRegle regle, FilePosologie posologie,
+                                                      List<string> drugCompositionId) {
             switch (regle.Type) {
                 case "PRISE":          return GetMethodPrise(regle, posologie, drugCompositionId);
-                case "DOSAGE":         return GetMethodDosage(regle, posologie);
+                case "DOSAGE":         return GetMethodDosage(nom, regle, posologie);
                 case "ATTENDRE APRES": return GetMethodAttendreApres(regle, posologie, drugCompositionId);
                 default:               throw new Exception($"Regle '{regle.Type}' inconnue");
             }
@@ -95,8 +97,49 @@ namespace ItsMyDoliprane.Generator
             };
         }
 
-        private static MethodRegle GetMethodDosage(FileRegle regle, FilePosologie posologie) {
-            throw new NotImplementedException();
+        private static MethodRegle GetMethodDosage(string nom, FileRegle regle, FilePosologie posologie) {
+            string dosage = $"int dosage = GetDosage(medications, DrugCompositionId.{regle.Medicament});";
+            string last = $"Medication last = GetLastMedication(medications, DrugCompositionId.{regle.Medicament});";
+            string dose = $@"int dose = _drugRepository.GetDosages((int)DrugId.{nom})
+                                  .Where(d => d.DrugCompositionId == (int)DrugCompositionId.{regle.Medicament})
+                                  .Select(d => d.Quantity).FirstOrDefault();";
+            FilePlage plageOui = regle.Plages[0];
+            FilePlage plageAvertissement = regle.Plages.FirstOrDefault(p => p.Avis == "Avertissement");
+            string lastYes = $@"List<Medication> tempMedications = medications.ToList();
+        Medication lastYes = null;
+        while (tempMedications.Count > 0) {{
+            lastYes = tempMedications.Last();
+            tempMedications.RemoveAt(tempMedications.Count - 1);
+            if (GetDosage(tempMedications, DrugCompositionId.{regle.Medicament}) + dose <= {plageOui.Max})
+                break;
+                    }}";
+            string switchOui = $"<= {plageOui.Max} => new RuleMedicationState {{ Opinion = MedicationOpinion.Yes }},";
+            string switchAvertissement = plageAvertissement != null
+                ? $@"<= {plageAvertissement.Max} => new RuleMedicationState {{
+                Opinion = MedicationOpinion.Warning,
+                LastMedicationNo = last.DateTime,
+                NextMedicationPossible = lastYes.DateTime.AddHours({posologie.DureeHeures}),
+                NextMedicationYes = lastYes.DateTime.AddHours({posologie.DureeHeures})
+            }},"
+                : "";
+            string switchNon = $@"_ => new RuleMedicationState {{
+                Opinion = MedicationOpinion.No,
+                LastMedicationNo = last.DateTime,
+                NextMedicationPossible = lastYes.DateTime.AddHours({posologie.DureeHeures}),
+                NextMedicationYes = lastYes.DateTime.AddHours({posologie.DureeHeures})
+            }}";
+            return new MethodRegle {
+                Name = $"GetRuleDosage{regle.Medicament}{posologie.Categorie}",
+                Content = $@"{dosage}
+        {dose}
+        {last}
+        {lastYes}
+        return (dosage + dose) switch {{
+            {switchOui}
+            {switchAvertissement}
+            {switchNon}
+        }};"
+            };
         }
 
         private static MethodRegle GetMethodAttendreApres(FileRegle regle, FilePosologie posologie, List<string> drugCompositionId) {
@@ -212,7 +255,7 @@ public class {GetClassName(nom)} : MedicationDrug
         }
 
         private static string GetMethod(MethodRegle method) {
-            return $@"private static RuleMedicationState {method.Name}(List<Medication> medications) {{
+            return $@"private RuleMedicationState {method.Name}(List<Medication> medications) {{
         {method.Content}
     }}";
         }

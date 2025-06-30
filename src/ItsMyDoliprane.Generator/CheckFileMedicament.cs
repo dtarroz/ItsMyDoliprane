@@ -79,7 +79,7 @@ namespace ItsMyDoliprane.Generator
         }
 
         private static void CheckRegle(FileRegle regle, List<string> drugId, List<string> drugCompositionId) {
-            CheckRegleMedicament(regle.Medicament, drugId, drugCompositionId);
+            CheckRegleMedicament(regle.Medicament, regle.Type, drugId, drugCompositionId);
             CheckPlagesCount(regle.Plages);
             CheckPlagesAvisDuplication(regle.Plages);
             if (IsAvisOrderAsc(regle)) {
@@ -96,8 +96,10 @@ namespace ItsMyDoliprane.Generator
             CheckPlagesOrder(regle.Plages);
         }
 
-        private static void CheckRegleMedicament(string medicament, ICollection<string> drugId, ICollection<string> drugCompositionId) {
-            if (!drugId.Contains(medicament) && !drugCompositionId.Contains(medicament))
+        private static void CheckRegleMedicament(string medicament, string type, ICollection<string> drugId,
+                                                 ICollection<string> drugCompositionId) {
+            if ((type == "DOSAGE" && !drugCompositionId.Contains(medicament))
+                || (!drugId.Contains(medicament) && !drugCompositionId.Contains(medicament)))
                 throw new Exception($"Le médicament '{medicament}' n'a pas été trouvé");
         }
 

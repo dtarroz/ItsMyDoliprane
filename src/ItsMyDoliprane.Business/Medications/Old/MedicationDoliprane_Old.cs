@@ -5,11 +5,11 @@ using ItsMyDoliprane.Repository.Models;
 
 namespace ItsMyDoliprane.Business.Medications;
 
-public class MedicationDoliprane : MedicationDrug
+public class MedicationDoliprane_Old : MedicationDrug
 {
-    private readonly MedicationAllDrug _medicationAllDrug; 
+    private readonly MedicationAllDrug _medicationAllDrug;
 
-    public MedicationDoliprane(MedicationAllDrug medicationAllDrug, IDrugRepository drugRepository) : base(drugRepository) {
+    public MedicationDoliprane_Old(MedicationAllDrug medicationAllDrug, IDrugRepository drugRepository) : base(drugRepository) {
         _medicationAllDrug = medicationAllDrug;
     }
 
