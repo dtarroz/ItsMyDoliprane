@@ -23,15 +23,16 @@ public class HomeController : Controller
     public IActionResult Index(int personId = 1) {
         if (!IsPersonExists(personId))
             return RedirectToAction("Index");
+        bool isAdult = PersonIsAdult(personId);
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddMonths(-1));
-        var states = _useMedications.GetMedicationsStates(personId, PersonIsAdult(personId))
+        var states = _useMedications.GetMedicationsStates(personId, isAdult)
                                     .Where(s => IsDrugAllowForPerson(s.DrugId, personId))
                                     .ToList();
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
             Persons = _persons.ToDictionary(p => p.Id, p => p.Name),
             Drugs = GetListDrugs(personId),
-            TimeProgressBars = GetTimeProgressBars(states),
+            TimeProgressBars = GetTimeProgressBars(states, isAdult),
             Medications = GetMedications(medications)
         };
         return View(model);
@@ -65,10 +66,10 @@ public class HomeController : Controller
         return person.IsAdult;
     }
 
-    private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states) {
+    private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states, bool isAdult) {
         return new List<TimeProgressBar> {
             GetProgressBarAllDrug(states),
-            GetProgressBarDoliprane(states),
+            GetProgressBarDoliprane(states, isAdult),
             GetProgressBarIbuprofene(states),
             GetProgressBarHumex(states),
             GetProgressBarAntibiotique(states),
@@ -101,13 +102,13 @@ public class HomeController : Controller
         return tooltip;
     }
 
-    private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states) {
+    private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states, bool isAdult) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Doliprane);
         DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Doliprane",
-            Tooltip = GetToolTipParacetamol(state),
+            Tooltip = GetToolTipParacetamol(state, isAdult),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
@@ -116,17 +117,19 @@ public class HomeController : Controller
         };
     }
 
-    private static string GetToolTipParacetamol(MedicationState? medicationState) {
+    private static string GetToolTipParacetamol(MedicationState? state, bool isAdult) {
         string tooltip = "";
-        string? nextMedicationYes = medicationState?.NextMedicationYes?.ToString("HH:mm");
-        string? nextMedicationPossible = medicationState?.NextMedicationPossible?.ToString("HH:mm");
-        int dosage = medicationState?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Paracetamol)?.TotalQuantity ?? 0;
-        if (medicationState?.NextMedicationYes != null)
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        string? nextMedicationPossible = state?.NextMedicationPossible?.ToString("HH:mm");
+        int dosage = state?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Paracetamol)?.TotalQuantity ?? 0;
+        if (state?.NextMedicationYes != null)
             tooltip = $"Prise conseillée à partir de {nextMedicationYes}";
-        if (medicationState?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
+        if (state?.NextMedicationPossible != null && nextMedicationYes != nextMedicationPossible)
             tooltip += $"<br/>mais possible à partir de {nextMedicationPossible}";
-        if (dosage > 0)
+        if (dosage > 0 && isAdult)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{dosage / 1000.0}g de paracétamol en 24h";
+        if ((state?.NumberMedication ?? 0) > 0 && !isAdult)
+            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de doliprane en 24h";
         return tooltip;
     }
 
@@ -172,7 +175,7 @@ public class HomeController : Controller
                 DrugId.HumexNuit => "Humex nuit",
                 _                => "Humex"
             },
-            Tooltip = GetToolTipParacetamol(state),
+            Tooltip = GetToolTipParacetamol(state, true),
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
