@@ -21,6 +21,8 @@ public class HomeController : Controller
     }
 
     public IActionResult Index(int personId = 1) {
+        if (!IsPersonExists(personId))
+            return RedirectToAction("Index");
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddMonths(-1));
         var states = _useMedications.GetMedicationsStates(personId, PersonIsAdult(personId))
                                     .Where(s => IsDrugAllowForPerson(s.DrugId, personId))
@@ -33,6 +35,10 @@ public class HomeController : Controller
             Medications = GetMedications(medications)
         };
         return View(model);
+    }
+
+    private bool IsPersonExists(int personId) {
+        return _persons.FirstOrDefault(p => p.Id == personId) != null;
     }
 
     private Dictionary<int, string> GetListDrugs(int personId) {
