@@ -27,7 +27,7 @@ $persons.forEach(e => e.addEventListener('change', () => {
 $customDateLink.addEventListener('click', () => {
     $customDate.classList.add('active');
     const today = new Date();
-    $date.value = today.toISOString().split('T')[0];
+    $date.value = formatDateLocal(today);
     $hour.value = today.toLocaleTimeString().substring(0, 5);
 });
 
@@ -73,4 +73,11 @@ function refresh(personId?: number) {
 
 function getCurrentPersonId() {
     return parseInt($currentPerson().dataset['value'] ?? '', 10);
+}
+
+function formatDateLocal(date: Date) {
+    const yyyy = date.getFullYear();
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
 }
