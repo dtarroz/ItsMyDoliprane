@@ -5,7 +5,7 @@
 ## Sommaire
 
 - [Pourquoi faire ?](#pourquoi-faire-)
-- [Spécification du langage `.med`](#spécification-du-langage-.med)
+- [Spécification du langage `.med`](#spécification-du-langage-med)
 
 ## Pourquoi faire ?
 Pendant près d'un an, les épisodes de fièvre et les prises de Doliprane sont devenus réguliers. Nous devions noter systématiquement l'heure de chaque prise pour savoir quand la suivante serait autorisée, et vérifier les éventuelles interactions entre plusieurs médicaments (par exemple Doliprane et Ibuprofène).
@@ -89,7 +89,7 @@ Règles importantes :
 
 **<ins>Structure d'un bloc `MEDICAMENT`</ins>**
 
-Chaque médicament doit contenir au moins une section `POSOLOGIE`, et toutes les règles doivent être dans cette section.
+Chaque médicament doit contenir au moins une section `POSOLOGIE`, et toutes ces règles associés doivent être sous cette section.
 
 Structure :
 
@@ -114,6 +114,8 @@ POSOLOGIE Enfant SUR 20h
 Contraintes :
 - Types possibles : Adulte, Enfant
 - Durée possible : 24h ou 20h
+
+_La durée de 20h est utilisée pour les médicaments prescrits en prises réparties par périodes — matin, midi, soir — plutôt qu’à intervalles stricts._
 
 **<ins>Règles à l'intérieur d'une `POSOLOGIE`</ins>**
 
@@ -151,12 +153,12 @@ Règles obligatoires :
 - La dernière plage doit se terminer par un "+" (exemple 4+).
 - Chaque plage suivante doit commencer par la valeur de fin de la précédente.
   - Exemple : 0-2, puis 2-4.
-  - Exception s'il y une seule valeur, Exemple : 5 qui est équivalent à la plage 4-5.
+  - Exception s'il y a qu'une seule valeur, Exemple : 5 qui est équivalent à la plage 4-5.
 - Il faut au minimum 2 lignes de plages.
 - Espaces optionnels autour du `:`.
-- Les valeurs autorisées sont `Non`, `Avertissement`, `Possible` et `Oui`
+- Les valeurs autorisées sont `Non`, `Avertissement`, `Possible` ou `Oui`
 
-|Règles|Ordre|Borne|
+|Règle|Ordre|Borne|
 |-|-|-|
 |`ATTENDRE APRES`|1. Non <br> 2. Avertissement <br> 3. Possible <br> 4. Oui|min <= `valeur` < max|
 |`PRISE` <br> `DOSAGE`|1. Oui <br> 2.Avertissement <br> 3.Non|min < `valeur` <= max|
