@@ -786,7 +786,7 @@ public class ParseMedFile_Tests
                 FIN", 4)]
     public void Parse_Plages_Min(string content, int min) {
         List<FileMedicament> fileMedicaments = ParseMedFile.Parse(content);
-        
+
         Assert.NotNull(fileMedicaments);
         Assert.NotNull(fileMedicaments[^1].Posologies);
         Assert.NotNull(fileMedicaments[^1].Posologies[^1].Regles);
@@ -973,5 +973,27 @@ public class ParseMedFile_Tests
 
         Assert.NotNull(exception);
         Assert.AreEqual($"Médicament 'Toto{indexMedicament}' - Ligne '{lineError}' - Erreur de syntaxe", exception!.Message);
+    }
+
+    [TestCase(@"# TEST
+                MEDICAMENT Toto1
+                # TEST
+                  POSOLOGIE Adulte SUR 24h
+                    # TEST
+                    PRISE Doliprane
+                      # TEST
+                      0-3 : Oui
+                      # TEST
+                      3+ : Non
+                FIN
+                # TEST
+                MEDICAMENT Toto2
+                  POSOLOGIE Adulte SUR 24h
+                    PRISE Doliprane
+                      0-3 : Oui
+                      3+ : Non
+                FIN")]
+    public void Parse_Line_Comment(string content) {
+        Assert.DoesNotThrow(() => ParseMedFile.Parse(content));
     }
 }

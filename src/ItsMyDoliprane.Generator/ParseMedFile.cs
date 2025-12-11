@@ -61,7 +61,7 @@ namespace ItsMyDoliprane.Generator
         }
 
         private static List<string> ExtractLines(Match match) {
-            return match.Groups["content"].Value.Split('\n').Select(l => l.Trim()).Where(l => l != "").ToList();
+            return match.Groups["content"].Value.Split('\n').Select(l => l.Trim()).Where(l => l != "" && !l.StartsWith("#")).ToList();
         }
 
         private static bool IsPosologieLine(string line) {
