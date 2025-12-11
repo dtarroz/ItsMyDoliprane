@@ -86,6 +86,7 @@ Règles importantes :
 - Il se termine obligatoirement par `FIN`.
 - Le nom du médicament doit correspondre à un médicament connu de l'application.
 - L'indentation et les sauts de lignes sont libres.
+- Une ligne qui commence par `#` est un commentaire.
 
 **<ins>Structure d'un bloc `MEDICAMENT`</ins>**
 
