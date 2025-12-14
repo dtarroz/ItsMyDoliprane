@@ -3,7 +3,7 @@
     "bundle": "npx tsc -noEmit && npx esbuild wwwroot/ts/[!_]*.ts --bundle --minify --target=es2020 --outdir=wwwroot/js && npx esbuild wwwroot/css/[!_]*.css --bundle --minify --target=es2020 --outdir=wwwroot/css --allow-overwrite"
   },
   "devDependencies": {
-    "esbuild": "^0.19.12",
+    "esbuild": "^0.27.1",
     "typescript": "^5.3.3"
   }
 }
