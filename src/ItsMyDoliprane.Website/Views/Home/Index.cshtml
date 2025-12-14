@@ -1,3 +1,4 @@
+@using System.Globalization
 @model HomeViewModel;
 
 @{
@@ -57,7 +58,7 @@
             <time-progress-bar
                 data-caption="@timeProgressBar.Caption"
                 data-tooltip="@timeProgressBar.Tooltip"
-                data-current="@timeProgressBar.CurrentValue"
+                data-current="@timeProgressBar.CurrentValue.ToString(CultureInfo.InvariantCulture)"
                 data-max="@timeProgressBar.MaxValue"
                 data-max-full-width="@timeProgressBar.MaxWidthValue"
                 data-opinion="@timeProgressBar.Opinion"

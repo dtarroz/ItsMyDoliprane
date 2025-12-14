@@ -1,0 +1,24 @@
+MEDICAMENT ImmodiumCaps
+
+  POSOLOGIE Adulte SUR 24h
+    DOSAGE Loperamide
+      0-12 : Oui
+      12+ : Non
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Loperamide
+      0-1 : Non
+      1+ : Oui
+
+#   PRISE Antibiotique
+#     0+  : Non
+      
+#   PRISE Probiotique
+#     0+  : Possible
+
+#   ATTENDRE APRES Tramadol
+#     0-4 : Non
+#     4+ : Oui
+
+FIN

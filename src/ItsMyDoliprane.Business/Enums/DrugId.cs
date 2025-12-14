@@ -12,5 +12,6 @@ public enum DrugId
     Ibuprofene = 8,
     Smecta = 9,
     Probiotique = 10,
-    Topalgic = 11
+    Topalgic = 11,
+    ImmodiumCaps = 12
 }

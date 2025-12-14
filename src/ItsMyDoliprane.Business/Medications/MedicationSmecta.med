@@ -30,6 +30,9 @@ MEDICAMENT Smecta
     ATTENDRE APRES Topalgic
       0-2 : Non
       2+ : Oui
+    ATTENDRE APRES ImmodiumCaps
+      0-2 : Non
+      2+ : Oui
     PRISE Diosmectite
       0-4 : Oui
       4+ : Non
