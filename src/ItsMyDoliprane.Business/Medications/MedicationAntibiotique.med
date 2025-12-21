@@ -10,6 +10,8 @@ MEDICAMENT Antibiotique
       0-2 : Non
       2-3 : Possible
       3+ : Oui
+    ATTENDRE APRES Loperamide
+      0+ : Non
     PRISE Antibiotique
       0-3 : Oui
       3+ : Non

@@ -155,7 +155,7 @@ Règles obligatoires :
 - Chaque plage suivante doit commencer par la valeur de fin de la précédente.
   - Exemple : 0-2, puis 2-4.
   - Exception s'il y a qu'une seule valeur, Exemple : 5 qui est équivalent à la plage 4-5.
-- Il faut au minimum 2 lignes de plages.
+- Il faut au minimum 2 lignes de plages pour `PRISE`et `DOSAGE`, mais au moins 1 ligne pour `ATTENDRE APRES`.
 - Espaces optionnels autour du `:`.
 - Les valeurs autorisées sont `Non`, `Avertissement`, `Possible` ou `Oui`
 

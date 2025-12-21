@@ -449,4 +449,34 @@ public class MedicationAntibiotique_Tests
         Assert.Empty(medicationState.Dosages);
         Assert.Equal(nb, medicationState.NumberMedication);
     }
+
+    [Fact]
+    public void GetMedicationState_AfterLoperamide() {
+        DateTime dateTime6 = DateTime.Now.AddHours(-6);
+        List<Medication> medications = new List<Medication> {
+            new() {
+                DrugId = (int)DrugId.ImmodiumCaps,
+                DateTime = dateTime6,
+                Dosages = new List<MedicationDosage> {
+                    new() {
+                        DrugCompositionId = (int)DrugCompositionId.Loperamide,
+                         Quantity = 2
+                    }
+                }
+            }
+        };
+        IDrugRepository drugRepository = new DrugRepositoryMock();
+        MedicationAntibiotique medication = new MedicationAntibiotique(drugRepository);
+        MedicationState medicationState = medication.GetMedicationState(medications, true);
+
+        Assert.NotNull(medicationState);
+        Assert.Equal(DrugId.Antibiotique, medicationState.DrugId);
+        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
+        Assert.Equal(dateTime6, medicationState.LastMedicationNo);
+        Assert.Equal(dateTime6.AddHours(20), medicationState.NextMedicationPossible);
+        Assert.Equal(dateTime6.AddHours(20), medicationState.NextMedicationYes);
+        Assert.Null(medicationState.NextDrug);
+        Assert.Empty(medicationState.Dosages);
+        Assert.Equal(0, medicationState.NumberMedication);
+    }
 }

@@ -80,7 +80,7 @@ namespace ItsMyDoliprane.Generator
 
         private static void CheckRegle(FileRegle regle, List<string> drugId, List<string> drugCompositionId) {
             CheckRegleMedicament(regle.Medicament, regle.Type, drugId, drugCompositionId);
-            CheckPlagesCount(regle.Plages);
+            CheckPlagesCount(regle.Plages, regle.Type);
             CheckPlagesAvisDuplication(regle.Plages);
             if (IsAvisOrderAsc(regle)) {
                 CheckPlagesAvisBeginOui(regle.Plages);
@@ -103,9 +103,12 @@ namespace ItsMyDoliprane.Generator
                 throw new Exception($"Le médicament '{medicament}' n'a pas été trouvé");
         }
 
-        private static void CheckPlagesCount(List<FilePlage> plages) {
-            if (plages == null || plages.Count < 2)
-                throw new Exception("2 lignes min pour les plages");
+        private static void CheckPlagesCount(List<FilePlage> plages, string type) {
+            int minPlage = 2;
+            if (type == "ATTENDRE APRES")
+                minPlage = 1;
+            if (plages == null || plages.Count < minPlage)
+                throw new Exception($"{minPlage} ligne{(minPlage > 1 ? "s" : "")} min pour les plages");
         }
 
         private static void CheckPlagesAvisDuplication(List<FilePlage> plages) {

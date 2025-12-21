@@ -329,21 +329,57 @@ public class CheckFileMedicament_Tests
                     PRISE Toto1
                       0-3 : Oui
                       3+ : Non
-                FIN", 1, "Enfant", "DOSAGE Toto2_Compo")]
+                FIN", 1, "Enfant", "DOSAGE Toto2_Compo", "2 lignes")]
     [TestCase(@"MEDICAMENT Toto1
                   POSOLOGIE Adulte SUR 20h
                     DOSAGE Toto2_Compo
                       0-3 : Oui
                       3+ : Non
                     PRISE Toto1
-                FIN", 1, "Adulte", "PRISE Toto1")]
-    public void ThrowIfNotValid_Plage_Count(string content, int indexMedicament, string categorie, string regle) {
+                FIN", 1, "Adulte", "PRISE Toto1", "2 lignes")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 24h
+                    DOSAGE Toto2_Compo
+                      0+ : Oui
+                    PRISE Toto1
+                      0-3 : Oui
+                      3+ : Non
+                FIN", 1, "Enfant", "DOSAGE Toto2_Compo", "2 lignes")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 24h
+                    PRISE Toto2_Compo
+                      0+ : Oui
+                    PRISE Toto1
+                      0-3 : Oui
+                      3+ : Non
+                FIN", 1, "Enfant", "PRISE Toto2_Compo", "2 lignes")]
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 24h
+                    ATTENDRE APRES Toto2_Compo
+                    PRISE Toto1
+                      0-3 : Oui
+                      3+ : Non
+                FIN", 1, "Enfant", "ATTENDRE APRES Toto2_Compo", "1 ligne")]
+    public void ThrowIfNotValid_Plage_Count(string content, int indexMedicament, string categorie, string regle, string count) {
         List<FileMedicament> fileMedicaments = ParseMedFile.Parse(content);
         Exception? exception = Assert.Throws<Exception>(() => CheckFileMedicament_ThrowIfNotValid(fileMedicaments));
 
         Assert.NotNull(exception);
-        Assert.AreEqual($"Médicament 'Toto{indexMedicament}' - Posologie '{categorie}' - Règle '{regle}' - 2 lignes min pour les plages",
+        Assert.AreEqual($"Médicament 'Toto{indexMedicament}' - Posologie '{categorie}' - Règle '{regle}' - {count} min pour les plages",
                         exception!.Message);
+    }
+
+    [TestCase(@"MEDICAMENT Toto1
+                  POSOLOGIE Enfant SUR 24h
+                    ATTENDRE APRES Toto2_Compo
+                      0+ : Non
+                    PRISE Toto1
+                      0-3 : Oui
+                      3+ : Non
+                FIN")]
+    public void Valid_Plage_Count(string content) {
+        List<FileMedicament> fileMedicaments = ParseMedFile.Parse(content);
+        Assert.DoesNotThrow(() => CheckFileMedicament_ThrowIfNotValid(fileMedicaments));
     }
 
     [TestCase(@"MEDICAMENT Toto1

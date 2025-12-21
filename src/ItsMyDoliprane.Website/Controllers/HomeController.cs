@@ -25,9 +25,7 @@ public class HomeController : Controller
             return RedirectToAction("Index");
         bool isAdult = PersonIsAdult(personId);
         List<Medication> medications = _useMedications.GetMedicationsSinceDate(personId, DateTime.Now.AddMonths(-1));
-        var states = _useMedications.GetMedicationsStates(personId, isAdult)
-                                    .Where(s => IsDrugAllowForPerson(s.DrugId, personId))
-                                    .ToList();
+        var states = _useMedications.GetMedicationsStates(personId, isAdult).Where(s => IsDrugAllowForPerson(s.DrugId, personId)).ToList();
         HomeViewModel model = new HomeViewModel {
             PersonId = personId,
             Persons = _persons.ToDictionary(p => p.Id, p => p.Name),
@@ -67,7 +65,7 @@ public class HomeController : Controller
     }
 
     private static List<TimeProgressBar> GetTimeProgressBars(List<MedicationState> states, bool isAdult) {
-        return new List<TimeProgressBar> {
+        var timeProgressBar = new List<TimeProgressBar> {
             GetProgressBarAllDrug(states),
             GetProgressBarDoliprane(states, isAdult),
             GetProgressBarIbuprofene(states),
@@ -78,11 +76,21 @@ public class HomeController : Controller
             GetProgressBarSmecta(states),
             GetProgressBarImmodiumCaps(states)
         };
+        FixTimeProgressBar(timeProgressBar);
+        return timeProgressBar;
+    }
+
+    private static void FixTimeProgressBar(List<TimeProgressBar> timeProgressBars) {
+        foreach (var timeProgressBar in timeProgressBars) {
+            if (timeProgressBar is { NumberMedication: 0, MaxValue: >= 10 })
+                timeProgressBar.MaxValue = 0;
+        }
+        int maxValue = timeProgressBars.Select(s => s.MaxValue).Max();
+        timeProgressBars.ForEach(s => s.MaxWidthValue = Math.Max(6, maxValue));
     }
 
     private static TimeProgressBar GetProgressBarAllDrug(List<MedicationState> states) {
         MedicationState? medicationState = states.Find(s => s.DrugId == null);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = medicationState?.Opinion == MedicationOpinion.No,
             Caption = "⚠️ Tous les médicaments",
@@ -90,7 +98,6 @@ public class HomeController : Controller
             Opinion = medicationState?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(medicationState?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, medicationState?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(medicationState?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = medicationState?.NumberMedication ?? 0
         };
     }
@@ -105,7 +112,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarDoliprane(List<MedicationState> states, bool isAdult) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Doliprane);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Doliprane",
@@ -113,7 +119,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
@@ -130,13 +135,13 @@ public class HomeController : Controller
         if (dosage > 0 && isAdult)
             tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{dosage / 1000.0}g de paracétamol en 24h";
         if ((state?.NumberMedication ?? 0) > 0 && !isAdult)
-            tooltip += $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de doliprane en 24h";
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de doliprane en 24h";
         return tooltip;
     }
 
     private static TimeProgressBar GetProgressBarIbuprofene(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Ibuprofene);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Ibuprofène",
@@ -144,7 +149,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
@@ -168,7 +172,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarHumex(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Humex);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = state?.NextDrug switch {
@@ -180,14 +183,12 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
 
     private static TimeProgressBar GetProgressBarAntibiotique(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Antibiotique);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Antibiotique",
@@ -195,7 +196,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
@@ -216,7 +216,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarProbiotique(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Probiotique);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Probiotique",
@@ -224,7 +223,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
@@ -245,7 +243,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarSmecta(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Smecta);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         int count = state?.Dosages.FirstOrDefault(d => d.DrugCompositionId == DrugCompositionId.Diosmectite)?.Number ?? 0;
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
@@ -254,7 +251,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = count
         };
     }
@@ -271,7 +267,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarTopalgic(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.Topalgic);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Topalgic",
@@ -279,7 +274,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }
@@ -300,7 +294,6 @@ public class HomeController : Controller
 
     private static TimeProgressBar GetProgressBarImmodiumCaps(List<MedicationState> states) {
         MedicationState? state = states.Find(s => s.DrugId == DrugId.ImmodiumCaps);
-        DateTime? maxDateTime = states.Max(s => s.NextMedicationYes);
         return new TimeProgressBar {
             Visible = GetMedicationStateVisible(state, states),
             Caption = "Immodium Caps",
@@ -308,7 +301,6 @@ public class HomeController : Controller
             Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
             CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
             MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
-            MaxWidthValue = Math.Max((int)Math.Ceiling(GetDuration(state?.LastMedicationNo, maxDateTime)), 6),
             NumberMedication = state?.NumberMedication ?? 0
         };
     }

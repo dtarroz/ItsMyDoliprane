@@ -13,11 +13,20 @@ time-progress-bar .time-title {
     display: flex;
 }
 
-time-progress-bar .time-title-end {
+time-progress-bar .time-title-end-yes {
     width: 16px;
     height: 16px;
     margin-left: 5px;
     padding-top: 1px;
+}
+
+time-progress-bar .time-title-end-no {
+    width: 16px;
+    height: 16px;
+    margin-left: 5px;
+    padding-top: 1px;
+    display: block;
+    fill: red;
 }
 
 time-progress-bar .time-title-medication {

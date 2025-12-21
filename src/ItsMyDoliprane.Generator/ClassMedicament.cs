@@ -150,29 +150,29 @@ namespace ItsMyDoliprane.Generator
             FilePlage plageNon = regle.Plages[0];
             FilePlage plageAvertissement = regle.Plages.FirstOrDefault(p => p.Avis == "Avertissement");
             FilePlage plagePossible = regle.Plages.FirstOrDefault(p => p.Avis == "Possible");
-            FilePlage plageOui = regle.Plages.Last();
+            FilePlage plageOui = regle.Plages.FirstOrDefault(p => p.Avis == "Oui");
             string switchNon = $@"<= {plageNon.Max} => new RuleMedicationState {{
                 Opinion = MedicationOpinion.No,
                 LastMedicationNo = last.DateTime,
-                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui.Min}),
-                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui?.Min ?? posologie.DureeHeures}),
+                NextMedicationYes = last.DateTime.AddHours({plageOui?.Min ?? posologie.DureeHeures})
             }},";
             string switchAvertissement = plageAvertissement != null
                 ? $@"<= {plageAvertissement.Max} => new RuleMedicationState {{
                 Opinion = MedicationOpinion.Warning,
                 LastMedicationNo = last.DateTime,
-                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui.Min}),
-                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+                NextMedicationPossible = last.DateTime.AddHours({plagePossible?.Min ?? plageOui?.Min ?? posologie.DureeHeures}),
+                NextMedicationYes = last.DateTime.AddHours({plageOui?.Min ?? posologie.DureeHeures})
             }},"
                 : "";
             string switchPossible = plagePossible != null
                 ? $@"<= {plagePossible.Max} => new RuleMedicationState {{
                 Opinion = MedicationOpinion.Possible,
                 LastMedicationNo = last.DateTime,
-                NextMedicationYes = last.DateTime.AddHours({plageOui.Min})
+                NextMedicationYes = last.DateTime.AddHours({plageOui?.Min ?? posologie.DureeHeures})
             }},"
                 : "";
-            string switchOui = $"_ => new RuleMedicationState {{ Opinion = MedicationOpinion.Yes }},";
+            const string switchOui = "_ => new RuleMedicationState { Opinion = MedicationOpinion.Yes },";
             return new MethodRegle {
                 Name = $"GetRuleAttendreApres{regle.Medicament}{posologie.Categorie}",
                 Content = $@"{last}

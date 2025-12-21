@@ -38,14 +38,12 @@ try {
     }
 
     app.UseHttpsRedirection();
-    if (app.Environment.IsDevelopment())
-        app.UseStaticFiles();
-    else
-        app.UseStaticFiles(new StaticFileOptions {
-            OnPrepareResponse = ctx => {
-                ctx.Context.Response.Headers[HeaderNames.CacheControl] = "public,max-age=31536000,immutable";
-            }
-        });
+    string cacheControl = app.Environment.IsDevelopment() ? "no-cache" : "public,max-age=31536000,immutable";
+    app.UseStaticFiles(new StaticFileOptions {
+        OnPrepareResponse = ctx => {
+            ctx.Context.Response.Headers[HeaderNames.CacheControl] = cacheControl;
+        }
+    });
         
 
     app.UseRouting();
