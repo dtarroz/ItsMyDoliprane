@@ -1,0 +1,5 @@
+INSERT INTO DRUG (PKEY, NAME, FOR_ADULT, FOR_CHILD)
+VALUES (13, 'Provames', 1, 0);
+
+PRAGMA
+    user_version = 16;

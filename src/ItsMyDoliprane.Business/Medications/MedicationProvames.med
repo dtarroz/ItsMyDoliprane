@@ -1,0 +1,12 @@
+MEDICAMENT Provames      
+  POSOLOGIE Adulte SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Provames
+      0-8 : Non
+      8+ : Oui
+    PRISE Provames
+      0-3 : Oui
+      3+ : Non
+FIN

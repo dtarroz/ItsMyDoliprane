@@ -13,5 +13,6 @@ public enum DrugId
     Smecta = 9,
     Probiotique = 10,
     Topalgic = 11,
-    ImmodiumCaps = 12
+    ImmodiumCaps = 12,
+    Provames = 13
 }

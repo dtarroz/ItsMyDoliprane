@@ -74,7 +74,8 @@ public class HomeController : Controller
             GetProgressBarProbiotique(states),
             GetProgressBarTopalgic(states),
             GetProgressBarSmecta(states),
-            GetProgressBarImmodiumCaps(states)
+            GetProgressBarImmodiumCaps(states),
+            GetProgressBarProvames(states)
         };
         FixTimeProgressBar(timeProgressBar);
         return timeProgressBar;
@@ -313,6 +314,30 @@ public class HomeController : Controller
         if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
                 $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'immodium caps en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarProvames(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Provames);
+        return new TimeProgressBar {
+            Visible = GetMedicationStateVisible(state, states),
+            Caption = "Provames",
+            Tooltip = GetToolTipProvames(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            NumberMedication = state?.NumberMedication ?? 0
+        };
+    }
+
+    private static string GetToolTipProvames(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {nextMedicationYes}";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de Provames en 24h";
         return tooltip;
     }
 

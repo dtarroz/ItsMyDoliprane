@@ -17,10 +17,12 @@ public class UseMedications
     private readonly MedicationTopalgic _medicationTopalgic;
     private readonly MedicationProbiotique _medicationProbiotique;
     private readonly MedicationImmodiumCaps _medicationImmodiumCaps;
+    private readonly MedicationProvames _medicationProvames;
 
     public UseMedications(MedicationRepository medicationRepository, MedicationDoliprane medicationDoliprane,
                           MedicationHumex medicationHumex, MedicationAntibiotique medicationAntibiotique, MedicationSmecta medicationSmecta,
-                          MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene, MedicationTopalgic medicationTopalgic, MedicationProbiotique medicationProbiotique, MedicationImmodiumCaps medicationImmodiumCaps) {
+                          MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene, MedicationTopalgic medicationTopalgic, MedicationProbiotique medicationProbiotique, MedicationImmodiumCaps medicationImmodiumCaps,
+                          MedicationProvames medicationProvames) {
         _medicationRepository = medicationRepository;
         _medicationDoliprane = medicationDoliprane;
         _medicationHumex = medicationHumex;
@@ -31,6 +33,7 @@ public class UseMedications
         _medicationTopalgic = medicationTopalgic;
         _medicationProbiotique = medicationProbiotique;
         _medicationImmodiumCaps = medicationImmodiumCaps;
+        _medicationProvames = medicationProvames;
     }
 
     public List<Medication> GetMedicationsSinceDate(int personId, DateTime date) {
@@ -56,7 +59,8 @@ public class UseMedications
             _medicationSmecta.GetMedicationState(medications, isAdult),
             _medicationTopalgic.GetMedicationState(medications, isAdult),
             _medicationProbiotique.GetMedicationState(medications, isAdult),
-            _medicationImmodiumCaps.GetMedicationState(medications, isAdult)
+            _medicationImmodiumCaps.GetMedicationState(medications, isAdult),
+            _medicationProvames.GetMedicationState(medications, isAdult)
         };
     }
 

@@ -15,5 +15,6 @@ public static class ServiceCollectionExtension
         serviceCollection.AddTransient<MedicationTopalgic>();
         serviceCollection.AddTransient<MedicationProbiotique>();
         serviceCollection.AddTransient<MedicationImmodiumCaps>();
+        serviceCollection.AddTransient<MedicationProvames>();
     }
 }
