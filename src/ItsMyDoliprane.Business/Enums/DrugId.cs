@@ -15,5 +15,6 @@ public enum DrugId
     Topalgic = 11,
     ImmodiumCaps = 12,
     Provames = 13,
-    AspegicNourrissons = 14
+    AspegicNourrissons = 14,
+    Progestan = 15
 }

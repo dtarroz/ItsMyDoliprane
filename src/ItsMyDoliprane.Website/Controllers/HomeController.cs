@@ -76,7 +76,8 @@ public class HomeController : Controller
             GetProgressBarSmecta(states),
             GetProgressBarImmodiumCaps(states),
             GetProgressBarProvames(states),
-            GetProgressBarAspegicNourrissons(states)
+            GetProgressBarAspegicNourrissons(states),
+            GetProgressBarProgestan(states)
         };
         FixTimeProgressBar(timeProgressBar);
         return timeProgressBar;
@@ -338,7 +339,7 @@ public class HomeController : Controller
             tooltip = $"Prise possible à partir de {nextMedicationYes}";
         if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
-                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de Provames en 24h";
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de provames en 24h";
         return tooltip;
     }
 
@@ -362,7 +363,31 @@ public class HomeController : Controller
             tooltip = $"Prise possible à partir de {nextMedicationYes}";
         if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
-                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'Aspegic Nourrissons en 24h";
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} d'aspegic nourrissons en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarProgestan(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Progestan);
+        return new TimeProgressBar {
+            Visible = GetMedicationStateVisible(state, states),
+            Caption = "Progestan",
+            Tooltip = GetToolTipProgestan(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            NumberMedication = state?.NumberMedication ?? 0
+        };
+    }
+
+    private static string GetToolTipProgestan(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {nextMedicationYes}";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de progestan en 24h";
         return tooltip;
     }
 

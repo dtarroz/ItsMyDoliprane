@@ -1,0 +1,12 @@
+MEDICAMENT Progestan      
+  POSOLOGIE Adulte SUR 24h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    ATTENDRE APRES Progestan
+      0-12 : Non
+      12+ : Oui
+    PRISE Progestan
+      0-2 : Oui
+      2+ : Non
+FIN
