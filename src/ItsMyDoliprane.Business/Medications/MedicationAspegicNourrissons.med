@@ -1,0 +1,9 @@
+MEDICAMENT AspegicNourrissons      
+  POSOLOGIE Adulte SUR 20h
+    ATTENDRE APRES Diosmectite
+      0-2 : Non
+      2+ : Oui
+    PRISE AspegicNourrissons
+      0-1 : Oui
+      1+ : Non
+FIN

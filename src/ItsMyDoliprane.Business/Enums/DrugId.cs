@@ -14,5 +14,6 @@ public enum DrugId
     Probiotique = 10,
     Topalgic = 11,
     ImmodiumCaps = 12,
-    Provames = 13
+    Provames = 13,
+    AspegicNourrissons = 14
 }
