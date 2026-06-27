@@ -18,5 +18,6 @@ public static class ServiceCollectionExtension
         serviceCollection.AddTransient<MedicationProvames>();
         serviceCollection.AddTransient<MedicationAspegicNourrissons>();
         serviceCollection.AddTransient<MedicationProgestan>();
+        serviceCollection.AddTransient<MedicationGavisconNourrissons>();
     }
 }

@@ -10,7 +10,10 @@ public class MedicationAllDrug : MedicationDrug
     public MedicationAllDrug(IDrugRepository drugRepository) : base(drugRepository) { }
 
     public override MedicationState GetMedicationState(List<Medication> medications, bool isAdult) {
-        List<RuleMedicationState> rules = new List<RuleMedicationState> { GetRule2Hours(medications) };
+        List<RuleMedicationState> rules = new List<RuleMedicationState> {
+            GetDiosmectiteRule2Hours(medications),
+            GetGavisconNourrissonsRule2Hours(medications)
+        };
         return new MedicationState {
             DrugId = null,
             Opinion = ChoiceMedicationOpinion(rules.Select(r => r.Opinion).ToList()),
@@ -23,15 +26,28 @@ public class MedicationAllDrug : MedicationDrug
         };
     }
 
-    private static RuleMedicationState GetRule2Hours(IEnumerable<Medication> medications) {
+    private static RuleMedicationState GetDiosmectiteRule2Hours(IEnumerable<Medication> medications) {
         Medication? last = GetLastMedication(medications, DrugCompositionId.Diosmectite);
         float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
         switch (durationSinceLastMedication) {
             case null:
-            case >= 2:
+            case >= 2: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
+            default:
                 return new RuleMedicationState {
-                    Opinion = MedicationOpinion.Yes
+                    Opinion = MedicationOpinion.No,
+                    LastMedicationNo = last!.DateTime,
+                    NextMedicationPossible = last.DateTime.AddHours(2),
+                    NextMedicationYes = last.DateTime.AddHours(2)
                 };
+        }
+    }
+
+    private static RuleMedicationState GetGavisconNourrissonsRule2Hours(IEnumerable<Medication> medications) {
+        Medication? last = GetLastMedication(medications, DrugId.GavisconNourrissons);
+        float? durationSinceLastMedication = GetDurationBetweenDateTime(last?.DateTime, DateTime.Now);
+        switch (durationSinceLastMedication) {
+            case null:
+            case >= 2: return new RuleMedicationState { Opinion = MedicationOpinion.Yes };
             default:
                 return new RuleMedicationState {
                     Opinion = MedicationOpinion.No,

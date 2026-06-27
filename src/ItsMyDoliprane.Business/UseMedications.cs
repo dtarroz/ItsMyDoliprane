@@ -20,13 +20,15 @@ public class UseMedications
     private readonly MedicationProvames _medicationProvames;
     private readonly MedicationAspegicNourrissons _medicationAspegicNourrissons;
     private readonly MedicationProgestan _medicationProgestan;
+    private readonly MedicationGavisconNourrissons _medicationGavisconNourrissons;
 
     public UseMedications(MedicationRepository medicationRepository, MedicationDoliprane medicationDoliprane,
                           MedicationHumex medicationHumex, MedicationAntibiotique medicationAntibiotique, MedicationSmecta medicationSmecta,
                           MedicationAllDrug medicationAllDrug, MedicationIbuprofene medicationIbuprofene,
                           MedicationTopalgic medicationTopalgic, MedicationProbiotique medicationProbiotique,
                           MedicationImmodiumCaps medicationImmodiumCaps, MedicationProvames medicationProvames,
-                          MedicationAspegicNourrissons medicationAspegicNourrissons, MedicationProgestan medicationProgestan) {
+                          MedicationAspegicNourrissons medicationAspegicNourrissons, MedicationProgestan medicationProgestan,
+                          MedicationGavisconNourrissons medicationGavisconNourrissons) {
         _medicationRepository = medicationRepository;
         _medicationDoliprane = medicationDoliprane;
         _medicationHumex = medicationHumex;
@@ -40,6 +42,7 @@ public class UseMedications
         _medicationProvames = medicationProvames;
         _medicationAspegicNourrissons = medicationAspegicNourrissons;
         _medicationProgestan = medicationProgestan;
+        _medicationGavisconNourrissons = medicationGavisconNourrissons;
     }
 
     public List<Medication> GetMedicationsSinceDate(int personId, DateTime date) {
@@ -68,7 +71,8 @@ public class UseMedications
             _medicationImmodiumCaps.GetMedicationState(medications, isAdult),
             _medicationProvames.GetMedicationState(medications, isAdult),
             _medicationAspegicNourrissons.GetMedicationState(medications, isAdult),
-            _medicationProgestan.GetMedicationState(medications, isAdult)
+            _medicationProgestan.GetMedicationState(medications, isAdult),
+            _medicationGavisconNourrissons.GetMedicationState(medications, isAdult)
         };
     }
 

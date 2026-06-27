@@ -25,6 +25,9 @@ MEDICAMENT Doliprane
     ATTENDRE APRES Diosmectite
       0-2 : Non
       2+ : Oui
+    ATTENDRE APRES GavisconNourrissons
+      0-2 : Non
+      2+ : Oui
     ATTENDRE APRES Paracetamol
       0-6 : Non
       6+ : Oui

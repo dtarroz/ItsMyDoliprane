@@ -77,7 +77,8 @@ public class HomeController : Controller
             GetProgressBarImmodiumCaps(states),
             GetProgressBarProvames(states),
             GetProgressBarAspegicNourrissons(states),
-            GetProgressBarProgestan(states)
+            GetProgressBarProgestan(states),
+            GetProgressBarGavisconNourrissons(states)
         };
         FixTimeProgressBar(timeProgressBar);
         return timeProgressBar;
@@ -388,6 +389,30 @@ public class HomeController : Controller
         if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
                 $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de progestan en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarGavisconNourrissons(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.GavisconNourrissons);
+        return new TimeProgressBar {
+            Visible = GetMedicationStateVisible(state, states),
+            Caption = "Gaviscon Nourrissons",
+            Tooltip = GetToolTipGavisconNourrissons(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            NumberMedication = state?.NumberMedication ?? 0
+        };
+    }
+
+    private static string GetToolTipGavisconNourrissons(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {nextMedicationYes}";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de gaviscon nourrissons en 24h";
         return tooltip;
     }
 

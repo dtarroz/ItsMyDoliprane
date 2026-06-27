@@ -16,5 +16,6 @@ public enum DrugId
     ImmodiumCaps = 12,
     Provames = 13,
     AspegicNourrissons = 14,
-    Progestan = 15
+    Progestan = 15,
+    GavisconNourrissons = 16
 }
