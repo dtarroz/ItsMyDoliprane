@@ -17,5 +17,6 @@ public enum DrugId
     Provames = 13,
     AspegicNourrissons = 14,
     Progestan = 15,
-    GavisconNourrissons = 16
+    GavisconNourrissons = 16,
+    Macrogol = 17
 }

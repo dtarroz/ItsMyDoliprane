@@ -1,0 +1,13 @@
+MEDICAMENT Macrogol      
+  POSOLOGIE Enfant SUR 24h
+    ATTENDRE APRES Diosmectite
+      0+ : Non
+    ATTENDRE APRES Loperamide
+      0+ : Non
+    ATTENDRE APRES Macrogol
+      0-10 : Non
+      10+ : Oui
+    PRISE Macrogol
+      0-2 : Oui
+      2+ : Non
+FIN

@@ -78,7 +78,8 @@ public class HomeController : Controller
             GetProgressBarProvames(states),
             GetProgressBarAspegicNourrissons(states),
             GetProgressBarProgestan(states),
-            GetProgressBarGavisconNourrissons(states)
+            GetProgressBarGavisconNourrissons(states),
+            GetProgressBarMacrogol(states)
         };
         FixTimeProgressBar(timeProgressBar);
         return timeProgressBar;
@@ -413,6 +414,30 @@ public class HomeController : Controller
         if ((state?.NumberMedication ?? 0) > 0)
             tooltip +=
                 $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de gaviscon nourrissons en 24h";
+        return tooltip;
+    }
+
+    private static TimeProgressBar GetProgressBarMacrogol(List<MedicationState> states) {
+        MedicationState? state = states.Find(s => s.DrugId == DrugId.Macrogol);
+        return new TimeProgressBar {
+            Visible = GetMedicationStateVisible(state, states),
+            Caption = "Macrogol",
+            Tooltip = GetToolTipMacrogol(state),
+            Opinion = state?.Opinion.ToString().ToLower() ?? MedicationOpinion.Yes.ToString().ToLower(),
+            CurrentValue = GetDuration(state?.LastMedicationNo, DateTime.Now),
+            MaxValue = (int)Math.Ceiling(GetDuration(state?.LastMedicationNo, state?.NextMedicationYes)),
+            NumberMedication = state?.NumberMedication ?? 0
+        };
+    }
+
+    private static string GetToolTipMacrogol(MedicationState? state) {
+        string tooltip = "";
+        string? nextMedicationYes = state?.NextMedicationYes?.ToString("HH:mm");
+        if (state?.NextMedicationYes != null)
+            tooltip = $"Prise possible à partir de {nextMedicationYes}";
+        if ((state?.NumberMedication ?? 0) > 0)
+            tooltip +=
+                $"{(tooltip != "" ? "<br/><br/>" : "")}{state!.NumberMedication} prise{(state.NumberMedication > 1 ? "s" : "")} de macrogol en 24h";
         return tooltip;
     }
 

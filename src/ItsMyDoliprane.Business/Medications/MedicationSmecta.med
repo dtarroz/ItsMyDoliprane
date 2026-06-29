@@ -80,6 +80,8 @@ MEDICAMENT Smecta
     ATTENDRE APRES Topalgic
       0-2 : Non
       2+ : Oui
+    ATTENDRE APRES Macrogol
+      0+ : Non
     PRISE Diosmectite
       0-4 : Oui
       4+ : Non
