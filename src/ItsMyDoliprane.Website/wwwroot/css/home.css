@@ -169,6 +169,17 @@ time-progress-bar {
     box-sizing: border-box;
 }
 
+.history::before {
+    content: '';
+    display: block;
+    width: 150px;
+    height: 2px;
+    border-radius: 999px;
+    background: #2E2E2E;
+    align-self: center;
+    margin-bottom: 4px;
+}
+
 .history-detail {
     display: grid;
     grid-template-columns: 44px 1fr auto;
