@@ -161,21 +161,83 @@ time-progress-bar {
 .history {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-sizing: border-box;
 }
 
 .history-detail {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
     align-items: center;
-    gap: 10px;
-    padding-left: 15px;
-    margin-bottom: 7px;
+    gap: 8px;
+    min-height: 26px;
+    padding: 2px 0 2px 14px;
+}
+
+.history-detail + .history-detail {
+    margin-top: 1px;
 }
 
 .history-title {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 10px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #E7E7E7;
+}
+
+.history-date {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+}
+
+.history-date + .history-date {
+    margin-top: 10px;
+}
+
+.history-date > span:first-child {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-bottom: 4px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    color: #131313;
+    background: var(--button-color-default);
+}
+
+/* ligne verticale d'indentation qui relie les horaires au jour */
+.history-date-entries {
+    border-left: 2px solid #2E2E2E;
+    margin-left: 6px;
+    padding-left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.history-detail > span:first-child {
+    color: #A0A0A0;
+    font-weight: 600;
+    font-size: 0.82rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.history-detail > span:nth-child(2) {
+    color: #E8E8E8;
+    font-size: 0.88rem;
+    line-height: 1.2;
+    word-break: break-word;
 }
 
 .icon-active {
@@ -186,9 +248,31 @@ time-progress-bar {
 }
 
 .icon-edit {
-    fill: gray;
+    fill: #9D9D9D;
+    padding: 2px;
+    border: 0;
+    background: transparent;
+}
+
+.icon-edit:active {
+    transform: scale(0.96);
 }
 
 .icon-delete {
+    display: none;
     fill: #E53935;
+    padding: 2px;
+    border: 0;
+    background: transparent;
+}
+
+.icon-delete.icon-active {
+    display: inline-flex;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.icon-delete.icon-active:active {
+    transform: scale(0.96);
 }

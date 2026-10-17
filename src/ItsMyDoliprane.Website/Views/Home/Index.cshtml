@@ -75,13 +75,15 @@
             @foreach (MedicationViewModel medication in Model.Medications) {
                 <div class="history-date">
                     <span>@medication.Date</span>
-                    @foreach (MedicationDetailViewModel detail in medication.Details) {
-                        <div class="history-detail">
-                            <span>@detail.Hour</span>
-                            <span>@detail.Drug</span>
-                            <iml-icon-trash class="icon-delete" data-medication-id="@detail.Id" data-medication-delete></iml-icon-trash>
-                        </div>
-                    }
+                    <div class="history-date-entries">
+                        @foreach (MedicationDetailViewModel detail in medication.Details) {
+                            <div class="history-detail">
+                                <span>@detail.Hour</span>
+                                <span>@detail.Drug</span>
+                                <iml-icon-trash class="icon-delete" data-medication-id="@detail.Id" data-medication-delete></iml-icon-trash>
+                            </div>
+                        }
+                    </div>
                 </div>
             }
         </div>
