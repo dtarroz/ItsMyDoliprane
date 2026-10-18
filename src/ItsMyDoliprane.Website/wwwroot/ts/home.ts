@@ -3,6 +3,7 @@ import './components/time-progress-bar.js';
 import { ImlButton } from '../lib/itsmylib.components/iml-button.js';
 import '../lib/itsmylib.components/iml-icon-pen-square.js';
 import '../lib/itsmylib.components/iml-icon-trash.js';
+import '../lib/itsmylib.components/iml-icon-settings-outline.js';
 
 const $persons = document.querySelectorAll<HTMLInputElement>('input[name="person"]');
 const $currentPerson = () => document.querySelector('input[name="person"]:checked') as HTMLInputElement;
