@@ -69,7 +69,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_LessThan4Hours_LessThanDosage3000(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_LessThan4Hours_LessThanDosage3000(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -138,7 +138,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_GreaterThan4Hours_LessThanDosage3000(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_GreaterThan4Hours_LessThanDosage3000(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -207,7 +207,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_LessThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_LessThan4Hours_LessThanDosage3500(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -287,7 +287,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_GreaterThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_GreaterThan4Hours_LessThanDosage3500(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -367,7 +367,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_LessThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_LessThan4Hours_GreaterThanDosage4000(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -405,12 +405,12 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.Doliprane,
+                DrugId = (int)DrugId.HumexJour,
                 DateTime = dateTime9,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
+                        Quantity = 500
                     }
                 }
             },
@@ -458,7 +458,7 @@ public class MedicationHumex_Tests
     [InlineData(null, null)]
     [InlineData(-19, DrugId.HumexJour)]
     [InlineData(-21, null)]
-    public void GetMedicationState_1Jour_GreaterThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? nextDrug) {
+    public void GetMedicationState_1Jour_GreaterThan4Hours_GreaterThanDosage4000(int? humexNuitHour, DrugId? nextDrug) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -496,22 +496,22 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.Doliprane,
+                DrugId = (int)DrugId.HumexJour,
                 DateTime = dateTime12,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
+                        Quantity = 500
                     }
                 }
             },
             new() {
-                DrugId = (int)DrugId.Doliprane,
+                DrugId = (int)DrugId.HumexJour,
                 DateTime = dateTime14,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
+                        Quantity = 500
                     }
                 }
             }
@@ -543,486 +543,6 @@ public class MedicationHumex_Tests
         Assert.Equal(4500, medicationState.Dosages[0].TotalQuantity);
         Assert.Equal(5 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
         Assert.Equal(1 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_LessThan4Hours_LessThanDosage3000(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime3 = DateTime.Now.AddHours(-3);
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime3,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
-        Assert.Equal(dateTime3, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationPossible);
-        Assert.Equal(dateTime3.AddHours(4), medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(2000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(3 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_GreaterThan4Hours_LessThanDosage3000(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        DateTime dateTime9 = DateTime.Now.AddHours(-9);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime9,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Yes, medicationState.Opinion);
-        Assert.Null(medicationState.LastMedicationNo);
-        Assert.Null(medicationState.NextMedicationPossible);
-        Assert.Null(medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(2000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(3 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_LessThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime3 = DateTime.Now.AddHours(-3);
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        DateTime dateTime9 = DateTime.Now.AddHours(-9);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime3,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime9,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
-        Assert.Equal(dateTime3, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
-        Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(4 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_GreaterThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        DateTime dateTime9 = DateTime.Now.AddHours(-9);
-        DateTime dateTime12 = DateTime.Now.AddHours(-12);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime9,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime12,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.Warning, medicationState.Opinion);
-        Assert.Equal(dateTime5, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
-        Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(3000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(4 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_LessThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime3 = DateTime.Now.AddHours(-3);
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        DateTime dateTime9 = DateTime.Now.AddHours(-9);
-        DateTime dateTime12 = DateTime.Now.AddHours(-12);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime3,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime9,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime12,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
-        Assert.Equal(dateTime3, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationPossible);
-        Assert.Equal(dateTime9.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(5 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
-    }
-
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(-19, DrugId.HumexJour)]
-    [InlineData(-21, null)]
-    public void GetMedicationState_2Jour_GreaterThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? nextDrug) {
-        DateTime dateTime5 = DateTime.Now.AddHours(-5);
-        DateTime dateTime7 = DateTime.Now.AddHours(-7);
-        DateTime dateTime9 = DateTime.Now.AddHours(-9);
-        DateTime dateTime12 = DateTime.Now.AddHours(-12);
-        DateTime dateTime14 = DateTime.Now.AddHours(-14);
-        List<Medication> medications = new List<Medication> {
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime5,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime7,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime9,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.Doliprane,
-                DateTime = dateTime12,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
-                    }
-                }
-            },
-            new() {
-                DrugId = (int)DrugId.HumexJour,
-                DateTime = dateTime14,
-                Dosages = new List<MedicationDosage> {
-                    new() {
-                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
-                    }
-                }
-            }
-        };
-        if (humexNuitHour != null)
-            medications.Add(new Medication {
-                                DrugId = (int)DrugId.HumexNuit,
-                                DateTime = DateTime.Now.AddHours(humexNuitHour.Value),
-                                Dosages = new List<MedicationDosage> {
-                                    new() {
-                                        DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                                        Quantity = 0
-                                    }
-                                }
-                            });
-        IDrugRepository drugRepository = new DrugRepositoryMock();
-        MedicationHumex medicationHumex = new MedicationHumex(new MedicationAllDrug(drugRepository), drugRepository);
-        MedicationState medicationState = medicationHumex.GetMedicationState(medications, true);
-
-        Assert.NotNull(medicationState);
-        Assert.Equal(DrugId.Humex, medicationState.DrugId);
-        Assert.Equal(MedicationOpinion.No, medicationState.Opinion);
-        Assert.Equal(dateTime5, medicationState.LastMedicationNo);
-        Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationPossible);
-        Assert.Equal(dateTime12.AddDays(1), medicationState.NextMedicationYes);
-        Assert.Equal(nextDrug, medicationState.NextDrug);
-        Assert.Single(medicationState.Dosages);
-        Assert.Equal(DrugCompositionId.Paracetamol, medicationState.Dosages[0].DrugCompositionId);
-        Assert.Equal(4000, medicationState.Dosages[0].TotalQuantity);
-        Assert.Equal(5 + (humexNuitHour != null ? 1 : 0), medicationState.Dosages[0].Number);
-        Assert.Equal(2 + (humexNuitHour > -20 ? 1 : 0), medicationState.NumberMedication);
     }
 
     [Theory]
@@ -1030,7 +550,7 @@ public class MedicationHumex_Tests
     [InlineData(-17, null)]
     [InlineData(-19, null)]
     [InlineData(-21, DrugId.HumexNuit)]
-    public void GetMedicationState_3Jour_LessThan4Hours_LessThanDosage3000(double? humexNuitHour, DrugId? drugId) {
+    public void GetMedicationState_3Jour_LessThan4Hours_LessThanDosage3000(int? humexNuitHour, DrugId? drugId) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -1106,7 +626,7 @@ public class MedicationHumex_Tests
     [InlineData(null)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_3Jour_GreaterThan4Hours_LessThanDosage3000(double? humexNuitHour) {
+    public void GetMedicationState_3Jour_GreaterThan4Hours_LessThanDosage3000(int? humexNuitHour) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1186,7 +706,7 @@ public class MedicationHumex_Tests
     [InlineData(-17, null)]
     [InlineData(-19, null)]
     [InlineData(-21, DrugId.HumexNuit)]
-    public void GetMedicationState_3Jour_LessThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? drugId) {
+    public void GetMedicationState_3Jour_LessThan4Hours_LessThanDosage3500(int? humexNuitHour, DrugId? drugId) {
         DateTime dateTime2 = DateTime.Now.AddHours(-2);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -1278,7 +798,7 @@ public class MedicationHumex_Tests
     [InlineData(null, DrugId.HumexNuit)]
     [InlineData(-19, null)]
     [InlineData(-21, DrugId.HumexNuit)]
-    public void GetMedicationState_3Jour_GreaterThan4Hours_LessThanDosage3500(double? humexNuitHour, DrugId? drugId) {
+    public void GetMedicationState_3Jour_GreaterThan4Hours_LessThanDosage3500(int? humexNuitHour, DrugId? drugId) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1377,7 +897,7 @@ public class MedicationHumex_Tests
     [InlineData(-17, null)]
     [InlineData(-19, null)]
     [InlineData(-21, DrugId.HumexNuit)]
-    public void GetMedicationState_3Jour_LessThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? drugId) {
+    public void GetMedicationState_3Jour_LessThan4Hours_GreaterThanDosage4000(int? humexNuitHour, DrugId? drugId) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -1480,7 +1000,7 @@ public class MedicationHumex_Tests
     [InlineData(null, DrugId.HumexNuit)]
     [InlineData(-19, null)]
     [InlineData(-21, DrugId.HumexNuit)]
-    public void GetMedicationState_3Jour_GreaterThan4Hours_GreaterThanDosage4000(double? humexNuitHour, DrugId? drugId) {
+    public void GetMedicationState_3Jour_GreaterThan4Hours_GreaterThanDosage4000(int? humexNuitHour, DrugId? drugId) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1530,22 +1050,22 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.Doliprane,
+                DrugId = (int)DrugId.HumexJour,
                 DateTime = dateTime14,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
+                        Quantity = 500
                     }
                 }
             },
             new() {
-                DrugId = (int)DrugId.HumexJour,
+                DrugId = (int)DrugId.Doliprane,
                 DateTime = dateTime16,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
+                        Quantity = 1000
                     }
                 }
             }
@@ -1584,7 +1104,7 @@ public class MedicationHumex_Tests
     [InlineData(-17)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_4Jour_LessThan4Hours_LessThanDosage3000(double? humexNuitHour) {
+    public void GetMedicationState_4Jour_LessThan4Hours_LessThanDosage3000(int? humexNuitHour) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -1665,7 +1185,7 @@ public class MedicationHumex_Tests
     [InlineData(null)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_4Jour_GreaterThan4Hours_LessThanDosage3000(double? humexNuitHour) {
+    public void GetMedicationState_4Jour_GreaterThan4Hours_LessThanDosage3000(int? humexNuitHour) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1746,7 +1266,7 @@ public class MedicationHumex_Tests
     [InlineData(null)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_4Jour_GreaterThan4Hours_LessThanDosage3500(double? humexNuitHour) {
+    public void GetMedicationState_4Jour_GreaterThan4Hours_LessThanDosage3500(int? humexNuitHour) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1839,7 +1359,7 @@ public class MedicationHumex_Tests
     [InlineData(-17)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_4Jour_LessThan4Hours_GreaterThanDosage4000(double? humexNuitHour) {
+    public void GetMedicationState_4Jour_LessThan4Hours_GreaterThanDosage4000(int? humexNuitHour) {
         DateTime dateTime3 = DateTime.Now.AddHours(-3);
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
@@ -1869,12 +1389,12 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.HumexJour,
+                DrugId = (int)DrugId.Doliprane,
                 DateTime = dateTime7,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
+                        Quantity = 1000
                     }
                 }
             },
@@ -1889,22 +1409,22 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.HumexJour,
+                DrugId = (int)DrugId.Doliprane,
                 DateTime = dateTime12,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
+                        Quantity = 1000
                     }
                 }
             },
             new() {
-                DrugId = (int)DrugId.Doliprane,
+                DrugId = (int)DrugId.HumexJour,
                 DateTime = dateTime14,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 1000
+                        Quantity = 500
                     }
                 }
             }
@@ -1942,7 +1462,7 @@ public class MedicationHumex_Tests
     [InlineData(null)]
     [InlineData(-19)]
     [InlineData(-21)]
-    public void GetMedicationState_4Jour_GreaterThan4Hours_GreaterThanDosage4000(double? humexNuitHour) {
+    public void GetMedicationState_4Jour_GreaterThan4Hours_GreaterThanDosage4000(int? humexNuitHour) {
         DateTime dateTime5 = DateTime.Now.AddHours(-5);
         DateTime dateTime7 = DateTime.Now.AddHours(-7);
         DateTime dateTime9 = DateTime.Now.AddHours(-9);
@@ -1972,12 +1492,12 @@ public class MedicationHumex_Tests
                 }
             },
             new() {
-                DrugId = (int)DrugId.HumexJour,
+                DrugId = (int)DrugId.Doliprane,
                 DateTime = dateTime9,
                 Dosages = new List<MedicationDosage> {
                     new() {
                         DrugCompositionId = (int)DrugCompositionId.Paracetamol,
-                        Quantity = 500
+                        Quantity = 1000
                     }
                 }
             },
