@@ -6,4 +6,5 @@ public interface IDrugRepository
 {
     List<Drug> GetDrugs();
     List<MedicationDosage> GetDosages(int drugId);
+    void UpdateDrug(int drugId, bool forAdult, bool forChild);
 }

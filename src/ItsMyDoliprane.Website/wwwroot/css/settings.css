@@ -1,0 +1,116 @@
+@import "./home.css";
+
+/* ===== Overrides container pour la page settings ===== */
+
+.container {
+    gap: 18px;
+}
+
+.title {
+    position: relative;
+    font-size: 1.4rem;
+}
+
+.back-link {
+    position: absolute;
+    left: 0;
+    color: var(--link-color-default);
+    text-decoration: none;
+    font-size: 1.3rem;
+    line-height: 1;
+    padding: 4px 8px;
+}
+
+/* ===== Section médicaments ===== */
+
+.settings-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.settings-header {
+    display: grid;
+    grid-template-columns: 1fr 52px 52px;
+    align-items: center;
+    gap: 8px;
+    padding: 0 4px 6px 4px;
+    border-bottom: 1px solid #2A2A2A;
+    margin-bottom: 4px;
+}
+
+.settings-col-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #888;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.settings-row {
+    display: grid;
+    grid-template-columns: 1fr 52px 52px;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 4px;
+    border-bottom: 1px solid #1E1E1E;
+}
+
+.settings-row:last-child {
+    border-bottom: none;
+}
+
+.settings-drug-name {
+    font-size: 0.9rem;
+    color: var(--text-color-default);
+}
+
+/* ===== Toggle switch — version outline ===== */
+
+.toggle {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    height: 22px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+.toggle input {
+    display: none;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    background: transparent;
+    border: 1.5px solid #555;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+.toggle-slider::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #555;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.toggle input:checked + .toggle-slider {
+    border-color: var(--button-color-default);
+}
+
+.toggle input:checked + .toggle-slider::after {
+    transform: translateX(18px);
+    background: var(--button-color-default);
+}
+

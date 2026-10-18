@@ -43,6 +43,18 @@ body {
     font-family: "Arial Rounded MT Bold", Arial, sans-serif;
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+}
+
+.settings-link {
+    position: absolute;
+    right: 0;
+    font-size: 1.1rem;
+    text-decoration: none;
+    opacity: 0.6;
+    line-height: 1;
 }
 
 .title svg {
@@ -158,6 +170,8 @@ time-progress-bar {
     padding-bottom: 10px;
 }
 
+/* ===== Historique ===== */
+
 .history {
     display: flex;
     flex-direction: column;
@@ -250,6 +264,8 @@ time-progress-bar {
     line-height: 1.2;
     word-break: break-word;
 }
+
+/* ===== Icônes ===== */
 
 .icon-active {
     display: inline-block;

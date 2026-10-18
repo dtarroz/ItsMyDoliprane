@@ -32,4 +32,14 @@ public class DrugRepository : AbstractRepository, IDrugRepository
         using SqliteCommand command = connection.CreateCommand();
         return DrugDosageTable.GetDosages(drugId, command);
     }
+
+    public void UpdateDrug(int drugId, bool forAdult, bool forChild) {
+        using SqliteConnection connection = CreateConnectionAndOpen();
+        using SqliteCommand command = connection.CreateCommand();
+        command.CommandText = "UPDATE DRUG SET FOR_ADULT = @forAdult, FOR_CHILD = @forChild WHERE PKEY = @id";
+        command.Parameters.AddWithValue("@forAdult", forAdult ? 1 : 0);
+        command.Parameters.AddWithValue("@forChild", forChild ? 1 : 0);
+        command.Parameters.AddWithValue("@id", drugId);
+        command.ExecuteNonQuery();
+    }
 }

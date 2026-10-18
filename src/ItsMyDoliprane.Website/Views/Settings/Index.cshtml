@@ -1,0 +1,41 @@
+@model SettingsViewModel;
+
+@{
+    ViewData["Title"] = "Configuration";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/settings.css" asp-append-version="true" />
+}
+
+@section Scripts {
+    <script src="~/js/settings.js" type="module" asp-append-version="true" defer></script>
+}
+
+<div class="container">
+    <div class="title">
+        <a href="/" class="back-link">←</a>
+        Configuration
+    </div>
+    <div class="settings-section">
+        <div class="settings-header">
+            <span class="settings-col-name"></span>
+            <span class="settings-col-label">Adulte</span>
+            <span class="settings-col-label">Enfant</span>
+        </div>
+        @foreach (DrugSettingViewModel drug in Model.Drugs) {
+            <div class="settings-row" data-drug-id="@drug.Id">
+                <span class="settings-drug-name">@drug.Name</span>
+                <label class="toggle">
+                    <input type="checkbox" data-field="forAdult" @(drug.ForAdult ? "checked" : "") />
+                    <span class="toggle-slider"></span>
+                </label>
+                <label class="toggle">
+                    <input type="checkbox" data-field="forChild" @(drug.ForChild ? "checked" : "") />
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        }
+    </div>
+</div>
+

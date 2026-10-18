@@ -35,4 +35,8 @@ public class DrugRepositoryMock : IDrugRepository
             };
         return new List<MedicationDosage>();
     }
+
+    public void UpdateDrug(int drugId, bool forAdult, bool forChild) {
+        throw new System.NotImplementedException();
+    }
 }

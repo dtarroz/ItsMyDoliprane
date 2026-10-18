@@ -14,4 +14,8 @@ public class UseDrugs
     public List<Drug> GetDrugs() {
         return _drugRepository.GetDrugs();
     }
+
+    public void UpdateDrug(int drugId, bool forAdult, bool forChild) {
+        _drugRepository.UpdateDrug(drugId, forAdult, forChild);
+    }
 }
