@@ -20,6 +20,7 @@ export declare class ImlSlideshow extends ImlHTMLElement {
     private _clearInterval;
     protected html(): string;
     protected renderUpdated(): void;
+    private _hiddenImage404;
     private _initHover;
     private _isCoarsePointer;
     private _loadFirstImage;

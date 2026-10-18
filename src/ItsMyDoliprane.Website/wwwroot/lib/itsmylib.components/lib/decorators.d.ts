@@ -1,10 +1,12 @@
 import { ImlHTMLElement } from './iml-html-element.js';
-type PropertyType = 'string' | 'object' | 'number';
+type PropertyType = 'string' | 'object' | 'number' | 'boolean';
 interface PropertyOptions {
     /** Indicateur de mise à jour du rendu si la propriété change de valeur, par défaut 'false' */
     render?: boolean;
     /** Le type de la propriété pour convertir la valeur de l'attribut vers le bon type, par défaut 'string' */
     type?: PropertyType;
+    /** Le nom de la méthode de rappel lors de la modification de l'attribut */
+    changedCallback?: string;
 }
 /**
  * Décorateur de classe pour définir le nom de la balise du tag du composant personnalisé à la classe

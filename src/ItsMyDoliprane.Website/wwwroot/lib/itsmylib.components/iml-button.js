@@ -60,6 +60,7 @@ let ImlButton = class ImlButton extends ImlHTMLElement {
         <!--suppress CssUnresolvedCustomProperty -->
         <style>
             :host {
+                display: inline-block;
                 width: 150px;
             }
             

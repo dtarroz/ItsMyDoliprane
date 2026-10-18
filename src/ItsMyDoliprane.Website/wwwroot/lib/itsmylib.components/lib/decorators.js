@@ -25,10 +25,13 @@ export function customElement(tag) {
                             get() {
                                 return this[`_${propertyAttribute.property}`];
                             },
-                            set(value) {
-                                this[`_${propertyAttribute.property}`] = value;
+                            set(newValue) {
+                                const oldValue = this[`_${propertyAttribute.property}`];
+                                this[`_${propertyAttribute.property}`] = newValue;
                                 if (propertyAttribute.render)
                                     this.render();
+                                if (propertyAttribute.changedCallback)
+                                    this[propertyAttribute.changedCallback](propertyAttribute.property, oldValue, newValue);
                             },
                             enumerable: true,
                             configurable: true
@@ -44,6 +47,8 @@ export function customElement(tag) {
                         return JSON.parse(value);
                     if (propertyAttribute.type == 'number')
                         return Number(value);
+                    if (propertyAttribute.type == 'boolean')
+                        return value === 'true';
                 }
                 return value; // value is null, undefined or string
             }
@@ -68,7 +73,8 @@ export function property(options = null) {
             property: propertyKey,
             attribute: toKebabCase(propertyKey),
             render: options?.render ?? false,
-            type: options?.type ?? 'string'
+            type: options?.type ?? 'string',
+            changedCallback: options?.changedCallback ?? ''
         };
         if (!allPropertiesAttributesByClassName.has(className))
             allPropertiesAttributesByClassName.set(className, [propertyAttribute]);
